@@ -7,21 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		377168251C8BA3AD004B4843 /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 377168241C8BA3AD004B4843 /* RouteViewController.m */; };
+		3771682B1C8BA448004B4843 /* SurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771682A1C8BA448004B4843 /* SurveyViewController.m */; };
+		3771682E1C8BA460004B4843 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771682D1C8BA460004B4843 /* MapViewController.m */; };
 		A9E188981C8B9D3A000D9668 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E188971C8B9D3A000D9668 /* main.m */; };
 		A9E1889B1C8B9D3A000D9668 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E1889A1C8B9D3A000D9668 /* AppDelegate.m */; };
-		A9E1889E1C8B9D3A000D9668 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E1889D1C8B9D3A000D9668 /* ViewController.m */; };
 		A9E188A11C8B9D3A000D9668 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E1889F1C8B9D3A000D9668 /* Main.storyboard */; };
 		A9E188A31C8B9D3A000D9668 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E188A21C8B9D3A000D9668 /* Assets.xcassets */; };
 		A9E188A61C8B9D3A000D9668 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E188A41C8B9D3A000D9668 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		377168231C8BA3AD004B4843 /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
+		377168241C8BA3AD004B4843 /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
+		377168291C8BA448004B4843 /* SurveyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyViewController.h; sourceTree = "<group>"; };
+		3771682A1C8BA448004B4843 /* SurveyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyViewController.m; sourceTree = "<group>"; };
+		3771682C1C8BA460004B4843 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		3771682D1C8BA460004B4843 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		A9E188931C8B9D3A000D9668 /* HackeoUrbano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackeoUrbano.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E188971C8B9D3A000D9668 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9E188991C8B9D3A000D9668 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A9E1889A1C8B9D3A000D9668 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A9E1889C1C8B9D3A000D9668 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A9E1889D1C8B9D3A000D9668 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A9E188A01C8B9D3A000D9668 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A9E188A21C8B9D3A000D9668 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9E188A51C8B9D3A000D9668 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -39,6 +45,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		377168261C8BA3C0004B4843 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3771682C1C8BA460004B4843 /* MapViewController.h */,
+				3771682D1C8BA460004B4843 /* MapViewController.m */,
+				377168231C8BA3AD004B4843 /* RouteViewController.h */,
+				377168241C8BA3AD004B4843 /* RouteViewController.m */,
+				377168291C8BA448004B4843 /* SurveyViewController.h */,
+				3771682A1C8BA448004B4843 /* SurveyViewController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		377168271C8BA3D2004B4843 /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Ranking;
+			sourceTree = "<group>";
+		};
+		377168281C8BA3DA004B4843 /* About */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
 		A9E1888A1C8B9D39000D9668 = {
 			isa = PBXGroup;
 			children = (
@@ -58,10 +91,11 @@
 		A9E188951C8B9D3A000D9668 /* HackeoUrbano */ = {
 			isa = PBXGroup;
 			children = (
+				377168261C8BA3C0004B4843 /* Main */,
+				377168271C8BA3D2004B4843 /* Ranking */,
+				377168281C8BA3DA004B4843 /* About */,
 				A9E188991C8B9D3A000D9668 /* AppDelegate.h */,
 				A9E1889A1C8B9D3A000D9668 /* AppDelegate.m */,
-				A9E1889C1C8B9D3A000D9668 /* ViewController.h */,
-				A9E1889D1C8B9D3A000D9668 /* ViewController.m */,
 				A9E1889F1C8B9D3A000D9668 /* Main.storyboard */,
 				A9E188A21C8B9D3A000D9668 /* Assets.xcassets */,
 				A9E188A41C8B9D3A000D9668 /* LaunchScreen.storyboard */,
@@ -149,8 +183,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9E1889E1C8B9D3A000D9668 /* ViewController.m in Sources */,
 				A9E1889B1C8B9D3A000D9668 /* AppDelegate.m in Sources */,
+				377168251C8BA3AD004B4843 /* RouteViewController.m in Sources */,
+				3771682E1C8BA460004B4843 /* MapViewController.m in Sources */,
+				3771682B1C8BA448004B4843 /* SurveyViewController.m in Sources */,
 				A9E188981C8B9D3A000D9668 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +334,7 @@
 				A9E188AC1C8B9D3A000D9668 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
