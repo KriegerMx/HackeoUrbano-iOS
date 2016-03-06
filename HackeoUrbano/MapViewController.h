@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
+#import <MapKit/MapKit.h>
+#import "HUColor.h"
 
-@interface MapViewController : UIViewController
+@interface MapViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
