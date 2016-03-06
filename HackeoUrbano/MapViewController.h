@@ -11,7 +11,7 @@
 #import <MapKit/MapKit.h>
 #import "HUColor.h"
 #import "SWFrontViewController.h"
-#import "RouteViewController.h"
+#import "TrailViewController.h"
 
 @interface MapViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 

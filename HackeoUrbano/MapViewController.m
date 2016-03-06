@@ -197,8 +197,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    RouteViewController *rvc = [RouteViewController new];
-    [self.navigationController pushViewController:rvc animated:YES];
+    TrailViewController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"trailVC"];
+    [self.navigationController pushViewController:tvc animated:YES];
 }
 
 #pragma mark - table view

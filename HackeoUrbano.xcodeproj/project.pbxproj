@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		377168251C8BA3AD004B4843 /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 377168241C8BA3AD004B4843 /* RouteViewController.m */; };
 		3771682B1C8BA448004B4843 /* SurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771682A1C8BA448004B4843 /* SurveyViewController.m */; };
 		3771682E1C8BA460004B4843 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771682D1C8BA460004B4843 /* MapViewController.m */; };
 		3791A2B41C8CC16700058C14 /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3791A2B31C8CC16700058C14 /* DLRadioButton.m */; };
 		A9694C3E1C8CA55900961FCD /* RankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694C3D1C8CA55900961FCD /* RankingViewController.m */; };
 		A9694C411C8CA57A00961FCD /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694C401C8CA57A00961FCD /* AboutViewController.m */; };
+		A9694C471C8CC4B500961FCD /* TrailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694C461C8CC4B500961FCD /* TrailViewController.m */; };
 		A9E188981C8B9D3A000D9668 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E188971C8B9D3A000D9668 /* main.m */; };
 		A9E1889B1C8B9D3A000D9668 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E1889A1C8B9D3A000D9668 /* AppDelegate.m */; };
 		A9E188A11C8B9D3A000D9668 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E1889F1C8B9D3A000D9668 /* Main.storyboard */; };
@@ -35,8 +35,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		377168231C8BA3AD004B4843 /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
-		377168241C8BA3AD004B4843 /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
 		377168291C8BA448004B4843 /* SurveyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyViewController.h; sourceTree = "<group>"; };
 		3771682A1C8BA448004B4843 /* SurveyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyViewController.m; sourceTree = "<group>"; };
 		3771682C1C8BA460004B4843 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -47,6 +45,8 @@
 		A9694C3D1C8CA55900961FCD /* RankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingViewController.m; sourceTree = "<group>"; };
 		A9694C3F1C8CA57A00961FCD /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		A9694C401C8CA57A00961FCD /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		A9694C451C8CC4B500961FCD /* TrailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrailViewController.h; sourceTree = "<group>"; };
+		A9694C461C8CC4B500961FCD /* TrailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrailViewController.m; sourceTree = "<group>"; };
 		A9E188931C8B9D3A000D9668 /* HackeoUrbano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackeoUrbano.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E188971C8B9D3A000D9668 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9E188991C8B9D3A000D9668 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -106,8 +106,8 @@
 			children = (
 				3771682C1C8BA460004B4843 /* MapViewController.h */,
 				3771682D1C8BA460004B4843 /* MapViewController.m */,
-				377168231C8BA3AD004B4843 /* RouteViewController.h */,
-				377168241C8BA3AD004B4843 /* RouteViewController.m */,
+				A9694C451C8CC4B500961FCD /* TrailViewController.h */,
+				A9694C461C8CC4B500961FCD /* TrailViewController.m */,
 				377168291C8BA448004B4843 /* SurveyViewController.h */,
 				3771682A1C8BA448004B4843 /* SurveyViewController.m */,
 			);
@@ -322,7 +322,6 @@
 				A9E1889B1C8B9D3A000D9668 /* AppDelegate.m in Sources */,
 				A9ED1A411C8BA971007636CA /* MASViewConstraint.m in Sources */,
 				A9694C411C8CA57A00961FCD /* AboutViewController.m in Sources */,
-				377168251C8BA3AD004B4843 /* RouteViewController.m in Sources */,
 				A9ED1A591C8BBF3C007636CA /* MenuViewController.m in Sources */,
 				A9ED1A521C8BBD6D007636CA /* SWFrontViewController.m in Sources */,
 				A9ED1A541C8BBD6D007636CA /* SWRevealViewController.m in Sources */,
@@ -340,6 +339,7 @@
 				3791A2B41C8CC16700058C14 /* DLRadioButton.m in Sources */,
 				A9E188981C8B9D3A000D9668 /* main.m in Sources */,
 				A9694C3E1C8CA55900961FCD /* RankingViewController.m in Sources */,
+				A9694C471C8CC4B500961FCD /* TrailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
