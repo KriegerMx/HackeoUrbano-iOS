@@ -58,7 +58,7 @@
     [self.view addSubview:bottomView];
     
     UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"Lista de rutas";
+    titleLabel.text = @"Lista de recorridos";
     titleLabel.numberOfLines = 0;
     [bottomView addSubview:titleLabel];
     

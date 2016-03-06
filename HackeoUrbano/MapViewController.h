@@ -10,7 +10,8 @@
 #import "Masonry.h"
 #import <MapKit/MapKit.h>
 #import "HUColor.h"
+#import "SWFrontViewController.h"
 
-@interface MapViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MapViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

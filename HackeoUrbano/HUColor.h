@@ -10,6 +10,17 @@
 
 @interface HUColor : UIColor
 
+//base
++ (UIColor *)primaryColor;
++ (UIColor *)secondaryColor;
++ (UIColor *)accentColor;
 + (UIColor *)backgroundColor;
+
+//menu
++ (UIColor *)menuColor;
++ (UIColor *)selectedSectionColor;
++ (UIColor *)selectedSectionTextColor;
++ (UIColor *)unselectedSectionColor;
++ (UIColor *)unselectedSectionTextColor;
 
 @end
