@@ -35,57 +35,79 @@
 
 #pragma mark - table views
 - (void)addViews {
-    NSMutableArray *arrangedSubviews;
+    NSMutableArray *arrangedSubviews = [NSMutableArray new];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10, 20, 10, 20);
 
     map = [MKMapView new];
     [arrangedSubviews addObject:map];
     
+    UIView *originView = [UIView new];
+    [arrangedSubviews addObject:originView];
+    
     originLabel = [UILabel new];
-    [arrangedSubviews addObject:originLabel];
+    originLabel.text = [NSString stringWithFormat:@"Origen: %@", @""];
+    [originView addSubview:originLabel];
+    
+    UIView *destinationView = [UIView new];
+    [arrangedSubviews addObject:destinationView];
     
     destinationLabel = [UILabel new];
-    [arrangedSubviews addObject:destinationLabel];
+    destinationLabel.text = [NSString stringWithFormat:@"Destino: %@", @""];
+    [destinationView addSubview:destinationLabel];
+    
+    UIView *transportTypeView = [UIView new];
+    [arrangedSubviews addObject:transportTypeView];
     
     transportTypeLabel = [UILabel new];
-    [arrangedSubviews addObject:transportTypeLabel];
+    transportTypeLabel.text = [NSString stringWithFormat:@"Tipo: %@", @""];
+    [transportTypeView addSubview:transportTypeLabel];
+    
+    UIView *maxTariffView = [UIView new];
+    [arrangedSubviews addObject:maxTariffView];
     
     maxTariffLabel = [UILabel new];
-    [arrangedSubviews addObject:maxTariffLabel];
-    
-    UIView *v = [UIView new];
-    v.backgroundColor = [UIColor blackColor];
-    [arrangedSubviews addObject:v];
-    
-//    photoImageView = [UIImageView new];
-//    [arrangedSubviews addObject:photoImageView];
+    maxTariffLabel.text = [NSString stringWithFormat:@"Tarifa máxima: %@", @""];
+    [maxTariffView addSubview:maxTariffLabel];
     
     [map mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@100);
+        make.height.equalTo(@150);
+    }];
+    
+    [originView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@([self estimateHeightForLabel:originLabel]+20));
     }];
     
     [originLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@([self estimateHeightForLabel:originLabel]));
+        make.edges.equalTo(originView).insets(insets);
+    }];
+    
+    [destinationView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@([self estimateHeightForLabel:destinationLabel]+20));
     }];
     
     [destinationLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@([self estimateHeightForLabel:destinationLabel]));
+        make.edges.equalTo(destinationView).insets(insets);
+    }];
+    
+    [transportTypeView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@([self estimateHeightForLabel:transportTypeLabel]+20));
     }];
     
     [transportTypeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@([self estimateHeightForLabel:transportTypeLabel]));
+        make.edges.equalTo(transportTypeView).insets(insets);
+    }];
+    
+    [maxTariffView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@([self estimateHeightForLabel:maxTariffLabel]+20));
     }];
     
     [maxTariffLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@([self estimateHeightForLabel:maxTariffLabel]));
+        make.edges.equalTo(maxTariffView).insets(insets);
     }];
     
-    [v mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@200);
-    }];
     
-//    [photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.height.equalTo(@100);
-//    }];
+    UIScrollView *scrollView = [UIScrollView new];
+    [self.view addSubview:scrollView];
     
     UIStackView *stackView = [[UIStackView alloc]initWithArrangedSubviews:arrangedSubviews];
     [stackView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -93,17 +115,14 @@
     stackView.alignment = UIStackViewAlignmentFill;
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 10.0;
-    [self.view addSubview:stackView];
-    
-    UIScrollView *scrollView = [UIScrollView new];
+    [scrollView addSubview:stackView];
     
     [scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
-        make.height.equalTo(stackView);
     }];
     
     [stackView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.edges.equalTo(scrollView);
         make.width.equalTo(self.view.mas_width);
     }];
 }
