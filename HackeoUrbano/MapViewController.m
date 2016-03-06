@@ -11,6 +11,7 @@
 @interface MapViewController () {
     MKMapView *map;
     
+    CLLocationManager *locationManager;
     UITableView *routesTableView;
     UIView *bottomView;
     UIImageView *accessoryImageView;
@@ -25,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setLocationManager];
     [self addViews];
     [self setTableView];
 }
@@ -32,6 +34,46 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+#pragma mark - location
+- (void)askForLocationPermission {
+    locationManager = [CLLocationManager new];
+    locationManager.delegate = self;
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+}
+
+- (void)setLocationManager {
+    if ([self isUserLocationAvailable]) {
+        locationManager = [CLLocationManager new];
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [locationManager startUpdatingLocation];
+    } else {
+        [self askForLocationPermission];
+    }
+}
+
+- (BOOL)isUserLocationAvailable {
+    if ([CLLocationManager locationServicesEnabled]){
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else {
+        return NO;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    [locationManager stopUpdatingLocation];
+    CLLocation *userLocation = locations[0];
+    NSLog(@"%f", userLocation.coordinate.latitude);
+    NSLog(@"%f", userLocation.coordinate.longitude);
+}
+
 
 #pragma mark - table views
 - (void)addViews {
@@ -154,6 +196,9 @@
     
 }
 
-
+#pragma mark - table view
+- (void)getTrails {
+    NSDictionary *dictionary = @{ @"northEastCorner" : @{ @"latitude" : @"19.4263367", @"longitude" : @"-99.206531" }, @"southWestCorner" : @{ @"latitude" : @"19.404035", @"longitude" : @"-99.2257142" }};
+}
 
 @end

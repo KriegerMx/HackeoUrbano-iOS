@@ -41,8 +41,8 @@
 }
 
 - (void)setImages {
-    [self setSelectedImages:@[@"menu_1_selected",@"menu_2_selected",@"menu_3_selected",@"menu_4_selected",@"menu_5_selected",@"menu_6_selected"]];
-    [self setUnselectedImages:@[@"menu_1_unselected",@"menu_2_unselected",@"menu_3_unselected",@"menu_4_unselected",@"menu_5_unselected",@"menu_6_unselected"]];
+    [self setSelectedImages:@[@"menu_1_selected",@"menu_2_selected",@"menu_3_selected"]];
+    [self setUnselectedImages:@[@"menu_1_unselected",@"menu_2_unselected",@"menu_3_unselected"]];
 }
 
 - (void)setColors {

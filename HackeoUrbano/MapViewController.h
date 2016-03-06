@@ -12,6 +12,6 @@
 #import "HUColor.h"
 #import "SWFrontViewController.h"
 
-@interface MapViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MapViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 
 @end
