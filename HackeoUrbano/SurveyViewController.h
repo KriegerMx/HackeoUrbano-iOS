@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DLRadioButton/DLRadioButton.h"
 
 @interface SurveyViewController : UIViewController
 

@@ -10,6 +10,7 @@
 		377168251C8BA3AD004B4843 /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 377168241C8BA3AD004B4843 /* RouteViewController.m */; };
 		3771682B1C8BA448004B4843 /* SurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771682A1C8BA448004B4843 /* SurveyViewController.m */; };
 		3771682E1C8BA460004B4843 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771682D1C8BA460004B4843 /* MapViewController.m */; };
+		3791A2B41C8CC16700058C14 /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3791A2B31C8CC16700058C14 /* DLRadioButton.m */; };
 		A9694C3E1C8CA55900961FCD /* RankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694C3D1C8CA55900961FCD /* RankingViewController.m */; };
 		A9694C411C8CA57A00961FCD /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694C401C8CA57A00961FCD /* AboutViewController.m */; };
 		A9E188981C8B9D3A000D9668 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E188971C8B9D3A000D9668 /* main.m */; };
@@ -40,6 +41,8 @@
 		3771682A1C8BA448004B4843 /* SurveyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyViewController.m; sourceTree = "<group>"; };
 		3771682C1C8BA460004B4843 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		3771682D1C8BA460004B4843 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		3791A2B21C8CC16700058C14 /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
+		3791A2B31C8CC16700058C14 /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
 		A9694C3C1C8CA55900961FCD /* RankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingViewController.h; sourceTree = "<group>"; };
 		A9694C3D1C8CA55900961FCD /* RankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingViewController.m; sourceTree = "<group>"; };
 		A9694C3F1C8CA57A00961FCD /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -129,6 +132,15 @@
 			name = About;
 			sourceTree = "<group>";
 		};
+		3791A2B11C8CC16700058C14 /* DLRadioButton */ = {
+			isa = PBXGroup;
+			children = (
+				3791A2B21C8CC16700058C14 /* DLRadioButton.h */,
+				3791A2B31C8CC16700058C14 /* DLRadioButton.m */,
+			);
+			path = DLRadioButton;
+			sourceTree = "<group>";
+		};
 		A9E1888A1C8B9D39000D9668 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +160,7 @@
 		A9E188951C8B9D3A000D9668 /* HackeoUrbano */ = {
 			isa = PBXGroup;
 			children = (
+				3791A2B11C8CC16700058C14 /* DLRadioButton */,
 				A9ED1A491C8BBD6C007636CA /* SWRevealViewController */,
 				A9ED1A241C8BA971007636CA /* Masonry */,
 				A9ED1A561C8BBEE7007636CA /* Menu */,
@@ -324,6 +337,7 @@
 				A9ED1A3D1C8BA971007636CA /* MASConstraint.m in Sources */,
 				A9ED1A3F1C8BA971007636CA /* MASLayoutConstraint.m in Sources */,
 				A9ED1A531C8BBD6D007636CA /* SWMenuViewController.m in Sources */,
+				3791A2B41C8CC16700058C14 /* DLRadioButton.m in Sources */,
 				A9E188981C8B9D3A000D9668 /* main.m in Sources */,
 				A9694C3E1C8CA55900961FCD /* RankingViewController.m in Sources */,
 			);
