@@ -18,56 +18,79 @@
     UILabel *transportTypeLabel;
     UILabel *maxTariffLabel;
     UIImageView *photoImageView;
+    UIButton *surveyButton;
+    
+    MKPolyline *polyline;
 }
 
 @end
 
 @implementation TrailViewController
+@synthesize trailDetails;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addViews];
+    [self getPoints];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - table views
 - (void)addViews {
     NSMutableArray *arrangedSubviews = [NSMutableArray new];
     UIEdgeInsets insets = UIEdgeInsetsMake(10, 20, 10, 20);
 
     map = [MKMapView new];
+    map.delegate = self;
     [arrangedSubviews addObject:map];
+    
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.25;
+    span.longitudeDelta = 0.25;
+    
+    MKCoordinateRegion region;
+    region.span = span;
+    region.center = CLLocationCoordinate2DMake(19.4263367, -99.206531);
+    
+    [map setRegion:region animated:YES];
     
     UIView *originView = [UIView new];
     [arrangedSubviews addObject:originView];
     
     originLabel = [UILabel new];
-    originLabel.text = [NSString stringWithFormat:@"Origen: %@", @""];
+    originLabel.text = [NSString stringWithFormat:@"Origen: %@", trailDetails.originStationName];
     [originView addSubview:originLabel];
     
     UIView *destinationView = [UIView new];
     [arrangedSubviews addObject:destinationView];
     
     destinationLabel = [UILabel new];
-    destinationLabel.text = [NSString stringWithFormat:@"Destino: %@", @""];
+    destinationLabel.text = [NSString stringWithFormat:@"Destino: %@", trailDetails.destinationStationName];
     [destinationView addSubview:destinationLabel];
     
     UIView *transportTypeView = [UIView new];
     [arrangedSubviews addObject:transportTypeView];
     
     transportTypeLabel = [UILabel new];
-    transportTypeLabel.text = [NSString stringWithFormat:@"Tipo: %@", @""];
+    transportTypeLabel.text = [NSString stringWithFormat:@"Tipo: %@", trailDetails.transportType];
     [transportTypeView addSubview:transportTypeLabel];
     
     UIView *maxTariffView = [UIView new];
     [arrangedSubviews addObject:maxTariffView];
     
     maxTariffLabel = [UILabel new];
-    maxTariffLabel.text = [NSString stringWithFormat:@"Tarifa máxima: %@", @""];
+    maxTariffLabel.text = [NSString stringWithFormat:@"Tarifa máxima: %f", [trailDetails.maxTariff floatValue]];
     [maxTariffView addSubview:maxTariffLabel];
+    
+    UIView *surveyView = [UIView new];
+    [arrangedSubviews addObject:surveyView];
+    
+    surveyButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [surveyButton setTitle:@"Evaluar recorrido" forState:UIControlStateNormal];
+    [surveyButton addTarget:self action:@selector(goToSurvey) forControlEvents:UIControlEventTouchUpInside];
+    [surveyView addSubview:surveyButton];
     
     [map mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@150);
@@ -105,6 +128,13 @@
         make.edges.equalTo(maxTariffView).insets(insets);
     }];
     
+    [surveyView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(30+20));
+    }];
+    
+    [surveyButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(surveyView).insets(insets);
+    }];
     
     UIScrollView *scrollView = [UIScrollView new];
     [self.view addSubview:scrollView];
@@ -133,5 +163,57 @@
     return height+1;
 }
 
+- (void)goToSurvey {
+    SurveyViewController *svc = [SurveyViewController new];
+    [self.navigationController pushViewController:svc animated:YES];
+}
+
+- (void)getPoints {
+    static GTLServiceDashboardAPI *service = nil;
+    if (!service) {
+        service = [GTLServiceDashboardAPI new];
+        service.retryEnabled = YES;
+    }
+    
+    GTLDashboardAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLDashboardAPITrailPointsRequestParameter new];
+    trailPointsRequestParameter.trailId = trailDetails.trailId;
+    trailPointsRequestParameter.numberOfElements = [NSNumber numberWithInt:100];
+    
+    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@", error);
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:@"Revisa tu conexión a internet"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+        }else{
+            GTLDashboardAPITrailPointsResult *result = (GTLDashboardAPITrailPointsResult*)object;
+            NSLog(@"finisshed");
+            
+            CLLocationCoordinate2D coordinates[[result.points count]];
+            
+            int i = 0;
+            for (GTLDashboardAPITrailPointWrapper *trailPointWrapper in result.points) {
+                GTLDashboardAPIGPSLocation *location = trailPointWrapper.location;
+                coordinates[i] = CLLocationCoordinate2DMake([location.latitude floatValue], [location.longitude floatValue]);
+                i++;
+            }
+            
+            polyline = [MKPolyline polylineWithCoordinates:coordinates count: [result.points count]];
+            [map addOverlay:polyline];
+        }
+    }];
+}
+
+-(MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay{
+    MKPolylineRenderer* lineView = [[MKPolylineRenderer alloc] initWithPolyline:polyline];
+    lineView.strokeColor = [UIColor blueColor];
+    lineView.lineWidth = 7;
+    return lineView;
+}
 
 @end
