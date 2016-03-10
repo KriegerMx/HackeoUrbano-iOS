@@ -19,6 +19,6 @@
 #import "GTLDashboardAPITrailDetailsCollection.h"
 #import "GTLDashboardAPITrailDetails.h"
 
-@interface MapViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
+@interface MapViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
 
 @end

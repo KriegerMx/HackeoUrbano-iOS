@@ -10,6 +10,7 @@
 
 #define padding 15.0
 #define screenWidth  [[UIScreen mainScreen] bounds].size.width
+#define delta 0.004
 
 @interface MapViewController () {
     MKMapView *map;
@@ -33,9 +34,8 @@
     [self setLocationManager];
     [self addViews];
     [self setTableView];
-    
+
     trails = [NSMutableArray new];
-    [self getTrails];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,9 +76,22 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     [locationManager stopUpdatingLocation];
+    locationManager = nil;
     CLLocation *userLocation = locations[0];
-    NSLog(@"%f", userLocation.coordinate.latitude);
-    NSLog(@"%f", userLocation.coordinate.longitude);
+    [self getTrailsForLocation:userLocation];
+    [self adjustMapToLocation:userLocation];
+}
+
+- (void)adjustMapToLocation:(CLLocation*)location {
+    MKCoordinateSpan span;
+    span.latitudeDelta = delta*4;
+    span.longitudeDelta = delta*4;
+    
+    MKCoordinateRegion region;
+    region.span = span;
+    region.center = location.coordinate;
+    
+    [map setRegion:region animated:YES];
 }
 
 
@@ -90,6 +103,7 @@
 
 - (void)addMap {
     map = [MKMapView new];
+    map.delegate = self;
     [self.view addSubview:map];
     
     [map mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -205,7 +219,7 @@
 }
 
 #pragma mark - table view
-- (void)getTrails {
+- (void)getTrailsForLocation:(CLLocation*)location {
     static GTLServiceDashboardAPI *service = nil;
     if (!service) {
         service = [GTLServiceDashboardAPI new];
@@ -213,12 +227,12 @@
     }
     
     GTLDashboardAPIGPSLocation *northEastCorner = [GTLDashboardAPIGPSLocation new];
-    northEastCorner.latitude = [NSNumber numberWithFloat:19.4263367];
-    northEastCorner.longitude = [NSNumber numberWithFloat:-99.206531];
+    northEastCorner.latitude = [NSNumber numberWithFloat:location.coordinate.latitude + delta/2];
+    northEastCorner.longitude = [NSNumber numberWithFloat:location.coordinate.longitude + delta/2];
     
     GTLDashboardAPIGPSLocation *southWestCorner = [GTLDashboardAPIGPSLocation new];
-    southWestCorner.latitude = [NSNumber numberWithFloat:19.404035];
-    southWestCorner.longitude = [NSNumber numberWithFloat:-99.2257142];
+    southWestCorner.latitude = [NSNumber numberWithFloat:location.coordinate.latitude - delta/2];
+    southWestCorner.longitude = [NSNumber numberWithFloat:location.coordinate.longitude - delta/2];
     
     GTLDashboardAPIAreaWrapper *areaWrapper = [GTLDashboardAPIAreaWrapper new];
     areaWrapper.northEastCorner = northEastCorner;
@@ -228,23 +242,69 @@
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             NSLog(@"error: %@", error);
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:@"Revisa tu conexión a internet"
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            [alert show];
-        }else{
+        } else {
             trailDetailsCollection = (GTLDashboardAPITrailDetailsCollection*)object;
+            NSLog(@"%lu", (unsigned long)trailDetailsCollection.items.count);
             for (GTLDashboardAPITrailDetails *trailDetails in trailDetailsCollection.items) {
                 NSString *trailName = [NSString stringWithFormat:@"%@ - %@", trailDetails.originStationName, trailDetails.destinationStationName];
                 [trails addObject:trailName];
+                [self getPointsForTrail:trailDetails.trailId];
             }
             [trailsTableView reloadData];
         }
     }];
-    
 }
+
+- (void)getPointsForTrail:(NSNumber*)trailId {
+    static GTLServiceDashboardAPI *service = nil;
+    if (!service) {
+        service = [GTLServiceDashboardAPI new];
+        service.retryEnabled = YES;
+    }
+    
+    GTLDashboardAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLDashboardAPITrailPointsRequestParameter new];
+    trailPointsRequestParameter.trailId = trailId;
+    trailPointsRequestParameter.numberOfElements = [NSNumber numberWithInt:100];
+    
+    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@", error);
+        } else {
+            GTLDashboardAPITrailPointsResult *result = (GTLDashboardAPITrailPointsResult*)object;
+            NSLog(@"finisshed");
+            
+            CLLocationCoordinate2D coordinates[[result.points count]];
+            
+            int i = 0;
+            for (GTLDashboardAPITrailPointWrapper *trailPointWrapper in result.points) {
+                GTLDashboardAPIGPSLocation *location = trailPointWrapper.location;
+                coordinates[i] = CLLocationCoordinate2DMake([location.latitude floatValue], [location.longitude floatValue]);
+                i++;
+            }
+            
+            MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coordinates count: [result.points count]];
+            [map addOverlay:polyline];
+        }
+    }];
+}
+
+-(MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay{
+    static int i = 0;
+
+    float hue = arc4random()%360/360.0;
+    float sat = arc4random()%100/100.0;
+    float bri = arc4random()%100/100.0;
+    
+    NSLog(@"%f, %f, %f", hue, sat, bri);
+    
+    UIColor *lineColor = [HUColor colorWithHue:hue saturation:sat brightness:bri alpha:1.0];
+    
+    MKPolylineRenderer* lineView = [[MKPolylineRenderer alloc] initWithPolyline:(MKPolyline*)overlay];
+    lineView.strokeColor = lineColor;
+    lineView.lineWidth = 7;
+    return lineView;
+}
+
 
 @end

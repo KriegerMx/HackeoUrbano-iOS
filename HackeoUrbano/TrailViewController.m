@@ -183,14 +183,7 @@
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             NSLog(@"error: %@", error);
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:@"Revisa tu conexión a internet"
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            [alert show];
-        }else{
+        } else {
             GTLDashboardAPITrailPointsResult *result = (GTLDashboardAPITrailPointsResult*)object;
             NSLog(@"finisshed");
             
