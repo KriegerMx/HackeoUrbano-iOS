@@ -10,6 +10,8 @@
 
 @interface SurveyViewController (){
     NSMutableArray *arrangedSubviews;
+    UITextField *scheduleTextField;
+    UIButton *acceptButton;
 }
 
 @end
@@ -51,7 +53,7 @@
     stackView.distribution = UIStackViewDistributionEqualSpacing;
     stackView.alignment = UIStackViewAlignmentFill;
     stackView.axis = UILayoutConstraintAxisVertical;
-    stackView.spacing = 10.0;
+    stackView.spacing = 20.0;
     [scrollView addSubview:stackView];
     
     [scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -65,53 +67,106 @@
 }
 
 - (void)addQuestions {
-    [self questionWithTitle:@"Tipo de transporte" options:@[@"Microbús",@"Vagoneta", @"Autobús"]];
-    [self multipleChoiceQuestionWithTitle:@"Seguridad" options: @[@"Acoso sexual", @"Robo con violencia", @"Robo sin violencia", @"Amenazas"]];
-    [self multipleChoiceQuestionWithTitle:@"Aglomeración" options: @[@"Había espacio para sentarse", @"Habia espacio de pie", @"Estaba lleno", @"Estaba saturado"]];
+    [self questionWithTitle:@"Tipo de transporte" options:@[@"Microbús",@"Vagoneta", @"Autobús"] multipleChoice:NO];
+    [self addScheduleQuestion];
+    [self questionWithTitle:@"Aglomeración" options:@[@"Había espacio para sentarse", @"Habia espacio de pie", @"Estaba lleno", @"Estaba saturado"] multipleChoice:NO];
+    [self questionWithTitle:@"Seguridad" options: @[@"Acoso sexual", @"Robo con violencia", @"Robo sin violencia", @"Amenazas"] multipleChoice:YES];
+    [self questionWithTitle:@"Estado del vehículo" options:@[@"El vehículo tenía choques (hojalatería)", @"El vehículo tenía cromática no oficial", @"Mal estado de los asientos", @"Iluminación nocturna insuficiente", @"Volunen alto de la música"] multipleChoice: YES];
+    [self questionWithTitle:@"Faltas al reglamento de tránsito" options:@[@"Exceso de velocidad", @"No respetó la señalética", @"No respetó la cebra peatonal", @"El chofer estaba hablando por teléfono", @"Consumo de estupefacientes (alcohol, tabaco u otros", @"El chofer estaba texteando", @"Bloqueo de la vía pública", @"Conducir con la puerta abierta"] multipleChoice:YES];
 }
 
-- (void)questionWithTitle:(NSString*)title options:(NSArray*)options {
+- (void)addScheduleQuestion {
+    NSDate *date = [NSDate new];
+    
+    UIDatePicker *picker = [UIDatePicker new];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [picker setDatePickerMode:UIDatePickerModeTime];
+        [picker setDate:date animated:YES];
+        [picker addTarget:self action:@selector(updateTextField) forControlEvents:UIControlEventValueChanged];
+    });
+    
+    UILabel *scheduleLabel = [UILabel new];
+    scheduleLabel.textColor = [HUColor textColor];
+    scheduleLabel.text = @"¿En qué horario te subiste?";
+    scheduleLabel.numberOfLines = 0;
+    [arrangedSubviews addObject:scheduleLabel];
+    
+    UIView *tfView = [UIView new];
+    
+    scheduleTextField = [UITextField new];
+    scheduleTextField.borderStyle = UITextBorderStyleRoundedRect;
+    scheduleTextField.placeholder = @"Horario";
+    scheduleTextField.delegate = self;
+    [scheduleTextField setInputView:picker];
+    [tfView addSubview:scheduleTextField];
+    
+    acceptButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [acceptButton setTitle:@"Aceptar" forState:UIControlStateNormal];
+    [acceptButton setTitleColor:[HUColor secondaryColor] forState:UIControlStateNormal];
+    [acceptButton addTarget:self action:@selector(dismissPicker) forControlEvents:UIControlEventTouchUpInside];
+    [tfView addSubview:acceptButton];
+    
+    [scheduleTextField mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(tfView.mas_top);
+        make.left.equalTo(tfView.mas_left);
+        make.right.equalTo(acceptButton.mas_left).offset(-10);
+        make.bottom.equalTo(tfView.mas_bottom);
+    }];
+    
+    [acceptButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(scheduleTextField.mas_right).offset(10);
+        make.right.equalTo(tfView.mas_right);
+        make.centerY.equalTo(tfView.mas_centerY);
+        make.width.equalTo(@0);
+    }];
+    
+    [arrangedSubviews addObject:tfView];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self updateTextField];
+    [acceptButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@55);
+    }];
+}
+
+- (void)updateTextField {
+    UIDatePicker *picker = (UIDatePicker*)scheduleTextField.inputView;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm aaa"];
+    scheduleTextField.text = [dateFormatter stringFromDate:picker.date];
+}
+
+- (void)dismissPicker {
+    [scheduleTextField resignFirstResponder];
+    [acceptButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@0);
+    }];
+}
+
+- (void)questionWithTitle:(NSString*)title options:(NSArray*)options multipleChoice:(BOOL)multipleChoice {
     UILabel *questionLabel = [UILabel new];
+    questionLabel.textColor = [HUColor textColor];
     questionLabel.text = title;
     questionLabel.numberOfLines = 0;
-    questionLabel.font = [UIFont systemFontOfSize:14.0];
     [arrangedSubviews addObject:questionLabel];
     
     NSMutableArray *buttons = [NSMutableArray new];
     
     for (NSString *option in options) {
         DLRadioButton *radioButton = [DLRadioButton new];
+        
+        if (multipleChoice) {
+            radioButton.multipleSelectionEnabled = YES;
+            radioButton.iconSquare = YES;
+        }
+        
         [radioButton setTitle:option forState:UIControlStateNormal];
-        [radioButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [radioButton setTitleColor:[HUColor secondaryColor] forState:UIControlStateNormal];
         radioButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        radioButton.iconColor = [UIColor blueColor];
-        radioButton.indicatorColor = [UIColor blueColor];
-        radioButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [arrangedSubviews addObject:radioButton];
-        [buttons addObject:radioButton];
-    }
-    
-    [self addOtherRadioButtons:buttons];
-}
-
-- (void)multipleChoiceQuestionWithTitle:(NSString*)title options:(NSArray*)options {
-    UILabel *questionLabel = [UILabel new];
-    questionLabel.text = title;
-    questionLabel.numberOfLines = 0;
-    questionLabel.font = [UIFont systemFontOfSize:14.0];
-    [arrangedSubviews addObject:questionLabel];
-    
-    NSMutableArray *buttons = [NSMutableArray new];
-    
-    for (NSString *option in options) {
-        DLRadioButton *radioButton = [DLRadioButton new];
-        radioButton.multipleSelectionEnabled = YES;
-        radioButton.iconSquare = YES;
-        [radioButton setTitle:option forState:UIControlStateNormal];
-        [radioButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        radioButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        radioButton.iconColor = [UIColor blueColor];
-        radioButton.indicatorColor = [UIColor blueColor];
+        radioButton.iconColor = [HUColor secondaryColor];
+        radioButton.indicatorColor = [HUColor secondaryColor];
         radioButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [arrangedSubviews addObject:radioButton];
         [buttons addObject:radioButton];

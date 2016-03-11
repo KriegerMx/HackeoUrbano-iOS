@@ -15,6 +15,7 @@
 + (UIColor *)secondaryColor;
 + (UIColor *)accentColor;
 + (UIColor *)backgroundColor;
++ (UIColor *)textColor;
 
 //menu
 + (UIColor *)menuColor;
@@ -22,5 +23,12 @@
 + (UIColor *)selectedSectionTextColor;
 + (UIColor *)unselectedSectionColor;
 + (UIColor *)unselectedSectionTextColor;
+
+//nav bar
++ (UIColor *)navBarTintColor;
+
+//map
++ (UIColor *)polylineColor;
+
 
 @end

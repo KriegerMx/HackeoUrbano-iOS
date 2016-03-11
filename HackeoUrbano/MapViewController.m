@@ -23,6 +23,8 @@
     
     NSMutableArray *trails;
     GTLDashboardAPITrailDetailsCollection *trailDetailsCollection;
+    
+    UIView *loaderView;
 }
 
 @end
@@ -34,8 +36,10 @@
     [self setLocationManager];
     [self addViews];
     [self setTableView];
+    [self addLoader];
 
     trails = [NSMutableArray new];
+    [self.navigationController.navigationBar setTintColor:[HUColor navBarTintColor]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -208,6 +212,7 @@
     }
     cell.textLabel.text = trails[indexPath.row];
     cell.textLabel.numberOfLines = 0;
+    cell.textLabel.textColor = [HUColor textColor];
     
     return cell;
 }
@@ -239,6 +244,7 @@
     areaWrapper.southWestCorner = southWestCorner;
     
     GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForTrailsNearPointWithObject:areaWrapper];
+    
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             NSLog(@"error: %@", error);
@@ -268,6 +274,7 @@
     
     GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        [self removeLoader];
         if (error) {
             NSLog(@"error: %@", error);
         } else {
@@ -290,8 +297,6 @@
 }
 
 -(MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay{
-    static int i = 0;
-
     float hue = arc4random()%360/360.0;
     float sat = arc4random()%100/100.0;
     float bri = arc4random()%100/100.0;
@@ -302,9 +307,37 @@
     
     MKPolylineRenderer* lineView = [[MKPolylineRenderer alloc] initWithPolyline:(MKPolyline*)overlay];
     lineView.strokeColor = lineColor;
-    lineView.lineWidth = 7;
+    lineView.lineWidth = 4;
     return lineView;
 }
 
+#pragma mark - loader
+- (void)addLoader {
+    loaderView = [UIView new];
+    loaderView.backgroundColor = [HUColor backgroundColor];
+    [self.view addSubview:loaderView];
+    
+    UIActivityIndicatorView *loader = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [loader startAnimating];
+    [loaderView addSubview:loader];
+    
+    [loaderView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [loader mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(loaderView.mas_centerX);
+        make.centerY.equalTo(loaderView.mas_centerY);
+        make.height.equalTo(@44);
+        make.width.equalTo(@44);
+    }];
+}
+
+- (void)removeLoader {
+    if (loaderView) {
+        [loaderView removeFromSuperview];
+        loaderView = nil;
+    }
+}
 
 @end

@@ -11,6 +11,6 @@
 #import "HUColor.h"
 #import "Masonry.h"
 
-@interface SurveyViewController : UIViewController
+@interface SurveyViewController : UIViewController <UITextFieldDelegate>
 
 @end

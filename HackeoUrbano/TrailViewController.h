@@ -19,6 +19,7 @@
 #import "GTLDashboardAPITrailPointsRequestParameter.h"
 #import "GTLDashboardAPITrailPointsResult.h"
 #import "GTLDashboardAPITrailPointWrapper.h"
+#import "HUColor.h"
 
 @interface TrailViewController : UIViewController <MKMapViewDelegate>
 

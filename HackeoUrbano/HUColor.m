@@ -35,6 +35,10 @@
     return [self UIColorFromRGB:0xEF5350];
 }
 
++ (UIColor *)textColor {
+    return [self UIColorFromRGB:0x8E8E8E];
+}
+
 #pragma mark - menu
 + (UIColor *)menuColor {
     return [self whiteColor];
@@ -54,6 +58,14 @@
 
 + (UIColor *)unselectedSectionTextColor {
     return [self UIColorFromRGB:0x2f3133];
+}
+
++ (UIColor *)navBarTintColor {
+    return [self UIColorFromRGB:0x26A69A];
+}
+
++ (UIColor *)polylineColor {
+    return [self UIColorFromRGB:0x26A69A];
 }
 
 @end

@@ -46,21 +46,13 @@
     map.delegate = self;
     [arrangedSubviews addObject:map];
     
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.25;
-    span.longitudeDelta = 0.25;
-    
-    MKCoordinateRegion region;
-    region.span = span;
-    region.center = CLLocationCoordinate2DMake(19.4263367, -99.206531);
-    
-    [map setRegion:region animated:YES];
-    
     UIView *originView = [UIView new];
     [arrangedSubviews addObject:originView];
     
     originLabel = [UILabel new];
     originLabel.text = [NSString stringWithFormat:@"Origen: %@", trailDetails.originStationName];
+    originLabel.textColor = [HUColor textColor];
+    originLabel.numberOfLines = 0;
     [originView addSubview:originLabel];
     
     UIView *destinationView = [UIView new];
@@ -68,6 +60,8 @@
     
     destinationLabel = [UILabel new];
     destinationLabel.text = [NSString stringWithFormat:@"Destino: %@", trailDetails.destinationStationName];
+    destinationLabel.textColor = [HUColor textColor];
+    destinationLabel.numberOfLines = 0;
     [destinationView addSubview:destinationLabel];
     
     UIView *transportTypeView = [UIView new];
@@ -75,22 +69,18 @@
     
     transportTypeLabel = [UILabel new];
     transportTypeLabel.text = [NSString stringWithFormat:@"Tipo: %@", trailDetails.transportType];
+    transportTypeLabel.textColor = [HUColor textColor];
+    transportTypeLabel.numberOfLines = 0;
     [transportTypeView addSubview:transportTypeLabel];
     
     UIView *maxTariffView = [UIView new];
     [arrangedSubviews addObject:maxTariffView];
     
     maxTariffLabel = [UILabel new];
-    maxTariffLabel.text = [NSString stringWithFormat:@"Tarifa máxima: %f", [trailDetails.maxTariff floatValue]];
+    maxTariffLabel.text = [NSString stringWithFormat:@"Tarifa máxima: $%f", [trailDetails.maxTariff floatValue]];
+    maxTariffLabel.textColor = [HUColor textColor];
+    maxTariffLabel.numberOfLines = 0;
     [maxTariffView addSubview:maxTariffLabel];
-    
-    UIView *surveyView = [UIView new];
-    [arrangedSubviews addObject:surveyView];
-    
-    surveyButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [surveyButton setTitle:@"Evaluar recorrido" forState:UIControlStateNormal];
-    [surveyButton addTarget:self action:@selector(goToSurvey) forControlEvents:UIControlEventTouchUpInside];
-    [surveyView addSubview:surveyButton];
     
     [map mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@150);
@@ -128,14 +118,6 @@
         make.edges.equalTo(maxTariffView).insets(insets);
     }];
     
-    [surveyView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(30+20));
-    }];
-    
-    [surveyButton mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(surveyView).insets(insets);
-    }];
-    
     UIScrollView *scrollView = [UIScrollView new];
     [self.view addSubview:scrollView];
     
@@ -148,15 +130,30 @@
     [scrollView addSubview:stackView];
     
     [scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 50, 0);
+        make.edges.equalTo(self.view).insets(insets);
     }];
     
     [stackView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(scrollView);
         make.width.equalTo(self.view.mas_width);
     }];
+    
+    surveyButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [surveyButton setTitle:@"Evaluar recorrido" forState:UIControlStateNormal];
+    [surveyButton setBackgroundColor:[HUColor secondaryColor]];
+    [surveyButton setTitleColor:[HUColor whiteColor] forState:UIControlStateNormal];
+    [surveyButton addTarget:self action:@selector(goToSurvey) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:surveyButton];
+    
+    [surveyButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.height.equalTo(@50);
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
+    
 }
-
 
 - (float)estimateHeightForLabel:(UILabel *)label {
     float height = [label.text boundingRectWithSize:CGSizeMake(screenWidth-2*padding, INT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:label.font} context:nil].size.height;
@@ -198,14 +195,24 @@
             
             polyline = [MKPolyline polylineWithCoordinates:coordinates count: [result.points count]];
             [map addOverlay:polyline];
+            
+            MKCoordinateSpan span;
+            span.latitudeDelta = 0.05;
+            span.longitudeDelta = 0.05;
+            
+            MKCoordinateRegion region;
+            region.span = span;
+            region.center = polyline.coordinate;
+            
+            [map setRegion:region animated:YES];
         }
     }];
 }
 
 -(MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay{
     MKPolylineRenderer* lineView = [[MKPolylineRenderer alloc] initWithPolyline:polyline];
-    lineView.strokeColor = [UIColor blueColor];
-    lineView.lineWidth = 7;
+    lineView.strokeColor = [HUColor polylineColor];
+    lineView.lineWidth = 4;
     return lineView;
 }
 
