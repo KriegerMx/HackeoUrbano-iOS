@@ -162,6 +162,7 @@
 
 - (void)goToSurvey {
     SurveyViewController *svc = [SurveyViewController new];
+    svc.trailId = trailDetails.trailId;
     [self.navigationController pushViewController:svc animated:YES];
 }
 

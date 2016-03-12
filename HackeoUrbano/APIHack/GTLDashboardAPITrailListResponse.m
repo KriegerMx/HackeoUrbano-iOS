@@ -28,9 +28,9 @@
 @dynamic cursor, trails;
 
 + (NSDictionary *)arrayPropertyToClassMap {
-  NSDictionary *map =
-    [NSDictionary dictionaryWithObject:[GTLDashboardAPITrailDetails class]
-                                forKey:@"trails"];
+  NSDictionary *map = @{
+    @"trails" : [GTLDashboardAPITrailDetails class]
+  };
   return map;
 }
 

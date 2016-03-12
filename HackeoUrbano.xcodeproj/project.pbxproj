@@ -34,28 +34,34 @@
 		A9694D0D1C8CE3D200961FCD /* GTLFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694CF51C8CE3D100961FCD /* GTLFramework.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A9694D0E1C8CE3D200961FCD /* GTLJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694CF71C8CE3D100961FCD /* GTLJSONParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A9694D0F1C8CE3D200961FCD /* GTLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694CFA1C8CE3D100961FCD /* GTLUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A9694D791C8CED3100961FCD /* GTLDashboardAPIAreaWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D481C8CE62E00961FCD /* GTLDashboardAPIAreaWrapper.m */; };
-		A9694D7A1C8CED3100961FCD /* GTLDashboardAPIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D4A1C8CE62E00961FCD /* GTLDashboardAPIConstants.m */; };
-		A9694D7B1C8CED3100961FCD /* GTLDashboardAPICursorParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D4C1C8CE62E00961FCD /* GTLDashboardAPICursorParameter.m */; };
-		A9694D7C1C8CED3100961FCD /* GTLDashboardAPIDate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D4E1C8CE62E00961FCD /* GTLDashboardAPIDate.m */; };
-		A9694D7D1C8CED3100961FCD /* GTLDashboardAPIGPSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D501C8CE62E00961FCD /* GTLDashboardAPIGPSLocation.m */; };
-		A9694D7E1C8CED3100961FCD /* GTLDashboardAPISearchByKeywordParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D521C8CE62E00961FCD /* GTLDashboardAPISearchByKeywordParameter.m */; };
-		A9694D7F1C8CED3100961FCD /* GTLDashboardAPITime.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D541C8CE62E00961FCD /* GTLDashboardAPITime.m */; };
-		A9694D801C8CED3100961FCD /* GTLDashboardAPITimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D561C8CE62E00961FCD /* GTLDashboardAPITimeStamp.m */; };
-		A9694D811C8CED3100961FCD /* GTLDashboardAPITrailDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D581C8CE62E00961FCD /* GTLDashboardAPITrailDetails.m */; };
-		A9694D821C8CED3100961FCD /* GTLDashboardAPITrailDetailsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D5A1C8CE62E00961FCD /* GTLDashboardAPITrailDetailsCollection.m */; };
-		A9694D831C8CED3100961FCD /* GTLDashboardAPITrailListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D5C1C8CE62E00961FCD /* GTLDashboardAPITrailListResponse.m */; };
-		A9694D841C8CED3100961FCD /* GTLDashboardAPITrailPointsRequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D5E1C8CE62E00961FCD /* GTLDashboardAPITrailPointsRequestParameter.m */; };
-		A9694D851C8CED3100961FCD /* GTLDashboardAPITrailPointsResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D601C8CE62E00961FCD /* GTLDashboardAPITrailPointsResult.m */; };
-		A9694D861C8CED3100961FCD /* GTLDashboardAPITrailPointWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D621C8CE62E00961FCD /* GTLDashboardAPITrailPointWrapper.m */; };
-		A9694D871C8CED3100961FCD /* GTLQueryDashboardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D641C8CE62E00961FCD /* GTLQueryDashboardAPI.m */; };
-		A9694D881C8CED3100961FCD /* GTLServiceDashboardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694D661C8CE62E00961FCD /* GTLServiceDashboardAPI.m */; };
 		A9E188981C8B9D3A000D9668 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E188971C8B9D3A000D9668 /* main.m */; };
 		A9E1889B1C8B9D3A000D9668 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E1889A1C8B9D3A000D9668 /* AppDelegate.m */; };
 		A9E188A11C8B9D3A000D9668 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E1889F1C8B9D3A000D9668 /* Main.storyboard */; };
 		A9E188A31C8B9D3A000D9668 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E188A21C8B9D3A000D9668 /* Assets.xcassets */; };
 		A9E188A61C8B9D3A000D9668 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E188A41C8B9D3A000D9668 /* LaunchScreen.storyboard */; };
 		A9E8537B1C93E46100F1A095 /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853791C93E46100F1A095 /* HCSStarRatingView.m */; };
+		A9E853A91C94993400F1A095 /* GTLDashboardAPIAreaWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853811C94993400F1A095 /* GTLDashboardAPIAreaWrapper.m */; };
+		A9E853AA1C94993400F1A095 /* GTLDashboardAPIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853831C94993400F1A095 /* GTLDashboardAPIConstants.m */; };
+		A9E853AB1C94993400F1A095 /* GTLDashboardAPICursorParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853851C94993400F1A095 /* GTLDashboardAPICursorParameter.m */; };
+		A9E853AC1C94993400F1A095 /* GTLDashboardAPIDate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853871C94993400F1A095 /* GTLDashboardAPIDate.m */; };
+		A9E853AD1C94993400F1A095 /* GTLDashboardAPIGPSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853891C94993400F1A095 /* GTLDashboardAPIGPSLocation.m */; };
+		A9E853AE1C94993400F1A095 /* GTLDashboardAPIQuestionnaireWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8538B1C94993400F1A095 /* GTLDashboardAPIQuestionnaireWrapper.m */; };
+		A9E853AF1C94993400F1A095 /* GTLDashboardAPIRouteStatsParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8538D1C94993400F1A095 /* GTLDashboardAPIRouteStatsParameter.m */; };
+		A9E853B01C94993400F1A095 /* GTLDashboardAPIRouteStatsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8538F1C94993400F1A095 /* GTLDashboardAPIRouteStatsResponse.m */; };
+		A9E853B11C94993400F1A095 /* GTLDashboardAPIRouteStatsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853911C94993400F1A095 /* GTLDashboardAPIRouteStatsWrapper.m */; };
+		A9E853B21C94993400F1A095 /* GTLDashboardAPISearchByKeywordParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853931C94993400F1A095 /* GTLDashboardAPISearchByKeywordParameter.m */; };
+		A9E853B31C94993400F1A095 /* GTLDashboardAPITime.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853951C94993400F1A095 /* GTLDashboardAPITime.m */; };
+		A9E853B41C94993400F1A095 /* GTLDashboardAPITimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853971C94993400F1A095 /* GTLDashboardAPITimeStamp.m */; };
+		A9E853B51C94993400F1A095 /* GTLDashboardAPITrailDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853991C94993400F1A095 /* GTLDashboardAPITrailDetails.m */; };
+		A9E853B61C94993400F1A095 /* GTLDashboardAPITrailDetailsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8539B1C94993400F1A095 /* GTLDashboardAPITrailDetailsCollection.m */; };
+		A9E853B71C94993400F1A095 /* GTLDashboardAPITrailListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8539D1C94993400F1A095 /* GTLDashboardAPITrailListResponse.m */; };
+		A9E853B81C94993400F1A095 /* GTLDashboardAPITrailPointsRequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8539F1C94993400F1A095 /* GTLDashboardAPITrailPointsRequestParameter.m */; };
+		A9E853B91C94993400F1A095 /* GTLDashboardAPITrailPointsResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853A11C94993400F1A095 /* GTLDashboardAPITrailPointsResult.m */; };
+		A9E853BA1C94993400F1A095 /* GTLDashboardAPITrailPointWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853A31C94993400F1A095 /* GTLDashboardAPITrailPointWrapper.m */; };
+		A9E853BB1C94993400F1A095 /* GTLQueryDashboardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853A51C94993400F1A095 /* GTLQueryDashboardAPI.m */; };
+		A9E853BC1C94993400F1A095 /* GTLServiceDashboardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853A71C94993400F1A095 /* GTLServiceDashboardAPI.m */; };
+		A9E853C11C94A78200F1A095 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A9E853BE1C94A78100F1A095 /* ProgressHUD.bundle */; };
+		A9E853C21C94A78200F1A095 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853C01C94A78200F1A095 /* ProgressHUD.m */; };
 		A9ED1A3C1C8BA971007636CA /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A261C8BA971007636CA /* MASCompositeConstraint.m */; };
 		A9ED1A3D1C8BA971007636CA /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A291C8BA971007636CA /* MASConstraint.m */; };
 		A9ED1A3E1C8BA971007636CA /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A2B1C8BA971007636CA /* MASConstraintMaker.m */; };
@@ -129,39 +135,6 @@
 		A9694CF81C8CE3D100961FCD /* GTLTargetNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTargetNamespace.h; sourceTree = "<group>"; };
 		A9694CF91C8CE3D100961FCD /* GTLUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLUtilities.h; sourceTree = "<group>"; };
 		A9694CFA1C8CE3D100961FCD /* GTLUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLUtilities.m; sourceTree = "<group>"; };
-		A9694D451C8CE62E00961FCD /* GTLDashboardAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPI.h; sourceTree = "<group>"; };
-		A9694D471C8CE62E00961FCD /* GTLDashboardAPIAreaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIAreaWrapper.h; sourceTree = "<group>"; };
-		A9694D481C8CE62E00961FCD /* GTLDashboardAPIAreaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIAreaWrapper.m; sourceTree = "<group>"; };
-		A9694D491C8CE62E00961FCD /* GTLDashboardAPIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIConstants.h; sourceTree = "<group>"; };
-		A9694D4A1C8CE62E00961FCD /* GTLDashboardAPIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIConstants.m; sourceTree = "<group>"; };
-		A9694D4B1C8CE62E00961FCD /* GTLDashboardAPICursorParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPICursorParameter.h; sourceTree = "<group>"; };
-		A9694D4C1C8CE62E00961FCD /* GTLDashboardAPICursorParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPICursorParameter.m; sourceTree = "<group>"; };
-		A9694D4D1C8CE62E00961FCD /* GTLDashboardAPIDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIDate.h; sourceTree = "<group>"; };
-		A9694D4E1C8CE62E00961FCD /* GTLDashboardAPIDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIDate.m; sourceTree = "<group>"; };
-		A9694D4F1C8CE62E00961FCD /* GTLDashboardAPIGPSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIGPSLocation.h; sourceTree = "<group>"; };
-		A9694D501C8CE62E00961FCD /* GTLDashboardAPIGPSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIGPSLocation.m; sourceTree = "<group>"; };
-		A9694D511C8CE62E00961FCD /* GTLDashboardAPISearchByKeywordParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPISearchByKeywordParameter.h; sourceTree = "<group>"; };
-		A9694D521C8CE62E00961FCD /* GTLDashboardAPISearchByKeywordParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPISearchByKeywordParameter.m; sourceTree = "<group>"; };
-		A9694D531C8CE62E00961FCD /* GTLDashboardAPITime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITime.h; sourceTree = "<group>"; };
-		A9694D541C8CE62E00961FCD /* GTLDashboardAPITime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITime.m; sourceTree = "<group>"; };
-		A9694D551C8CE62E00961FCD /* GTLDashboardAPITimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITimeStamp.h; sourceTree = "<group>"; };
-		A9694D561C8CE62E00961FCD /* GTLDashboardAPITimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITimeStamp.m; sourceTree = "<group>"; };
-		A9694D571C8CE62E00961FCD /* GTLDashboardAPITrailDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailDetails.h; sourceTree = "<group>"; };
-		A9694D581C8CE62E00961FCD /* GTLDashboardAPITrailDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailDetails.m; sourceTree = "<group>"; };
-		A9694D591C8CE62E00961FCD /* GTLDashboardAPITrailDetailsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailDetailsCollection.h; sourceTree = "<group>"; };
-		A9694D5A1C8CE62E00961FCD /* GTLDashboardAPITrailDetailsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailDetailsCollection.m; sourceTree = "<group>"; };
-		A9694D5B1C8CE62E00961FCD /* GTLDashboardAPITrailListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailListResponse.h; sourceTree = "<group>"; };
-		A9694D5C1C8CE62E00961FCD /* GTLDashboardAPITrailListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailListResponse.m; sourceTree = "<group>"; };
-		A9694D5D1C8CE62E00961FCD /* GTLDashboardAPITrailPointsRequestParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailPointsRequestParameter.h; sourceTree = "<group>"; };
-		A9694D5E1C8CE62E00961FCD /* GTLDashboardAPITrailPointsRequestParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailPointsRequestParameter.m; sourceTree = "<group>"; };
-		A9694D5F1C8CE62E00961FCD /* GTLDashboardAPITrailPointsResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailPointsResult.h; sourceTree = "<group>"; };
-		A9694D601C8CE62E00961FCD /* GTLDashboardAPITrailPointsResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailPointsResult.m; sourceTree = "<group>"; };
-		A9694D611C8CE62E00961FCD /* GTLDashboardAPITrailPointWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailPointWrapper.h; sourceTree = "<group>"; };
-		A9694D621C8CE62E00961FCD /* GTLDashboardAPITrailPointWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailPointWrapper.m; sourceTree = "<group>"; };
-		A9694D631C8CE62E00961FCD /* GTLQueryDashboardAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQueryDashboardAPI.h; sourceTree = "<group>"; };
-		A9694D641C8CE62E00961FCD /* GTLQueryDashboardAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLQueryDashboardAPI.m; sourceTree = "<group>"; };
-		A9694D651C8CE62E00961FCD /* GTLServiceDashboardAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLServiceDashboardAPI.h; sourceTree = "<group>"; };
-		A9694D661C8CE62E00961FCD /* GTLServiceDashboardAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLServiceDashboardAPI.m; sourceTree = "<group>"; };
 		A9E188931C8B9D3A000D9668 /* HackeoUrbano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackeoUrbano.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E188971C8B9D3A000D9668 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9E188991C8B9D3A000D9668 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -172,6 +145,50 @@
 		A9E188A71C8B9D3A000D9668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9E853781C93E46100F1A095 /* HCSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
 		A9E853791C93E46100F1A095 /* HCSStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
+		A9E8537E1C94993400F1A095 /* GTLDashboardAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPI.h; sourceTree = "<group>"; };
+		A9E853801C94993400F1A095 /* GTLDashboardAPIAreaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIAreaWrapper.h; sourceTree = "<group>"; };
+		A9E853811C94993400F1A095 /* GTLDashboardAPIAreaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIAreaWrapper.m; sourceTree = "<group>"; };
+		A9E853821C94993400F1A095 /* GTLDashboardAPIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIConstants.h; sourceTree = "<group>"; };
+		A9E853831C94993400F1A095 /* GTLDashboardAPIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIConstants.m; sourceTree = "<group>"; };
+		A9E853841C94993400F1A095 /* GTLDashboardAPICursorParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPICursorParameter.h; sourceTree = "<group>"; };
+		A9E853851C94993400F1A095 /* GTLDashboardAPICursorParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPICursorParameter.m; sourceTree = "<group>"; };
+		A9E853861C94993400F1A095 /* GTLDashboardAPIDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIDate.h; sourceTree = "<group>"; };
+		A9E853871C94993400F1A095 /* GTLDashboardAPIDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIDate.m; sourceTree = "<group>"; };
+		A9E853881C94993400F1A095 /* GTLDashboardAPIGPSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIGPSLocation.h; sourceTree = "<group>"; };
+		A9E853891C94993400F1A095 /* GTLDashboardAPIGPSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIGPSLocation.m; sourceTree = "<group>"; };
+		A9E8538A1C94993400F1A095 /* GTLDashboardAPIQuestionnaireWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIQuestionnaireWrapper.h; sourceTree = "<group>"; };
+		A9E8538B1C94993400F1A095 /* GTLDashboardAPIQuestionnaireWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIQuestionnaireWrapper.m; sourceTree = "<group>"; };
+		A9E8538C1C94993400F1A095 /* GTLDashboardAPIRouteStatsParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIRouteStatsParameter.h; sourceTree = "<group>"; };
+		A9E8538D1C94993400F1A095 /* GTLDashboardAPIRouteStatsParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIRouteStatsParameter.m; sourceTree = "<group>"; };
+		A9E8538E1C94993400F1A095 /* GTLDashboardAPIRouteStatsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIRouteStatsResponse.h; sourceTree = "<group>"; };
+		A9E8538F1C94993400F1A095 /* GTLDashboardAPIRouteStatsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIRouteStatsResponse.m; sourceTree = "<group>"; };
+		A9E853901C94993400F1A095 /* GTLDashboardAPIRouteStatsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPIRouteStatsWrapper.h; sourceTree = "<group>"; };
+		A9E853911C94993400F1A095 /* GTLDashboardAPIRouteStatsWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPIRouteStatsWrapper.m; sourceTree = "<group>"; };
+		A9E853921C94993400F1A095 /* GTLDashboardAPISearchByKeywordParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPISearchByKeywordParameter.h; sourceTree = "<group>"; };
+		A9E853931C94993400F1A095 /* GTLDashboardAPISearchByKeywordParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPISearchByKeywordParameter.m; sourceTree = "<group>"; };
+		A9E853941C94993400F1A095 /* GTLDashboardAPITime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITime.h; sourceTree = "<group>"; };
+		A9E853951C94993400F1A095 /* GTLDashboardAPITime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITime.m; sourceTree = "<group>"; };
+		A9E853961C94993400F1A095 /* GTLDashboardAPITimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITimeStamp.h; sourceTree = "<group>"; };
+		A9E853971C94993400F1A095 /* GTLDashboardAPITimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITimeStamp.m; sourceTree = "<group>"; };
+		A9E853981C94993400F1A095 /* GTLDashboardAPITrailDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailDetails.h; sourceTree = "<group>"; };
+		A9E853991C94993400F1A095 /* GTLDashboardAPITrailDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailDetails.m; sourceTree = "<group>"; };
+		A9E8539A1C94993400F1A095 /* GTLDashboardAPITrailDetailsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailDetailsCollection.h; sourceTree = "<group>"; };
+		A9E8539B1C94993400F1A095 /* GTLDashboardAPITrailDetailsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailDetailsCollection.m; sourceTree = "<group>"; };
+		A9E8539C1C94993400F1A095 /* GTLDashboardAPITrailListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailListResponse.h; sourceTree = "<group>"; };
+		A9E8539D1C94993400F1A095 /* GTLDashboardAPITrailListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailListResponse.m; sourceTree = "<group>"; };
+		A9E8539E1C94993400F1A095 /* GTLDashboardAPITrailPointsRequestParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailPointsRequestParameter.h; sourceTree = "<group>"; };
+		A9E8539F1C94993400F1A095 /* GTLDashboardAPITrailPointsRequestParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailPointsRequestParameter.m; sourceTree = "<group>"; };
+		A9E853A01C94993400F1A095 /* GTLDashboardAPITrailPointsResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailPointsResult.h; sourceTree = "<group>"; };
+		A9E853A11C94993400F1A095 /* GTLDashboardAPITrailPointsResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailPointsResult.m; sourceTree = "<group>"; };
+		A9E853A21C94993400F1A095 /* GTLDashboardAPITrailPointWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDashboardAPITrailPointWrapper.h; sourceTree = "<group>"; };
+		A9E853A31C94993400F1A095 /* GTLDashboardAPITrailPointWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLDashboardAPITrailPointWrapper.m; sourceTree = "<group>"; };
+		A9E853A41C94993400F1A095 /* GTLQueryDashboardAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQueryDashboardAPI.h; sourceTree = "<group>"; };
+		A9E853A51C94993400F1A095 /* GTLQueryDashboardAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLQueryDashboardAPI.m; sourceTree = "<group>"; };
+		A9E853A61C94993400F1A095 /* GTLServiceDashboardAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLServiceDashboardAPI.h; sourceTree = "<group>"; };
+		A9E853A71C94993400F1A095 /* GTLServiceDashboardAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLServiceDashboardAPI.m; sourceTree = "<group>"; };
+		A9E853BE1C94A78100F1A095 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		A9E853BF1C94A78200F1A095 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		A9E853C01C94A78200F1A095 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		A9ED1A251C8BA971007636CA /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		A9ED1A261C8BA971007636CA /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
 		A9ED1A271C8BA971007636CA /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -333,46 +350,6 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		A9694D441C8CE62E00961FCD /* APIHack */ = {
-			isa = PBXGroup;
-			children = (
-				A9694D451C8CE62E00961FCD /* GTLDashboardAPI.h */,
-				A9694D471C8CE62E00961FCD /* GTLDashboardAPIAreaWrapper.h */,
-				A9694D481C8CE62E00961FCD /* GTLDashboardAPIAreaWrapper.m */,
-				A9694D491C8CE62E00961FCD /* GTLDashboardAPIConstants.h */,
-				A9694D4A1C8CE62E00961FCD /* GTLDashboardAPIConstants.m */,
-				A9694D4B1C8CE62E00961FCD /* GTLDashboardAPICursorParameter.h */,
-				A9694D4C1C8CE62E00961FCD /* GTLDashboardAPICursorParameter.m */,
-				A9694D4D1C8CE62E00961FCD /* GTLDashboardAPIDate.h */,
-				A9694D4E1C8CE62E00961FCD /* GTLDashboardAPIDate.m */,
-				A9694D4F1C8CE62E00961FCD /* GTLDashboardAPIGPSLocation.h */,
-				A9694D501C8CE62E00961FCD /* GTLDashboardAPIGPSLocation.m */,
-				A9694D511C8CE62E00961FCD /* GTLDashboardAPISearchByKeywordParameter.h */,
-				A9694D521C8CE62E00961FCD /* GTLDashboardAPISearchByKeywordParameter.m */,
-				A9694D531C8CE62E00961FCD /* GTLDashboardAPITime.h */,
-				A9694D541C8CE62E00961FCD /* GTLDashboardAPITime.m */,
-				A9694D551C8CE62E00961FCD /* GTLDashboardAPITimeStamp.h */,
-				A9694D561C8CE62E00961FCD /* GTLDashboardAPITimeStamp.m */,
-				A9694D571C8CE62E00961FCD /* GTLDashboardAPITrailDetails.h */,
-				A9694D581C8CE62E00961FCD /* GTLDashboardAPITrailDetails.m */,
-				A9694D591C8CE62E00961FCD /* GTLDashboardAPITrailDetailsCollection.h */,
-				A9694D5A1C8CE62E00961FCD /* GTLDashboardAPITrailDetailsCollection.m */,
-				A9694D5B1C8CE62E00961FCD /* GTLDashboardAPITrailListResponse.h */,
-				A9694D5C1C8CE62E00961FCD /* GTLDashboardAPITrailListResponse.m */,
-				A9694D5D1C8CE62E00961FCD /* GTLDashboardAPITrailPointsRequestParameter.h */,
-				A9694D5E1C8CE62E00961FCD /* GTLDashboardAPITrailPointsRequestParameter.m */,
-				A9694D5F1C8CE62E00961FCD /* GTLDashboardAPITrailPointsResult.h */,
-				A9694D601C8CE62E00961FCD /* GTLDashboardAPITrailPointsResult.m */,
-				A9694D611C8CE62E00961FCD /* GTLDashboardAPITrailPointWrapper.h */,
-				A9694D621C8CE62E00961FCD /* GTLDashboardAPITrailPointWrapper.m */,
-				A9694D631C8CE62E00961FCD /* GTLQueryDashboardAPI.h */,
-				A9694D641C8CE62E00961FCD /* GTLQueryDashboardAPI.m */,
-				A9694D651C8CE62E00961FCD /* GTLServiceDashboardAPI.h */,
-				A9694D661C8CE62E00961FCD /* GTLServiceDashboardAPI.m */,
-			);
-			path = APIHack;
-			sourceTree = "<group>";
-		};
 		A9E1888A1C8B9D39000D9668 = {
 			isa = PBXGroup;
 			children = (
@@ -392,8 +369,9 @@
 		A9E188951C8B9D3A000D9668 /* HackeoUrbano */ = {
 			isa = PBXGroup;
 			children = (
+				A9E853BD1C94A78100F1A095 /* ProgressHUD */,
 				A9E853771C93E46100F1A095 /* HCSStarRatingView */,
-				A9694D441C8CE62E00961FCD /* APIHack */,
+				A9E8537D1C94993400F1A095 /* APIHack */,
 				A9694CCB1C8CE3D100961FCD /* Common */,
 				3791A2B11C8CC16700058C14 /* DLRadioButton */,
 				A9ED1A491C8BBD6C007636CA /* SWRevealViewController */,
@@ -429,6 +407,64 @@
 				A9E853791C93E46100F1A095 /* HCSStarRatingView.m */,
 			);
 			path = HCSStarRatingView;
+			sourceTree = "<group>";
+		};
+		A9E8537D1C94993400F1A095 /* APIHack */ = {
+			isa = PBXGroup;
+			children = (
+				A9E8537E1C94993400F1A095 /* GTLDashboardAPI.h */,
+				A9E853801C94993400F1A095 /* GTLDashboardAPIAreaWrapper.h */,
+				A9E853811C94993400F1A095 /* GTLDashboardAPIAreaWrapper.m */,
+				A9E853821C94993400F1A095 /* GTLDashboardAPIConstants.h */,
+				A9E853831C94993400F1A095 /* GTLDashboardAPIConstants.m */,
+				A9E853841C94993400F1A095 /* GTLDashboardAPICursorParameter.h */,
+				A9E853851C94993400F1A095 /* GTLDashboardAPICursorParameter.m */,
+				A9E853861C94993400F1A095 /* GTLDashboardAPIDate.h */,
+				A9E853871C94993400F1A095 /* GTLDashboardAPIDate.m */,
+				A9E853881C94993400F1A095 /* GTLDashboardAPIGPSLocation.h */,
+				A9E853891C94993400F1A095 /* GTLDashboardAPIGPSLocation.m */,
+				A9E8538A1C94993400F1A095 /* GTLDashboardAPIQuestionnaireWrapper.h */,
+				A9E8538B1C94993400F1A095 /* GTLDashboardAPIQuestionnaireWrapper.m */,
+				A9E8538C1C94993400F1A095 /* GTLDashboardAPIRouteStatsParameter.h */,
+				A9E8538D1C94993400F1A095 /* GTLDashboardAPIRouteStatsParameter.m */,
+				A9E8538E1C94993400F1A095 /* GTLDashboardAPIRouteStatsResponse.h */,
+				A9E8538F1C94993400F1A095 /* GTLDashboardAPIRouteStatsResponse.m */,
+				A9E853901C94993400F1A095 /* GTLDashboardAPIRouteStatsWrapper.h */,
+				A9E853911C94993400F1A095 /* GTLDashboardAPIRouteStatsWrapper.m */,
+				A9E853921C94993400F1A095 /* GTLDashboardAPISearchByKeywordParameter.h */,
+				A9E853931C94993400F1A095 /* GTLDashboardAPISearchByKeywordParameter.m */,
+				A9E853941C94993400F1A095 /* GTLDashboardAPITime.h */,
+				A9E853951C94993400F1A095 /* GTLDashboardAPITime.m */,
+				A9E853961C94993400F1A095 /* GTLDashboardAPITimeStamp.h */,
+				A9E853971C94993400F1A095 /* GTLDashboardAPITimeStamp.m */,
+				A9E853981C94993400F1A095 /* GTLDashboardAPITrailDetails.h */,
+				A9E853991C94993400F1A095 /* GTLDashboardAPITrailDetails.m */,
+				A9E8539A1C94993400F1A095 /* GTLDashboardAPITrailDetailsCollection.h */,
+				A9E8539B1C94993400F1A095 /* GTLDashboardAPITrailDetailsCollection.m */,
+				A9E8539C1C94993400F1A095 /* GTLDashboardAPITrailListResponse.h */,
+				A9E8539D1C94993400F1A095 /* GTLDashboardAPITrailListResponse.m */,
+				A9E8539E1C94993400F1A095 /* GTLDashboardAPITrailPointsRequestParameter.h */,
+				A9E8539F1C94993400F1A095 /* GTLDashboardAPITrailPointsRequestParameter.m */,
+				A9E853A01C94993400F1A095 /* GTLDashboardAPITrailPointsResult.h */,
+				A9E853A11C94993400F1A095 /* GTLDashboardAPITrailPointsResult.m */,
+				A9E853A21C94993400F1A095 /* GTLDashboardAPITrailPointWrapper.h */,
+				A9E853A31C94993400F1A095 /* GTLDashboardAPITrailPointWrapper.m */,
+				A9E853A41C94993400F1A095 /* GTLQueryDashboardAPI.h */,
+				A9E853A51C94993400F1A095 /* GTLQueryDashboardAPI.m */,
+				A9E853A61C94993400F1A095 /* GTLServiceDashboardAPI.h */,
+				A9E853A71C94993400F1A095 /* GTLServiceDashboardAPI.m */,
+			);
+			path = APIHack;
+			sourceTree = "<group>";
+		};
+		A9E853BD1C94A78100F1A095 /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				A9E853BE1C94A78100F1A095 /* ProgressHUD.bundle */,
+				A9E853BF1C94A78200F1A095 /* ProgressHUD.h */,
+				A9E853C01C94A78200F1A095 /* ProgressHUD.m */,
+			);
+			path = ProgressHUD;
 			sourceTree = "<group>";
 		};
 		A9ED1A241C8BA971007636CA /* Masonry */ = {
@@ -549,6 +585,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9E853C11C94A78200F1A095 /* ProgressHUD.bundle in Resources */,
 				A9E188A61C8B9D3A000D9668 /* LaunchScreen.storyboard in Resources */,
 				A9E188A31C8B9D3A000D9668 /* Assets.xcassets in Resources */,
 				A9E188A11C8B9D3A000D9668 /* Main.storyboard in Resources */,
@@ -562,45 +599,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9694D791C8CED3100961FCD /* GTLDashboardAPIAreaWrapper.m in Sources */,
-				A9694D7A1C8CED3100961FCD /* GTLDashboardAPIConstants.m in Sources */,
-				A9694D7B1C8CED3100961FCD /* GTLDashboardAPICursorParameter.m in Sources */,
-				A9694D7C1C8CED3100961FCD /* GTLDashboardAPIDate.m in Sources */,
-				A9694D7D1C8CED3100961FCD /* GTLDashboardAPIGPSLocation.m in Sources */,
-				A9694D7E1C8CED3100961FCD /* GTLDashboardAPISearchByKeywordParameter.m in Sources */,
-				A9694D7F1C8CED3100961FCD /* GTLDashboardAPITime.m in Sources */,
-				A9694D801C8CED3100961FCD /* GTLDashboardAPITimeStamp.m in Sources */,
-				A9694D811C8CED3100961FCD /* GTLDashboardAPITrailDetails.m in Sources */,
-				A9694D821C8CED3100961FCD /* GTLDashboardAPITrailDetailsCollection.m in Sources */,
-				A9694D831C8CED3100961FCD /* GTLDashboardAPITrailListResponse.m in Sources */,
-				A9694D841C8CED3100961FCD /* GTLDashboardAPITrailPointsRequestParameter.m in Sources */,
-				A9694D851C8CED3100961FCD /* GTLDashboardAPITrailPointsResult.m in Sources */,
-				A9694D861C8CED3100961FCD /* GTLDashboardAPITrailPointWrapper.m in Sources */,
-				A9694D871C8CED3100961FCD /* GTLQueryDashboardAPI.m in Sources */,
-				A9694D881C8CED3100961FCD /* GTLServiceDashboardAPI.m in Sources */,
+				A9E853B31C94993400F1A095 /* GTLDashboardAPITime.m in Sources */,
+				A9E853B51C94993400F1A095 /* GTLDashboardAPITrailDetails.m in Sources */,
+				A9E853B11C94993400F1A095 /* GTLDashboardAPIRouteStatsWrapper.m in Sources */,
+				A9E853AE1C94993400F1A095 /* GTLDashboardAPIQuestionnaireWrapper.m in Sources */,
 				A9ED1A431C8BA971007636CA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				A9E1889B1C8B9D3A000D9668 /* AppDelegate.m in Sources */,
 				A9ED1A411C8BA971007636CA /* MASViewConstraint.m in Sources */,
 				A9694C411C8CA57A00961FCD /* AboutViewController.m in Sources */,
+				A9E853B21C94993400F1A095 /* GTLDashboardAPISearchByKeywordParameter.m in Sources */,
 				A9ED1A591C8BBF3C007636CA /* MenuViewController.m in Sources */,
+				A9E853AB1C94993400F1A095 /* GTLDashboardAPICursorParameter.m in Sources */,
 				A9ED1A521C8BBD6D007636CA /* SWFrontViewController.m in Sources */,
+				A9E853B41C94993400F1A095 /* GTLDashboardAPITimeStamp.m in Sources */,
 				A9694D081C8CE3D200961FCD /* GTLQuery.m in Sources */,
 				A9ED1A541C8BBD6D007636CA /* SWRevealViewController.m in Sources */,
+				A9E853BB1C94993400F1A095 /* GTLQueryDashboardAPI.m in Sources */,
 				3771682E1C8BA460004B4843 /* MapViewController.m in Sources */,
 				A9694CFD1C8CE3D200961FCD /* GTMHTTPFetcherLogging.m in Sources */,
 				A9694D0F1C8CE3D200961FCD /* GTLUtilities.m in Sources */,
 				A9694D0C1C8CE3D200961FCD /* GTLBase64.m in Sources */,
+				A9E853B01C94993400F1A095 /* GTLDashboardAPIRouteStatsResponse.m in Sources */,
 				3771682B1C8BA448004B4843 /* SurveyViewController.m in Sources */,
+				A9E853B61C94993400F1A095 /* GTLDashboardAPITrailDetailsCollection.m in Sources */,
 				A9ED1A441C8BA971007636CA /* View+MASAdditions.m in Sources */,
 				A9ED1A3C1C8BA971007636CA /* MASCompositeConstraint.m in Sources */,
 				A9ED1A401C8BA971007636CA /* MASViewAttribute.m in Sources */,
 				A9694CFC1C8CE3D200961FCD /* GTMHTTPFetcher.m in Sources */,
+				A9E853C21C94A78200F1A095 /* ProgressHUD.m in Sources */,
 				A9694CFE1C8CE3D200961FCD /* GTMHTTPFetcherService.m in Sources */,
 				A9694D001C8CE3D200961FCD /* GTMHTTPUploadFetcher.m in Sources */,
 				A9694D071C8CE3D200961FCD /* GTLObject.m in Sources */,
+				A9E853AC1C94993400F1A095 /* GTLDashboardAPIDate.m in Sources */,
 				A9ED1A481C8BAC04007636CA /* HUColor.m in Sources */,
+				A9E853A91C94993400F1A095 /* GTLDashboardAPIAreaWrapper.m in Sources */,
 				A9694D0A1C8CE3D200961FCD /* GTLService.m in Sources */,
 				A9ED1A3E1C8BA971007636CA /* MASConstraintMaker.m in Sources */,
+				A9E853AD1C94993400F1A095 /* GTLDashboardAPIGPSLocation.m in Sources */,
 				A9694D0E1C8CE3D200961FCD /* GTLJSONParser.m in Sources */,
 				A9ED1A421C8BA971007636CA /* NSArray+MASAdditions.m in Sources */,
 				A9694D041C8CE3D200961FCD /* GTLBatchResult.m in Sources */,
@@ -611,17 +646,24 @@
 				A9E8537B1C93E46100F1A095 /* HCSStarRatingView.m in Sources */,
 				A9ED1A3F1C8BA971007636CA /* MASLayoutConstraint.m in Sources */,
 				A9694D031C8CE3D200961FCD /* GTLBatchQuery.m in Sources */,
+				A9E853B91C94993400F1A095 /* GTLDashboardAPITrailPointsResult.m in Sources */,
 				A9694CFB1C8CE3D100961FCD /* GTMGatherInputStream.m in Sources */,
 				A9ED1A531C8BBD6D007636CA /* SWMenuViewController.m in Sources */,
+				A9E853BA1C94993400F1A095 /* GTLDashboardAPITrailPointWrapper.m in Sources */,
 				A9E188981C8B9D3A000D9668 /* main.m in Sources */,
+				A9E853B81C94993400F1A095 /* GTLDashboardAPITrailPointsRequestParameter.m in Sources */,
 				A9694C3E1C8CA55900961FCD /* RankingViewController.m in Sources */,
 				A9694D021C8CE3D200961FCD /* GTMReadMonitorInputStream.m in Sources */,
 				A9694D051C8CE3D200961FCD /* GTLDateTime.m in Sources */,
+				A9E853AA1C94993400F1A095 /* GTLDashboardAPIConstants.m in Sources */,
+				A9E853B71C94993400F1A095 /* GTLDashboardAPITrailListResponse.m in Sources */,
 				A9694C4A1C8CD0D700961FCD /* DLRadioButton.m in Sources */,
 				A9694D061C8CE3D200961FCD /* GTLErrorObject.m in Sources */,
+				A9E853BC1C94993400F1A095 /* GTLServiceDashboardAPI.m in Sources */,
 				A9694C471C8CC4B500961FCD /* TrailViewController.m in Sources */,
 				A9694D011C8CE3D200961FCD /* GTMMIMEDocument.m in Sources */,
 				A9694D091C8CE3D200961FCD /* GTLRuntimeCommon.m in Sources */,
+				A9E853AF1C94993400F1A095 /* GTLDashboardAPIRouteStatsParameter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

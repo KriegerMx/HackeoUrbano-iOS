@@ -27,28 +27,28 @@
 //
 
 @interface GTLDashboardAPITrailDetails : GTLObject
-@property (retain) NSNumber *branchId;  // longLongValue
-@property (copy) NSString *branchName;
-@property (retain) GTLDateTime *creationDate;
-@property (retain) NSNumber *destinationPlatformId;  // longLongValue
-@property (copy) NSString *destinationPlatformName;
-@property (retain) NSNumber *destinationStationId;  // longLongValue
-@property (copy) NSString *destinationStationName;
-@property (retain) NSNumber *gtfsStatus;  // intValue
-@property (copy) NSString *invalidReason;
-@property (retain) NSNumber *maxTariff;  // doubleValue
-@property (copy) NSString *notes;
-@property (retain) NSNumber *originPlatformId;  // longLongValue
-@property (copy) NSString *originPlatformName;
-@property (retain) NSNumber *originStationId;  // longLongValue
-@property (copy) NSString *originStationName;
-@property (copy) NSString *photoUrl;
-@property (retain) NSNumber *routeId;  // longLongValue
-@property (copy) NSString *routeName;
-@property (copy) NSString *schedule;
-@property (retain) NSNumber *totalMeters;  // doubleValue
-@property (retain) NSNumber *totalMinutes;  // doubleValue
-@property (retain) NSNumber *trailId;  // longLongValue
-@property (retain) NSNumber *trailStatus;  // intValue
-@property (copy) NSString *transportType;
+@property (nonatomic, retain) NSNumber *branchId;  // longLongValue
+@property (nonatomic, copy) NSString *branchName;
+@property (nonatomic, retain) GTLDateTime *creationDate;
+@property (nonatomic, retain) NSNumber *destinationPlatformId;  // longLongValue
+@property (nonatomic, copy) NSString *destinationPlatformName;
+@property (nonatomic, retain) NSNumber *destinationStationId;  // longLongValue
+@property (nonatomic, copy) NSString *destinationStationName;
+@property (nonatomic, retain) NSNumber *gtfsStatus;  // intValue
+@property (nonatomic, copy) NSString *invalidReason;
+@property (nonatomic, retain) NSNumber *maxTariff;  // doubleValue
+@property (nonatomic, copy) NSString *notes;
+@property (nonatomic, retain) NSNumber *originPlatformId;  // longLongValue
+@property (nonatomic, copy) NSString *originPlatformName;
+@property (nonatomic, retain) NSNumber *originStationId;  // longLongValue
+@property (nonatomic, copy) NSString *originStationName;
+@property (nonatomic, copy) NSString *photoUrl;
+@property (nonatomic, retain) NSNumber *routeId;  // longLongValue
+@property (nonatomic, copy) NSString *routeName;
+@property (nonatomic, copy) NSString *schedule;
+@property (nonatomic, retain) NSNumber *totalMeters;  // doubleValue
+@property (nonatomic, retain) NSNumber *totalMinutes;  // doubleValue
+@property (nonatomic, retain) NSNumber *trailId;  // longLongValue
+@property (nonatomic, retain) NSNumber *trailStatus;  // intValue
+@property (nonatomic, copy) NSString *transportType;
 @end

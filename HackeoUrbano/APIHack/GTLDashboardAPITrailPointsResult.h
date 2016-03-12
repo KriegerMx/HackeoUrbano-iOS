@@ -29,6 +29,6 @@
 //
 
 @interface GTLDashboardAPITrailPointsResult : GTLObject
-@property (copy) NSString *cursor;
-@property (retain) NSArray *points;  // of GTLDashboardAPITrailPointWrapper
+@property (nonatomic, copy) NSString *cursor;
+@property (nonatomic, retain) NSArray *points;  // of GTLDashboardAPITrailPointWrapper
 @end

@@ -27,7 +27,7 @@
 //
 
 @interface GTLDashboardAPIGPSLocation : GTLObject
-@property (retain) NSNumber *latitude;  // doubleValue
-@property (retain) NSNumber *longitude;  // doubleValue
-@property (retain) NSNumber *radius;  // doubleValue
+@property (nonatomic, retain) NSNumber *latitude;  // doubleValue
+@property (nonatomic, retain) NSNumber *longitude;  // doubleValue
+@property (nonatomic, retain) NSNumber *radius;  // doubleValue
 @end

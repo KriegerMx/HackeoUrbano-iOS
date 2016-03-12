@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLDashboardAPITrailPointsResult.m
+//  GTLDashboardAPIRouteStatsResponse.m
 //
 
 // ----------------------------------------------------------------------------
@@ -13,23 +13,23 @@
 // Description:
 //   This API exposes the services required by the mapaton dashboard of mapaton
 // Classes:
-//   GTLDashboardAPITrailPointsResult (0 custom class methods, 2 custom properties)
+//   GTLDashboardAPIRouteStatsResponse (0 custom class methods, 2 custom properties)
 
-#import "GTLDashboardAPITrailPointsResult.h"
+#import "GTLDashboardAPIRouteStatsResponse.h"
 
-#import "GTLDashboardAPITrailPointWrapper.h"
+#import "GTLDashboardAPIRouteStatsWrapper.h"
 
 // ----------------------------------------------------------------------------
 //
-//   GTLDashboardAPITrailPointsResult
+//   GTLDashboardAPIRouteStatsResponse
 //
 
-@implementation GTLDashboardAPITrailPointsResult
-@dynamic cursor, points;
+@implementation GTLDashboardAPIRouteStatsResponse
+@dynamic cursor, items;
 
 + (NSDictionary *)arrayPropertyToClassMap {
   NSDictionary *map = @{
-    @"points" : [GTLDashboardAPITrailPointWrapper class]
+    @"items" : [GTLDashboardAPIRouteStatsWrapper class]
   };
   return map;
 }

@@ -27,6 +27,6 @@
 //
 
 @interface GTLDashboardAPISearchByKeywordParameter : GTLObject
-@property (copy) NSString *keyword;
-@property (retain) NSNumber *numberOfResults;  // intValue
+@property (nonatomic, copy) NSString *keyword;
+@property (nonatomic, retain) NSNumber *numberOfResults;  // intValue
 @end

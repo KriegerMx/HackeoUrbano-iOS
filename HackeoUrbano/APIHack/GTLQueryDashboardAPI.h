@@ -13,7 +13,7 @@
 // Description:
 //   This API exposes the services required by the mapaton dashboard of mapaton
 // Classes:
-//   GTLQueryDashboardAPI (10 custom class methods, 4 custom properties)
+//   GTLQueryDashboardAPI (14 custom class methods, 5 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLQuery.h"
@@ -23,6 +23,8 @@
 
 @class GTLDashboardAPIAreaWrapper;
 @class GTLDashboardAPICursorParameter;
+@class GTLDashboardAPIQuestionnaireWrapper;
+@class GTLDashboardAPIRouteStatsParameter;
 @class GTLDashboardAPISearchByKeywordParameter;
 @class GTLDashboardAPITrailPointsRequestParameter;
 
@@ -33,76 +35,100 @@
 //
 
 // Selector specifying which fields to include in a partial response.
-@property (copy) NSString *fields;
+@property (nonatomic, copy) NSString *fields;
 
 //
 // Method-specific parameters; see the comments below for more information.
 //
-@property (copy) NSString *password;
-@property (assign) long long trailId;
-@property (copy) NSString *trailIds;
+// identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
+@property (nonatomic, assign) long long identifier;
+@property (nonatomic, copy) NSString *password;
+@property (nonatomic, assign) long long trailId;
+@property (nonatomic, copy) NSString *trailIds;
 
-#pragma mark -
-#pragma mark Service level methods
+#pragma mark - Service level methods
 // These create a GTLQueryDashboardAPI object.
 
 // Method: dashboardAPI.getAllGtfsTrails
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
 // Fetches a GTLDashboardAPITrailListResponse.
-+ (id)queryForGetAllGtfsTrailsWithObject:(GTLDashboardAPICursorParameter *)object;
++ (instancetype)queryForGetAllGtfsTrailsWithObject:(GTLDashboardAPICursorParameter *)object;
+
+// Method: dashboardAPI.getAllStats
+//  Authorization scope(s):
+//   kGTLAuthScopeDashboardAPIUserinfoEmail
+// Fetches a GTLDashboardAPIRouteStatsResponse.
++ (instancetype)queryForGetAllStatsWithObject:(GTLDashboardAPIRouteStatsParameter *)object;
 
 // Method: dashboardAPI.getAllTrails
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
 // Fetches a GTLDashboardAPITrailListResponse.
-+ (id)queryForGetAllTrailsWithObject:(GTLDashboardAPICursorParameter *)object;
++ (instancetype)queryForGetAllTrailsWithObject:(GTLDashboardAPICursorParameter *)object;
 
 // Method: dashboardAPI.getAllValidTrails
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
 // Fetches a GTLDashboardAPITrailListResponse.
-+ (id)queryForGetAllValidTrailsWithObject:(GTLDashboardAPICursorParameter *)object;
++ (instancetype)queryForGetAllValidTrailsWithObject:(GTLDashboardAPICursorParameter *)object;
+
+// Method: dashboardAPI.getQuestionnaire
+//  Authorization scope(s):
+//   kGTLAuthScopeDashboardAPIUserinfoEmail
+// Fetches a GTLDashboardAPIQuestionnaireWrapper.
++ (instancetype)queryForGetQuestionnaireWithIdentifier:(long long)identifier;
+
+// Method: dashboardAPI.getStats
+//  Authorization scope(s):
+//   kGTLAuthScopeDashboardAPIUserinfoEmail
+// Fetches a GTLDashboardAPIRouteStatsWrapper.
++ (instancetype)queryForGetStatsWithTrailId:(long long)trailId;
 
 // Method: dashboardAPI.getTrailDetails
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
 // Fetches a GTLDashboardAPITrailDetails.
-+ (id)queryForGetTrailDetailsWithTrailId:(long long)trailId;
++ (instancetype)queryForGetTrailDetailsWithTrailId:(long long)trailId;
 
 // Method: dashboardAPI.getTrailRawPoints
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
 // Fetches a GTLDashboardAPITrailPointsResult.
-+ (id)queryForGetTrailRawPointsWithObject:(GTLDashboardAPITrailPointsRequestParameter *)object;
++ (instancetype)queryForGetTrailRawPointsWithObject:(GTLDashboardAPITrailPointsRequestParameter *)object;
 
 // Method: dashboardAPI.getTrailsByStationName
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
 // Fetches a GTLDashboardAPITrailDetailsCollection.
-+ (id)queryForGetTrailsByStationNameWithObject:(GTLDashboardAPISearchByKeywordParameter *)object;
++ (instancetype)queryForGetTrailsByStationNameWithObject:(GTLDashboardAPISearchByKeywordParameter *)object;
 
 // Method: dashboardAPI.getTrailSnappedPoints
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
 // Fetches a GTLDashboardAPITrailPointsResult.
-+ (id)queryForGetTrailSnappedPointsWithObject:(GTLDashboardAPITrailPointsRequestParameter *)object;
++ (instancetype)queryForGetTrailSnappedPointsWithObject:(GTLDashboardAPITrailPointsRequestParameter *)object;
 
 // Method: dashboardAPI.registerGtfsFullTask
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
-+ (id)queryForRegisterGtfsFullTaskWithPassword:(NSString *)password;
++ (instancetype)queryForRegisterGtfsFullTaskWithPassword:(NSString *)password;
 
 // Method: dashboardAPI.registerGtfsTask
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
-+ (id)queryForRegisterGtfsTaskWithPassword:(NSString *)password
-                                  trailIds:(NSString *)trailIds;
++ (instancetype)queryForRegisterGtfsTaskWithPassword:(NSString *)password
+                                            trailIds:(NSString *)trailIds;
+
+// Method: dashboardAPI.registerQuestionnaire
+//  Authorization scope(s):
+//   kGTLAuthScopeDashboardAPIUserinfoEmail
++ (instancetype)queryForRegisterQuestionnaireWithObject:(GTLDashboardAPIQuestionnaireWrapper *)object;
 
 // Method: dashboardAPI.trailsNearPoint
 //  Authorization scope(s):
 //   kGTLAuthScopeDashboardAPIUserinfoEmail
 // Fetches a GTLDashboardAPITrailDetailsCollection.
-+ (id)queryForTrailsNearPointWithObject:(GTLDashboardAPIAreaWrapper *)object;
++ (instancetype)queryForTrailsNearPointWithObject:(GTLDashboardAPIAreaWrapper *)object;
 
 @end

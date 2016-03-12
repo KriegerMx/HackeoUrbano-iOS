@@ -30,7 +30,7 @@
 //
 
 @interface GTLDashboardAPITrailPointWrapper : GTLObject
-@property (retain) GTLDashboardAPIGPSLocation *location;
-@property (retain) NSNumber *position;  // intValue
-@property (retain) GTLDashboardAPITimeStamp *timeStamp;
+@property (nonatomic, retain) GTLDashboardAPIGPSLocation *location;
+@property (nonatomic, retain) NSNumber *position;  // intValue
+@property (nonatomic, retain) GTLDashboardAPITimeStamp *timeStamp;
 @end

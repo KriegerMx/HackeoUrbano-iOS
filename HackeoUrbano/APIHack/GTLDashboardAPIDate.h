@@ -27,7 +27,7 @@
 //
 
 @interface GTLDashboardAPIDate : GTLObject
-@property (retain) NSNumber *day;  // intValue
-@property (retain) NSNumber *month;  // intValue
-@property (retain) NSNumber *year;  // intValue
+@property (nonatomic, retain) NSNumber *day;  // intValue
+@property (nonatomic, retain) NSNumber *month;  // intValue
+@property (nonatomic, retain) NSNumber *year;  // intValue
 @end

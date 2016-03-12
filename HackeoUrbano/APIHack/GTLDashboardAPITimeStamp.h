@@ -30,6 +30,6 @@
 //
 
 @interface GTLDashboardAPITimeStamp : GTLObject
-@property (retain) GTLDashboardAPIDate *date;
-@property (retain) GTLDashboardAPITime *time;
+@property (nonatomic, retain) GTLDashboardAPIDate *date;
+@property (nonatomic, retain) GTLDashboardAPITime *time;
 @end

@@ -29,6 +29,6 @@
 //
 
 @interface GTLDashboardAPITrailListResponse : GTLObject
-@property (copy) NSString *cursor;
-@property (retain) NSArray *trails;  // of GTLDashboardAPITrailDetails
+@property (nonatomic, copy) NSString *cursor;
+@property (nonatomic, retain) NSArray *trails;  // of GTLDashboardAPITrailDetails
 @end

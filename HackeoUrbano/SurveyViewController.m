@@ -13,11 +13,13 @@
     UITextField *scheduleTextField;
     UIButton *acceptButton;
     HCSStarRatingView *starRatingView;
+    NSDate *selectedDate;
 }
 
 @end
 
 @implementation SurveyViewController
+@synthesize trailId;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -136,6 +138,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm aaa"];
     scheduleTextField.text = [dateFormatter stringFromDate:picker.date];
+    selectedDate = picker.date;
 }
 
 - (void)dismissPicker {
@@ -221,8 +224,6 @@
 
 #pragma mark - validate and submit survey
 - (void)checkSurvey {
-    NSLog(@"%f", starRatingView.value);
-    
     if (![self checkQuestionWithTag:10]) {
         [self showAlertWithTitle:nil message:@"Debes elegir un tipo de transporte para enviar la encuesta"];
         return;
@@ -246,10 +247,6 @@
     [self submitSurvey];
 }
 
-- (void)submitSurvey {
-
-}
-
 - (BOOL)checkQuestionWithTag:(int)tag {
     DLRadioButton *radioButton = (DLRadioButton *)[self.view viewWithTag:tag];
     if (radioButton.selectedButton) {
@@ -271,6 +268,68 @@
     }
     return YES;
 }
+
+- (void)submitSurvey {
+    DLRadioButton *radioButton1 = (DLRadioButton *)[self.view viewWithTag:10];
+    NSNumber *transportType = [NSNumber numberWithLong:(radioButton1.selectedButton.tag-10)];
+    
+    DLRadioButton *radioButton2 = (DLRadioButton *)[self.view viewWithTag:20];
+    NSNumber *fullness = [NSNumber numberWithLong:(radioButton2.selectedButton.tag-20)];
+    
+    DLRadioButton *radioButton3 = (DLRadioButton *)[self.view viewWithTag:30];
+    NSMutableArray *securityArray = [NSMutableArray new];
+    for (DLRadioButton *radioButton in radioButton3.selectedButtons) {
+        NSNumber *security = [NSNumber numberWithLong:(radioButton.tag-30)];
+        [securityArray addObject:security];
+    }
+    
+    DLRadioButton *radioButton4 = (DLRadioButton *)[self.view viewWithTag:40];
+    NSMutableArray *stateArray = [NSMutableArray new];
+    for (DLRadioButton *radioButton in radioButton4.selectedButtons) {
+        NSNumber *transit = [NSNumber numberWithLong:(radioButton.tag-40)];
+        [stateArray addObject:transit];
+    }
+    
+    DLRadioButton *radioButton5 = (DLRadioButton *)[self.view viewWithTag:50];
+    NSMutableArray *transitArray = [NSMutableArray new];
+    for (DLRadioButton *radioButton in radioButton5.selectedButtons) {
+        NSNumber *transit = [NSNumber numberWithLong:(radioButton.tag-50)];
+        [transitArray addObject:transit];
+    }
+    
+    static GTLServiceDashboardAPI *service = nil;
+    if (!service) {
+        service = [GTLServiceDashboardAPI new];
+        service.retryEnabled = YES;
+    }
+    
+    
+    GTLDateTime *dateTime = [GTLDateTime dateTimeWithDate:selectedDate timeZone:[NSTimeZone timeZoneWithName:@"America/Mexico_City"]];
+    GTLDashboardAPIQuestionnaireWrapper *wrapper = [GTLDashboardAPIQuestionnaireWrapper new];
+    wrapper.timeTaken = dateTime;
+    wrapper.rating = [NSNumber numberWithFloat:starRatingView.value];
+    wrapper.transportType = transportType;
+    wrapper.fullness = fullness;
+    wrapper.security = securityArray;
+    wrapper.state = stateArray;
+    wrapper.transitRegulation = transitArray;
+    wrapper.trailId = trailId;
+    wrapper.notes = @"";
+    
+    [ProgressHUD show:@"Enviando encuesta"];
+    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForRegisterQuestionnaireWithObject:wrapper];
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        if (error) {
+            [ProgressHUD showError:@"No se pudo enviar"];
+            NSLog(@"error: %@", error);
+        } else {
+            [ProgressHUD showSuccess:@"Encuesta enviada"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+}
+
+#pragma mark - alerts
 
 - (void)showAlertWithTitle:(NSString*)title message:(NSString*)message {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];

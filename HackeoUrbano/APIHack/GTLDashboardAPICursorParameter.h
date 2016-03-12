@@ -27,6 +27,6 @@
 //
 
 @interface GTLDashboardAPICursorParameter : GTLObject
-@property (copy) NSString *cursor;
-@property (retain) NSNumber *numberOfElements;  // intValue
+@property (nonatomic, copy) NSString *cursor;
+@property (nonatomic, retain) NSNumber *numberOfElements;  // intValue
 @end

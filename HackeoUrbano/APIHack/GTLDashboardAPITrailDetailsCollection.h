@@ -32,5 +32,5 @@
 // supports -itemAtIndex: to retrieve individual objects from "items".
 
 @interface GTLDashboardAPITrailDetailsCollection : GTLCollectionObject
-@property (retain) NSArray *items;  // of GTLDashboardAPITrailDetails
+@property (nonatomic, retain) NSArray *items;  // of GTLDashboardAPITrailDetails
 @end

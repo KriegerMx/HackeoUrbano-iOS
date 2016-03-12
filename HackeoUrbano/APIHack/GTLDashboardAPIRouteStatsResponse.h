@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLDashboardAPIAreaWrapper.h
+//  GTLDashboardAPIRouteStatsResponse.h
 //
 
 // ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 // Description:
 //   This API exposes the services required by the mapaton dashboard of mapaton
 // Classes:
-//   GTLDashboardAPIAreaWrapper (0 custom class methods, 2 custom properties)
+//   GTLDashboardAPIRouteStatsResponse (0 custom class methods, 2 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -21,14 +21,17 @@
   #import "GTLObject.h"
 #endif
 
-@class GTLDashboardAPIGPSLocation;
+@class GTLDashboardAPIRouteStatsWrapper;
 
 // ----------------------------------------------------------------------------
 //
-//   GTLDashboardAPIAreaWrapper
+//   GTLDashboardAPIRouteStatsResponse
 //
 
-@interface GTLDashboardAPIAreaWrapper : GTLObject
-@property (nonatomic, retain) GTLDashboardAPIGPSLocation *northEastCorner;
-@property (nonatomic, retain) GTLDashboardAPIGPSLocation *southWestCorner;
+// This class supports NSFastEnumeration over its "items" property. It also
+// supports -itemAtIndex: to retrieve individual objects from "items".
+
+@interface GTLDashboardAPIRouteStatsResponse : GTLCollectionObject
+@property (nonatomic, copy) NSString *cursor;
+@property (nonatomic, retain) NSArray *items;  // of GTLDashboardAPIRouteStatsWrapper
 @end

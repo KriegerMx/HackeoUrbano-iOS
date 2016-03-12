@@ -27,7 +27,7 @@
 //
 
 @interface GTLDashboardAPITrailPointsRequestParameter : GTLObject
-@property (copy) NSString *cursor;
-@property (retain) NSNumber *numberOfElements;  // intValue
-@property (retain) NSNumber *trailId;  // longLongValue
+@property (nonatomic, copy) NSString *cursor;
+@property (nonatomic, retain) NSNumber *numberOfElements;  // intValue
+@property (nonatomic, retain) NSNumber *trailId;  // longLongValue
 @end

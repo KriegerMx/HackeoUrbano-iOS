@@ -27,7 +27,7 @@
 //
 
 @interface GTLDashboardAPITime : GTLObject
-@property (retain) NSNumber *hour;  // intValue
-@property (retain) NSNumber *minute;  // intValue
-@property (retain) NSNumber *second;  // intValue
+@property (nonatomic, retain) NSNumber *hour;  // intValue
+@property (nonatomic, retain) NSNumber *minute;  // intValue
+@property (nonatomic, retain) NSNumber *second;  // intValue
 @end

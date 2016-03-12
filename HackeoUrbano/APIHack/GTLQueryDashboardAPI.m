@@ -13,12 +13,16 @@
 // Description:
 //   This API exposes the services required by the mapaton dashboard of mapaton
 // Classes:
-//   GTLQueryDashboardAPI (10 custom class methods, 4 custom properties)
+//   GTLQueryDashboardAPI (14 custom class methods, 5 custom properties)
 
 #import "GTLQueryDashboardAPI.h"
 
 #import "GTLDashboardAPIAreaWrapper.h"
 #import "GTLDashboardAPICursorParameter.h"
+#import "GTLDashboardAPIQuestionnaireWrapper.h"
+#import "GTLDashboardAPIRouteStatsParameter.h"
+#import "GTLDashboardAPIRouteStatsResponse.h"
+#import "GTLDashboardAPIRouteStatsWrapper.h"
 #import "GTLDashboardAPISearchByKeywordParameter.h"
 #import "GTLDashboardAPITrailDetails.h"
 #import "GTLDashboardAPITrailDetailsCollection.h"
@@ -28,13 +32,19 @@
 
 @implementation GTLQueryDashboardAPI
 
-@dynamic fields, password, trailId, trailIds;
+@dynamic fields, identifier, password, trailId, trailIds;
 
-#pragma mark -
-#pragma mark Service level methods
++ (NSDictionary *)parameterNameMap {
+  NSDictionary *map = @{
+    @"identifier" : @"id"
+  };
+  return map;
+}
+
+#pragma mark - Service level methods
 // These create a GTLQueryDashboardAPI object.
 
-+ (id)queryForGetAllGtfsTrailsWithObject:(GTLDashboardAPICursorParameter *)object {
++ (instancetype)queryForGetAllGtfsTrailsWithObject:(GTLDashboardAPICursorParameter *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;
@@ -46,7 +56,19 @@
   return query;
 }
 
-+ (id)queryForGetAllTrailsWithObject:(GTLDashboardAPICursorParameter *)object {
++ (instancetype)queryForGetAllStatsWithObject:(GTLDashboardAPIRouteStatsParameter *)object {
+  if (object == nil) {
+    GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
+    return nil;
+  }
+  NSString *methodName = @"dashboardAPI.getAllStats";
+  GTLQueryDashboardAPI *query = [self queryWithMethodName:methodName];
+  query.bodyObject = object;
+  query.expectedObjectClass = [GTLDashboardAPIRouteStatsResponse class];
+  return query;
+}
+
++ (instancetype)queryForGetAllTrailsWithObject:(GTLDashboardAPICursorParameter *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;
@@ -58,7 +80,7 @@
   return query;
 }
 
-+ (id)queryForGetAllValidTrailsWithObject:(GTLDashboardAPICursorParameter *)object {
++ (instancetype)queryForGetAllValidTrailsWithObject:(GTLDashboardAPICursorParameter *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;
@@ -70,7 +92,23 @@
   return query;
 }
 
-+ (id)queryForGetTrailDetailsWithTrailId:(long long)trailId {
++ (instancetype)queryForGetQuestionnaireWithIdentifier:(long long)identifier {
+  NSString *methodName = @"dashboardAPI.getQuestionnaire";
+  GTLQueryDashboardAPI *query = [self queryWithMethodName:methodName];
+  query.identifier = identifier;
+  query.expectedObjectClass = [GTLDashboardAPIQuestionnaireWrapper class];
+  return query;
+}
+
++ (instancetype)queryForGetStatsWithTrailId:(long long)trailId {
+  NSString *methodName = @"dashboardAPI.getStats";
+  GTLQueryDashboardAPI *query = [self queryWithMethodName:methodName];
+  query.trailId = trailId;
+  query.expectedObjectClass = [GTLDashboardAPIRouteStatsWrapper class];
+  return query;
+}
+
++ (instancetype)queryForGetTrailDetailsWithTrailId:(long long)trailId {
   NSString *methodName = @"dashboardAPI.getTrailDetails";
   GTLQueryDashboardAPI *query = [self queryWithMethodName:methodName];
   query.trailId = trailId;
@@ -78,7 +116,7 @@
   return query;
 }
 
-+ (id)queryForGetTrailRawPointsWithObject:(GTLDashboardAPITrailPointsRequestParameter *)object {
++ (instancetype)queryForGetTrailRawPointsWithObject:(GTLDashboardAPITrailPointsRequestParameter *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;
@@ -90,7 +128,7 @@
   return query;
 }
 
-+ (id)queryForGetTrailsByStationNameWithObject:(GTLDashboardAPISearchByKeywordParameter *)object {
++ (instancetype)queryForGetTrailsByStationNameWithObject:(GTLDashboardAPISearchByKeywordParameter *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;
@@ -102,7 +140,7 @@
   return query;
 }
 
-+ (id)queryForGetTrailSnappedPointsWithObject:(GTLDashboardAPITrailPointsRequestParameter *)object {
++ (instancetype)queryForGetTrailSnappedPointsWithObject:(GTLDashboardAPITrailPointsRequestParameter *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;
@@ -114,15 +152,15 @@
   return query;
 }
 
-+ (id)queryForRegisterGtfsFullTaskWithPassword:(NSString *)password {
++ (instancetype)queryForRegisterGtfsFullTaskWithPassword:(NSString *)password {
   NSString *methodName = @"dashboardAPI.registerGtfsFullTask";
   GTLQueryDashboardAPI *query = [self queryWithMethodName:methodName];
   query.password = password;
   return query;
 }
 
-+ (id)queryForRegisterGtfsTaskWithPassword:(NSString *)password
-                                  trailIds:(NSString *)trailIds {
++ (instancetype)queryForRegisterGtfsTaskWithPassword:(NSString *)password
+                                            trailIds:(NSString *)trailIds {
   NSString *methodName = @"dashboardAPI.registerGtfsTask";
   GTLQueryDashboardAPI *query = [self queryWithMethodName:methodName];
   query.password = password;
@@ -130,7 +168,18 @@
   return query;
 }
 
-+ (id)queryForTrailsNearPointWithObject:(GTLDashboardAPIAreaWrapper *)object {
++ (instancetype)queryForRegisterQuestionnaireWithObject:(GTLDashboardAPIQuestionnaireWrapper *)object {
+  if (object == nil) {
+    GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
+    return nil;
+  }
+  NSString *methodName = @"dashboardAPI.registerQuestionnaire";
+  GTLQueryDashboardAPI *query = [self queryWithMethodName:methodName];
+  query.bodyObject = object;
+  return query;
+}
+
++ (instancetype)queryForTrailsNearPointWithObject:(GTLDashboardAPIAreaWrapper *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;

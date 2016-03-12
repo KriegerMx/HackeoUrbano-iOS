@@ -28,9 +28,9 @@
 @dynamic items;
 
 + (NSDictionary *)arrayPropertyToClassMap {
-  NSDictionary *map =
-    [NSDictionary dictionaryWithObject:[GTLDashboardAPITrailDetails class]
-                                forKey:@"items"];
+  NSDictionary *map = @{
+    @"items" : [GTLDashboardAPITrailDetails class]
+  };
   return map;
 }
 

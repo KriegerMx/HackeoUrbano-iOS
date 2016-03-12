@@ -23,27 +23,31 @@
 // Method compiled in debug builds just to check that all the needed support
 // classes are present at link time.
 + (NSArray *)checkClasses {
-  NSArray *classes = [NSArray arrayWithObjects:
-                      [GTLQueryDashboardAPI class],
-                      [GTLDashboardAPIAreaWrapper class],
-                      [GTLDashboardAPICursorParameter class],
-                      [GTLDashboardAPIDate class],
-                      [GTLDashboardAPIGPSLocation class],
-                      [GTLDashboardAPISearchByKeywordParameter class],
-                      [GTLDashboardAPITime class],
-                      [GTLDashboardAPITimeStamp class],
-                      [GTLDashboardAPITrailDetails class],
-                      [GTLDashboardAPITrailDetailsCollection class],
-                      [GTLDashboardAPITrailListResponse class],
-                      [GTLDashboardAPITrailPointsRequestParameter class],
-                      [GTLDashboardAPITrailPointsResult class],
-                      [GTLDashboardAPITrailPointWrapper class],
-                      nil];
+  NSArray *classes = @[
+    [GTLQueryDashboardAPI class],
+    [GTLDashboardAPIAreaWrapper class],
+    [GTLDashboardAPICursorParameter class],
+    [GTLDashboardAPIDate class],
+    [GTLDashboardAPIGPSLocation class],
+    [GTLDashboardAPIQuestionnaireWrapper class],
+    [GTLDashboardAPIRouteStatsParameter class],
+    [GTLDashboardAPIRouteStatsResponse class],
+    [GTLDashboardAPIRouteStatsWrapper class],
+    [GTLDashboardAPISearchByKeywordParameter class],
+    [GTLDashboardAPITime class],
+    [GTLDashboardAPITimeStamp class],
+    [GTLDashboardAPITrailDetails class],
+    [GTLDashboardAPITrailDetailsCollection class],
+    [GTLDashboardAPITrailListResponse class],
+    [GTLDashboardAPITrailPointsRequestParameter class],
+    [GTLDashboardAPITrailPointsResult class],
+    [GTLDashboardAPITrailPointWrapper class]
+  ];
   return classes;
 }
 #endif  // DEBUG
 
-- (id)init {
+- (instancetype)init {
   self = [super init];
   if (self) {
     // Version from discovery.
