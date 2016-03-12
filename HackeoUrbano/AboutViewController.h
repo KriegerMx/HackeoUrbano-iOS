@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SWFrontViewController.h"
+#import "HUColor.h"
 
 @interface AboutViewController : SWFrontViewController
 

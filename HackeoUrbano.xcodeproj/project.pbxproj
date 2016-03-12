@@ -55,6 +55,7 @@
 		A9E188A11C8B9D3A000D9668 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E1889F1C8B9D3A000D9668 /* Main.storyboard */; };
 		A9E188A31C8B9D3A000D9668 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E188A21C8B9D3A000D9668 /* Assets.xcassets */; };
 		A9E188A61C8B9D3A000D9668 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E188A41C8B9D3A000D9668 /* LaunchScreen.storyboard */; };
+		A9E8537B1C93E46100F1A095 /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853791C93E46100F1A095 /* HCSStarRatingView.m */; };
 		A9ED1A3C1C8BA971007636CA /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A261C8BA971007636CA /* MASCompositeConstraint.m */; };
 		A9ED1A3D1C8BA971007636CA /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A291C8BA971007636CA /* MASConstraint.m */; };
 		A9ED1A3E1C8BA971007636CA /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A2B1C8BA971007636CA /* MASConstraintMaker.m */; };
@@ -169,6 +170,8 @@
 		A9E188A21C8B9D3A000D9668 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9E188A51C8B9D3A000D9668 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A9E188A71C8B9D3A000D9668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9E853781C93E46100F1A095 /* HCSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
+		A9E853791C93E46100F1A095 /* HCSStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
 		A9ED1A251C8BA971007636CA /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		A9ED1A261C8BA971007636CA /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
 		A9ED1A271C8BA971007636CA /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -389,6 +392,7 @@
 		A9E188951C8B9D3A000D9668 /* HackeoUrbano */ = {
 			isa = PBXGroup;
 			children = (
+				A9E853771C93E46100F1A095 /* HCSStarRatingView */,
 				A9694D441C8CE62E00961FCD /* APIHack */,
 				A9694CCB1C8CE3D100961FCD /* Common */,
 				3791A2B11C8CC16700058C14 /* DLRadioButton */,
@@ -416,6 +420,15 @@
 				A9E188971C8B9D3A000D9668 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A9E853771C93E46100F1A095 /* HCSStarRatingView */ = {
+			isa = PBXGroup;
+			children = (
+				A9E853781C93E46100F1A095 /* HCSStarRatingView.h */,
+				A9E853791C93E46100F1A095 /* HCSStarRatingView.m */,
+			);
+			path = HCSStarRatingView;
 			sourceTree = "<group>";
 		};
 		A9ED1A241C8BA971007636CA /* Masonry */ = {
@@ -595,6 +608,7 @@
 				A9694D0D1C8CE3D200961FCD /* GTLFramework.m in Sources */,
 				A9694D0B1C8CE3D200961FCD /* GTLUploadParameters.m in Sources */,
 				A9694CFF1C8CE3D200961FCD /* GTMHTTPFetchHistory.m in Sources */,
+				A9E8537B1C93E46100F1A095 /* HCSStarRatingView.m in Sources */,
 				A9ED1A3F1C8BA971007636CA /* MASLayoutConstraint.m in Sources */,
 				A9694D031C8CE3D200961FCD /* GTLBatchQuery.m in Sources */,
 				A9694CFB1C8CE3D100961FCD /* GTMGatherInputStream.m in Sources */,

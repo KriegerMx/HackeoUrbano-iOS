@@ -22,6 +22,7 @@
     BOOL showTableView;
     
     NSMutableArray *trails;
+    CLLocation *previousCenterLocation;
     GTLDashboardAPITrailDetailsCollection *trailDetailsCollection;
     
     UIView *loaderView;
@@ -82,24 +83,25 @@
     [locationManager stopUpdatingLocation];
     locationManager = nil;
     CLLocation *userLocation = locations[0];
-    [self getTrailsForLocation:userLocation];
     [self adjustMapToLocation:userLocation];
+    [self getTrailsForLocation:userLocation];
+    previousCenterLocation = userLocation;
 }
 
 - (void)adjustMapToLocation:(CLLocation*)location {
     MKCoordinateSpan span;
-    span.latitudeDelta = delta*4;
-    span.longitudeDelta = delta*4;
+    span.latitudeDelta = delta;
+    span.longitudeDelta = delta;
     
     MKCoordinateRegion region;
     region.span = span;
     region.center = location.coordinate;
     
-    [map setRegion:region animated:YES];
+    [map setRegion:region animated:NO];
 }
 
 
-#pragma mark - table views
+#pragma mark - views
 - (void)addViews {
     [self addMap];
     [self addBottomView];
@@ -183,7 +185,7 @@
     }];
 }
 
-#pragma mark - tableView
+#pragma mark - table  view
 - (void)setTableView {
     trailsTableView = [UITableView new];
     trailsTableView.delegate = self;
@@ -200,7 +202,6 @@
     }];
 }
 
-#pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return trails.count;
 }
@@ -223,21 +224,37 @@
     [self.navigationController pushViewController:tvc animated:YES];
 }
 
-#pragma mark - table view
+#pragma mark - services
 - (void)getTrailsForLocation:(CLLocation*)location {
+    NSLog(@"getTrails");
+    
+    if (!loaderView) {
+        [self addLoader];
+    }
+    
     static GTLServiceDashboardAPI *service = nil;
     if (!service) {
         service = [GTLServiceDashboardAPI new];
         service.retryEnabled = YES;
     }
     
+    MKMapRect mRect = map.visibleMapRect;
+    MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMinY(mRect));
+    MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMaxY(mRect));
+    
+    CLLocationCoordinate2D eastCoordinate = MKCoordinateForMapPoint(eastMapPoint);
+    CLLocationCoordinate2D westCoordinate = MKCoordinateForMapPoint(westMapPoint);
+    
     GTLDashboardAPIGPSLocation *northEastCorner = [GTLDashboardAPIGPSLocation new];
-    northEastCorner.latitude = [NSNumber numberWithFloat:location.coordinate.latitude + delta/2];
-    northEastCorner.longitude = [NSNumber numberWithFloat:location.coordinate.longitude + delta/2];
+    northEastCorner.latitude = [NSNumber numberWithFloat:eastCoordinate.latitude];
+    northEastCorner.longitude = [NSNumber numberWithFloat:eastCoordinate.longitude];
+    
+    NSLog(@"%f, %f", eastCoordinate.latitude, eastCoordinate.longitude);
+    NSLog(@"%f, %f", westCoordinate.latitude, westCoordinate.longitude);
     
     GTLDashboardAPIGPSLocation *southWestCorner = [GTLDashboardAPIGPSLocation new];
-    southWestCorner.latitude = [NSNumber numberWithFloat:location.coordinate.latitude - delta/2];
-    southWestCorner.longitude = [NSNumber numberWithFloat:location.coordinate.longitude - delta/2];
+    southWestCorner.latitude = [NSNumber numberWithFloat:westCoordinate.latitude];
+    southWestCorner.longitude = [NSNumber numberWithFloat:westCoordinate.longitude];
     
     GTLDashboardAPIAreaWrapper *areaWrapper = [GTLDashboardAPIAreaWrapper new];
     areaWrapper.northEastCorner = northEastCorner;
@@ -247,10 +264,14 @@
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
+            [self removeLoader];
             NSLog(@"error: %@", error);
         } else {
             trailDetailsCollection = (GTLDashboardAPITrailDetailsCollection*)object;
-            NSLog(@"%lu", (unsigned long)trailDetailsCollection.items.count);
+            if (trailDetailsCollection.items.count == 0) {
+                [self removeLoader];
+                NSLog(@"0 recorridos");
+            }
             for (GTLDashboardAPITrailDetails *trailDetails in trailDetailsCollection.items) {
                 NSString *trailName = [NSString stringWithFormat:@"%@ - %@", trailDetails.originStationName, trailDetails.destinationStationName];
                 [trails addObject:trailName];
@@ -296,12 +317,22 @@
     }];
 }
 
+#pragma mark - map
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+    CLLocationCoordinate2D center = mapView.centerCoordinate;
+    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+    float distanceChange = [centerLocation distanceFromLocation:previousCenterLocation]/1000;
+    if (distanceChange > 2.5) {
+        previousCenterLocation = centerLocation;
+        [self clearMapAndTableView];
+        [self getTrailsForLocation:centerLocation];
+    }
+}
+
 -(MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay{
     float hue = arc4random()%360/360.0;
     float sat = arc4random()%100/100.0;
     float bri = arc4random()%100/100.0;
-    
-    NSLog(@"%f, %f, %f", hue, sat, bri);
     
     UIColor *lineColor = [HUColor colorWithHue:hue saturation:sat brightness:bri alpha:1.0];
     
@@ -309,6 +340,13 @@
     lineView.strokeColor = lineColor;
     lineView.lineWidth = 4;
     return lineView;
+}
+
+- (void)clearMapAndTableView {
+    trails = [NSMutableArray new];
+    [trailsTableView reloadData];
+    NSArray *overlays = [map overlays];
+    [map removeOverlays:overlays];
 }
 
 #pragma mark - loader

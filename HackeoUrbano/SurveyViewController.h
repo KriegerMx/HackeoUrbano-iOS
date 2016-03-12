@@ -10,6 +10,7 @@
 #import "DLRadioButton/DLRadioButton.h"
 #import "HUColor.h"
 #import "Masonry.h"
+#import "HCSStarRatingView.h"
 
 @interface SurveyViewController : UIViewController <UITextFieldDelegate>
 
