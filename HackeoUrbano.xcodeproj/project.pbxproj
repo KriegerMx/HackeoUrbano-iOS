@@ -62,6 +62,7 @@
 		A9E853BC1C94993400F1A095 /* GTLServiceDashboardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853A71C94993400F1A095 /* GTLServiceDashboardAPI.m */; };
 		A9E853C11C94A78200F1A095 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A9E853BE1C94A78100F1A095 /* ProgressHUD.bundle */; };
 		A9E853C21C94A78200F1A095 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853C01C94A78200F1A095 /* ProgressHUD.m */; };
+		A9E853C51C97399800F1A095 /* RankingTrailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E853C41C97399800F1A095 /* RankingTrailCell.m */; };
 		A9ED1A3C1C8BA971007636CA /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A261C8BA971007636CA /* MASCompositeConstraint.m */; };
 		A9ED1A3D1C8BA971007636CA /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A291C8BA971007636CA /* MASConstraint.m */; };
 		A9ED1A3E1C8BA971007636CA /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = A9ED1A2B1C8BA971007636CA /* MASConstraintMaker.m */; };
@@ -189,6 +190,8 @@
 		A9E853BE1C94A78100F1A095 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		A9E853BF1C94A78200F1A095 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		A9E853C01C94A78200F1A095 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		A9E853C31C97399700F1A095 /* RankingTrailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingTrailCell.h; sourceTree = "<group>"; };
+		A9E853C41C97399800F1A095 /* RankingTrailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingTrailCell.m; sourceTree = "<group>"; };
 		A9ED1A251C8BA971007636CA /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		A9ED1A261C8BA971007636CA /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
 		A9ED1A271C8BA971007636CA /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 			children = (
 				A9694C3C1C8CA55900961FCD /* RankingViewController.h */,
 				A9694C3D1C8CA55900961FCD /* RankingViewController.m */,
+				A9E853C31C97399700F1A095 /* RankingTrailCell.h */,
+				A9E853C41C97399800F1A095 /* RankingTrailCell.m */,
 			);
 			name = Ranking;
 			sourceTree = "<group>";
@@ -602,6 +607,7 @@
 				A9E853B31C94993400F1A095 /* GTLDashboardAPITime.m in Sources */,
 				A9E853B51C94993400F1A095 /* GTLDashboardAPITrailDetails.m in Sources */,
 				A9E853B11C94993400F1A095 /* GTLDashboardAPIRouteStatsWrapper.m in Sources */,
+				A9E853C51C97399800F1A095 /* RankingTrailCell.m in Sources */,
 				A9E853AE1C94993400F1A095 /* GTLDashboardAPIQuestionnaireWrapper.m in Sources */,
 				A9ED1A431C8BA971007636CA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				A9E1889B1C8B9D3A000D9668 /* AppDelegate.m in Sources */,

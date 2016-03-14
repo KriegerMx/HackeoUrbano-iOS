@@ -14,6 +14,7 @@
     UITableView *rankTableView;
     NSMutableArray *trails;
     NSMutableArray *trailIds;
+    NSMutableArray *ratings;
     
     NSString *cursor;
     BOOL hasNextPage;
@@ -28,6 +29,7 @@
     [self setTableView];
     trails = [NSMutableArray new];
     trailIds = [NSMutableArray new];
+    ratings = [NSMutableArray new];
     hasNextPage = YES;
 }
 
@@ -64,8 +66,10 @@
             for (GTLDashboardAPIRouteStatsWrapper *wrapper in response.items) {
                 NSString *trailName = [NSString stringWithFormat:@"%@ - %@", wrapper.originStation, wrapper.destinyStation];
                 NSString *trailId = [wrapper.JSON objectForKey:@"id"];
+                NSNumber *rating = wrapper.rating;
                 [trails addObject:trailName];
                 [trailIds addObject:trailId];
+                [ratings addObject:rating];
             }
             [rankTableView reloadData];
         }
@@ -97,13 +101,12 @@
 }
 
 - (UITableViewCell *)cellForIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [rankTableView dequeueReusableCellWithIdentifier:@"Cell"];
+    RankingTrailCell *cell = (RankingTrailCell*)[rankTableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell = [[RankingTrailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
-    cell.textLabel.text = trails[indexPath.row];
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [HUColor textColor];
+    cell.trailNameLabel.text = trails[indexPath.row];
+    cell.ratingView.value = [ratings[indexPath.row] floatValue];
     
     return cell;
 }

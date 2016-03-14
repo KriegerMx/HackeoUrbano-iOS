@@ -14,6 +14,7 @@
 #import "GTLDashboardAPIRouteStatsParameter.h"
 #import "GTLDashboardAPIRouteStatsResponse.h"
 #import "GTLDashboardAPIRouteStatsWrapper.h"
+#import "RankingTrailCell.h"
 
 @interface RankingViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate>
 
