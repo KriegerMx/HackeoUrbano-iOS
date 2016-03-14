@@ -19,11 +19,14 @@
 #import "GTLDashboardAPITrailPointsRequestParameter.h"
 #import "GTLDashboardAPITrailPointsResult.h"
 #import "GTLDashboardAPITrailPointWrapper.h"
+#import "GTLDashboardAPIRouteStatsWrapper.h"
 #import "HUColor.h"
+#import "HCSStarRatingView.h"
 
 @interface TrailViewController : UIViewController <MKMapViewDelegate>
 
 @property (copy) GTLDashboardAPITrailDetails *trailDetails;
 @property (copy) NSNumber *trailId;
+@property (copy) NSNumber *rating;
 
 @end

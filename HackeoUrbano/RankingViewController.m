@@ -151,6 +151,7 @@
     
     TrailViewController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"trailVC"];
     tvc.trailId = trailIds[indexPath.row];
+    tvc.rating = ratings[indexPath.row];
     [self.navigationController pushViewController:tvc animated:YES];
 }
 

@@ -19,14 +19,14 @@
     UILabel *maxTariffLabel;
     UIImageView *photoImageView;
     UIButton *surveyButton;
-    
+    HCSStarRatingView *ratingView;
     MKPolyline *polyline;
 }
 
 @end
 
 @implementation TrailViewController
-@synthesize trailDetails, trailId;
+@synthesize trailDetails, trailId, rating;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -86,6 +86,19 @@
     maxTariffLabel.numberOfLines = 0;
     [maxTariffView addSubview:maxTariffLabel];
     
+    ratingView = [HCSStarRatingView new];
+    ratingView.maximumValue = 5;
+    ratingView.minimumValue = 0;
+    ratingView.tintColor = [HUColor secondaryColor];
+    ratingView.userInteractionEnabled = NO;
+    [arrangedSubviews addObject:ratingView];
+    
+    if (rating) {
+        ratingView.value = [rating floatValue];
+    } else {
+        [self getRating];
+    }
+    
     [map mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@150);
     }];
@@ -122,6 +135,10 @@
         make.edges.equalTo(maxTariffView).insets(insets);
     }];
     
+    [ratingView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@30);
+    }];
+    
     UIScrollView *scrollView = [UIScrollView new];
     [self.view addSubview:scrollView];
     
@@ -156,7 +173,6 @@
         make.height.equalTo(@50);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
-    
 }
 
 - (float)estimateHeightForLabel:(UILabel *)label {
@@ -185,6 +201,25 @@
             trailDetails = (GTLDashboardAPITrailDetails*)object;
             [self addViews];
             [self getPoints];
+        }
+    }];
+}
+
+- (void)getRating {
+    static GTLServiceDashboardAPI *service = nil;
+    if (!service) {
+        service = [GTLServiceDashboardAPI new];
+        service.retryEnabled = YES;
+    }
+    
+    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetStatsWithTrailId:[trailId longLongValue]];
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@", error);
+        } else {
+            GTLDashboardAPIRouteStatsWrapper *wrapper = (GTLDashboardAPIRouteStatsWrapper*)object;
+            rating = wrapper.rating;
+            ratingView.value = [rating floatValue];
         }
     }];
 }
