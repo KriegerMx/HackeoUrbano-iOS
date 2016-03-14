@@ -24,5 +24,6 @@
 @interface TrailViewController : UIViewController <MKMapViewDelegate>
 
 @property (copy) GTLDashboardAPITrailDetails *trailDetails;
+@property (copy) NSNumber *trailId;
 
 @end

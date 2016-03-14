@@ -26,12 +26,16 @@
 @end
 
 @implementation TrailViewController
-@synthesize trailDetails;
+@synthesize trailDetails, trailId;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addViews];
-    [self getPoints];
+    if (trailDetails) {
+        [self addViews];
+        [self getPoints];
+    } else {
+        [self getTrailDetails];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,6 +168,25 @@
     SurveyViewController *svc = [SurveyViewController new];
     svc.trailId = trailDetails.trailId;
     [self.navigationController pushViewController:svc animated:YES];
+}
+
+- (void)getTrailDetails {
+    static GTLServiceDashboardAPI *service = nil;
+    if (!service) {
+        service = [GTLServiceDashboardAPI new];
+        service.retryEnabled = YES;
+    }
+    
+    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailDetailsWithTrailId:[trailId longLongValue]];
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@", error);
+        } else {
+            trailDetails = (GTLDashboardAPITrailDetails*)object;
+            [self addViews];
+            [self getPoints];
+        }
+    }];
 }
 
 - (void)getPoints {

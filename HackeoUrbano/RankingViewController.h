@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SWFrontViewController.h"
+#import "Masonry.h"
+#import "HUColor.h"
+#import "TrailViewController.h"
+#import "GTLDashboardAPIRouteStatsParameter.h"
+#import "GTLDashboardAPIRouteStatsResponse.h"
+#import "GTLDashboardAPIRouteStatsWrapper.h"
 
-@interface RankingViewController : SWFrontViewController
+@interface RankingViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

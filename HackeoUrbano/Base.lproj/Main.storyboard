@@ -40,7 +40,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qp8-03-l08" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1012" y="326"/>
+            <point key="canvasLocation" x="1012" y="322"/>
         </scene>
         <!--Clasificación-->
         <scene sceneID="KE6-Kb-hY5">
