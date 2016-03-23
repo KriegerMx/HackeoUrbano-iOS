@@ -226,8 +226,6 @@
 
 #pragma mark - services
 - (void)getTrailsForLocation:(CLLocation*)location {
-    NSLog(@"getTrails");
-    
     if (!loaderView) {
         [self addLoader];
     }
@@ -273,16 +271,29 @@
                 NSLog(@"0 recorridos");
             }
             for (GTLDashboardAPITrailDetails *trailDetails in trailDetailsCollection.items) {
+                Trail *trail = [Trail objectForPrimaryKey:@(trailDetails.trailId.longLongValue)];
                 NSString *trailName = [NSString stringWithFormat:@"%@ - %@", trailDetails.originStationName, trailDetails.destinationStationName];
                 [trails addObject:trailName];
-                [self getPointsForTrail:trailDetails.trailId];
+                if (trail) {
+                    NSArray *points = [NSKeyedUnarchiver unarchiveObjectWithData:trail.points];
+                    [self makePolylineWithPoints:points];
+                } else {
+                    RLMRealm *realm = [RLMRealm defaultRealm];
+                    trail = [Trail new];
+                    trail.identifier = trailDetails.trailId.longLongValue;
+                    trail.name = trailName;
+                    [realm beginWriteTransaction];
+                    [realm addOrUpdateObject:trail];
+                    [realm commitWriteTransaction];
+                    [self getPointsForTrail:trailDetails.trailId cursor:nil];
+                }
             }
             [trailsTableView reloadData];
         }
     }];
 }
 
-- (void)getPointsForTrail:(NSNumber*)trailId {
+- (void)getPointsForTrail:(NSNumber*)trailId cursor:(NSString*)cursor {
     static GTLServiceDashboardAPI *service = nil;
     if (!service) {
         service = [GTLServiceDashboardAPI new];
@@ -292,29 +303,52 @@
     GTLDashboardAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLDashboardAPITrailPointsRequestParameter new];
     trailPointsRequestParameter.trailId = trailId;
     trailPointsRequestParameter.numberOfElements = [NSNumber numberWithInt:100];
+    if (cursor) {
+        trailPointsRequestParameter.cursor = cursor;
+    }
     
     GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
-        [self removeLoader];
         if (error) {
             NSLog(@"error: %@", error);
         } else {
             GTLDashboardAPITrailPointsResult *result = (GTLDashboardAPITrailPointsResult*)object;
-            NSLog(@"finisshed");
-            
-            CLLocationCoordinate2D coordinates[[result.points count]];
-            
-            int i = 0;
-            for (GTLDashboardAPITrailPointWrapper *trailPointWrapper in result.points) {
-                GTLDashboardAPIGPSLocation *location = trailPointWrapper.location;
-                coordinates[i] = CLLocationCoordinate2DMake([location.latitude floatValue], [location.longitude floatValue]);
-                i++;
+            NSUInteger pointsCount = result.points.count;
+            Trail *trail = [Trail objectForPrimaryKey:@(trailId.longLongValue)];
+            NSMutableArray *points = [NSMutableArray new];
+            [points addObjectsFromArray:[NSKeyedUnarchiver unarchiveObjectWithData:trail.points]];
+            if (pointsCount > 0) {
+                for (GTLDashboardAPITrailPointWrapper *wrapper in result.points) {
+                    NSDictionary *dic = @{@"latitude":wrapper.location.latitude, @"longitude":wrapper.location.longitude};
+                    [points addObject:dic];
+                }
+                
+                RLMRealm *realm = [RLMRealm defaultRealm];
+                [realm beginWriteTransaction];
+                trail.points = [NSKeyedArchiver archivedDataWithRootObject:points];
+                [realm commitWriteTransaction];
+                if (pointsCount == 100) {
+                    [self getPointsForTrail:trailId cursor:result.cursor];
+                } else {
+                    [self makePolylineWithPoints:points];
+                }
+            } else {
+                [self makePolylineWithPoints:points];
             }
-            
-            MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coordinates count: [result.points count]];
-            [map addOverlay:polyline];
         }
     }];
+}
+
+- (void)makePolylineWithPoints:(NSArray*)points {
+    [self removeLoader];
+    CLLocationCoordinate2D coordinates[[points count]];
+    int i = 0;
+    for (NSDictionary *dic in points) {
+        coordinates[i] = CLLocationCoordinate2DMake([[dic objectForKey:@"latitude"] floatValue], [[dic objectForKey:@"longitude"] floatValue]);
+        i++;
+    }
+    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coordinates count:[points count]];
+    [map addOverlay:polyline];
 }
 
 #pragma mark - map

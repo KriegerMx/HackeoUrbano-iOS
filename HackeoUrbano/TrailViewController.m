@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (trailDetails) {
+        trailId = trailDetails.trailId;
         [self addViews];
         [self getPoints];
     } else {
@@ -182,8 +183,72 @@
 
 - (void)goToSurvey {
     SurveyViewController *svc = [SurveyViewController new];
-    svc.trailId = trailDetails.trailId;
+    svc.trailId = trailId;
     [self.navigationController pushViewController:svc animated:YES];
+}
+
+- (void)getPoints {
+    Trail *trail = [Trail objectForPrimaryKey:@(trailId.longLongValue)];
+    if (trail) {
+        NSArray *points = [NSKeyedUnarchiver unarchiveObjectWithData:trail.points];
+        [self makePolylineWithPoints:points];
+    } else {
+        NSString *trailName = [NSString stringWithFormat:@"%@ - %@", trailDetails.originStationName, trailDetails.destinationStationName];
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        trail = [Trail new];
+        trail.identifier = trailId.longLongValue;
+        trail.name = trailName;
+        [realm beginWriteTransaction];
+        [realm addOrUpdateObject:trail];
+        [realm commitWriteTransaction];
+        [self getPointsForCursor:nil];
+    }
+}
+
+- (void)getPointsForCursor:(NSString*)cursor {
+    static GTLServiceDashboardAPI *service = nil;
+    if (!service) {
+        service = [GTLServiceDashboardAPI new];
+        service.retryEnabled = YES;
+    }
+    
+    GTLDashboardAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLDashboardAPITrailPointsRequestParameter new];
+    trailPointsRequestParameter.trailId = trailId;
+    trailPointsRequestParameter.numberOfElements = [NSNumber numberWithInt:100];
+    if (cursor) {
+        trailPointsRequestParameter.cursor = cursor;
+    }
+    
+    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@", error);
+        } else {
+            GTLDashboardAPITrailPointsResult *result = (GTLDashboardAPITrailPointsResult*)object;
+            NSUInteger pointsCount = result.points.count;
+            Trail *trail = [Trail objectForPrimaryKey:@(trailId.longLongValue)];
+            NSMutableArray *points = [NSMutableArray new];
+            [points addObjectsFromArray:[NSKeyedUnarchiver unarchiveObjectWithData:trail.points]];
+            if (pointsCount > 0) {
+                for (GTLDashboardAPITrailPointWrapper *wrapper in result.points) {
+                    NSDictionary *dic = @{@"latitude":wrapper.location.latitude, @"longitude":wrapper.location.longitude};
+                    [points addObject:dic];
+                }
+                
+                RLMRealm *realm = [RLMRealm defaultRealm];
+                [realm beginWriteTransaction];
+                trail.points = [NSKeyedArchiver archivedDataWithRootObject:points];
+                [realm commitWriteTransaction];
+                if (pointsCount == 100) {
+                    [self getPointsForCursor:result.cursor];
+                } else {
+                    [self makePolylineWithPoints:points];
+                }
+            } else {
+                [self makePolylineWithPoints:points];
+            }
+        }
+    }];
 }
 
 - (void)getTrailDetails {
@@ -224,48 +289,25 @@
     }];
 }
 
-- (void)getPoints {
-    static GTLServiceDashboardAPI *service = nil;
-    if (!service) {
-        service = [GTLServiceDashboardAPI new];
-        service.retryEnabled = YES;
+- (void)makePolylineWithPoints:(NSArray*)points {
+    CLLocationCoordinate2D coordinates[[points count]];
+    int i = 0;
+    for (NSDictionary *dic in points) {
+        coordinates[i] = CLLocationCoordinate2DMake([[dic objectForKey:@"latitude"] floatValue], [[dic objectForKey:@"longitude"] floatValue]);
+        i++;
     }
+    polyline = [MKPolyline polylineWithCoordinates:coordinates count:[points count]];
+    [map addOverlay:polyline];
     
-    GTLDashboardAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLDashboardAPITrailPointsRequestParameter new];
-    trailPointsRequestParameter.trailId = trailDetails.trailId;
-    trailPointsRequestParameter.numberOfElements = [NSNumber numberWithInt:100];
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.05;
+    span.longitudeDelta = 0.05;
     
-    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
-    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
-        if (error) {
-            NSLog(@"error: %@", error);
-        } else {
-            GTLDashboardAPITrailPointsResult *result = (GTLDashboardAPITrailPointsResult*)object;
-            NSLog(@"finisshed");
-            
-            CLLocationCoordinate2D coordinates[[result.points count]];
-            
-            int i = 0;
-            for (GTLDashboardAPITrailPointWrapper *trailPointWrapper in result.points) {
-                GTLDashboardAPIGPSLocation *location = trailPointWrapper.location;
-                coordinates[i] = CLLocationCoordinate2DMake([location.latitude floatValue], [location.longitude floatValue]);
-                i++;
-            }
-            
-            polyline = [MKPolyline polylineWithCoordinates:coordinates count: [result.points count]];
-            [map addOverlay:polyline];
-            
-            MKCoordinateSpan span;
-            span.latitudeDelta = 0.05;
-            span.longitudeDelta = 0.05;
-            
-            MKCoordinateRegion region;
-            region.span = span;
-            region.center = polyline.coordinate;
-            
-            [map setRegion:region animated:YES];
-        }
-    }];
+    MKCoordinateRegion region;
+    region.span = span;
+    region.center = polyline.coordinate;
+    
+    [map setRegion:region animated:YES];
 }
 
 -(MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay{

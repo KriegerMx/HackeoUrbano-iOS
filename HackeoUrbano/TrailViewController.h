@@ -22,6 +22,7 @@
 #import "GTLDashboardAPIRouteStatsWrapper.h"
 #import "HUColor.h"
 #import "HCSStarRatingView.h"
+#import "Trail.h"
 
 @interface TrailViewController : UIViewController <MKMapViewDelegate>
 

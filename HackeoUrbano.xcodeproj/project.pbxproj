@@ -34,6 +34,9 @@
 		A9694D0D1C8CE3D200961FCD /* GTLFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694CF51C8CE3D100961FCD /* GTLFramework.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A9694D0E1C8CE3D200961FCD /* GTLJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694CF71C8CE3D100961FCD /* GTLJSONParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A9694D0F1C8CE3D200961FCD /* GTLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A9694CFA1C8CE3D100961FCD /* GTLUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A99C6D101C9CCFDD002A555F /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A99C6D0F1C9CCFDD002A555F /* Realm.framework */; };
+		A99C6D121C9CD011002A555F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A99C6D111C9CD011002A555F /* libc++.tbd */; };
+		A99C6D151C9CD06A002A555F /* Trail.m in Sources */ = {isa = PBXBuildFile; fileRef = A99C6D141C9CD06A002A555F /* Trail.m */; };
 		A9E188981C8B9D3A000D9668 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E188971C8B9D3A000D9668 /* main.m */; };
 		A9E1889B1C8B9D3A000D9668 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E1889A1C8B9D3A000D9668 /* AppDelegate.m */; };
 		A9E188A11C8B9D3A000D9668 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E1889F1C8B9D3A000D9668 /* Main.storyboard */; };
@@ -136,6 +139,10 @@
 		A9694CF81C8CE3D100961FCD /* GTLTargetNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTargetNamespace.h; sourceTree = "<group>"; };
 		A9694CF91C8CE3D100961FCD /* GTLUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLUtilities.h; sourceTree = "<group>"; };
 		A9694CFA1C8CE3D100961FCD /* GTLUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLUtilities.m; sourceTree = "<group>"; };
+		A99C6D0F1C9CCFDD002A555F /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		A99C6D111C9CD011002A555F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		A99C6D131C9CD06A002A555F /* Trail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trail.h; sourceTree = "<group>"; };
+		A99C6D141C9CD06A002A555F /* Trail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trail.m; sourceTree = "<group>"; };
 		A9E188931C8B9D3A000D9668 /* HackeoUrbano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackeoUrbano.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E188971C8B9D3A000D9668 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9E188991C8B9D3A000D9668 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -232,6 +239,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A99C6D121C9CD011002A555F /* libc++.tbd in Frameworks */,
+				A99C6D101C9CCFDD002A555F /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +364,24 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		A99C6D0A1C99C74A002A555F /* Trail */ = {
+			isa = PBXGroup;
+			children = (
+				A99C6D131C9CD06A002A555F /* Trail.h */,
+				A99C6D141C9CD06A002A555F /* Trail.m */,
+			);
+			name = Trail;
+			sourceTree = "<group>";
+		};
+		A99C6D0E1C9CCFAD002A555F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A99C6D111C9CD011002A555F /* libc++.tbd */,
+				A99C6D0F1C9CCFDD002A555F /* Realm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A9E1888A1C8B9D39000D9668 = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +401,7 @@
 		A9E188951C8B9D3A000D9668 /* HackeoUrbano */ = {
 			isa = PBXGroup;
 			children = (
+				A99C6D0E1C9CCFAD002A555F /* Frameworks */,
 				A9E853BD1C94A78100F1A095 /* ProgressHUD */,
 				A9E853771C93E46100F1A095 /* HCSStarRatingView */,
 				A9E8537D1C94993400F1A095 /* APIHack */,
@@ -383,6 +411,7 @@
 				A9ED1A241C8BA971007636CA /* Masonry */,
 				A9ED1A561C8BBEE7007636CA /* Menu */,
 				377168261C8BA3C0004B4843 /* Main */,
+				A99C6D0A1C99C74A002A555F /* Trail */,
 				377168271C8BA3D2004B4843 /* Ranking */,
 				377168281C8BA3DA004B4843 /* About */,
 				A9ED1A451C8BABBC007636CA /* Utils */,
@@ -634,6 +663,7 @@
 				A9694CFC1C8CE3D200961FCD /* GTMHTTPFetcher.m in Sources */,
 				A9E853C21C94A78200F1A095 /* ProgressHUD.m in Sources */,
 				A9694CFE1C8CE3D200961FCD /* GTMHTTPFetcherService.m in Sources */,
+				A99C6D151C9CD06A002A555F /* Trail.m in Sources */,
 				A9694D001C8CE3D200961FCD /* GTMHTTPUploadFetcher.m in Sources */,
 				A9694D071C8CE3D200961FCD /* GTLObject.m in Sources */,
 				A9E853AC1C94993400F1A095 /* GTLDashboardAPIDate.m in Sources */,
@@ -779,6 +809,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HackeoUrbano",
+				);
 				INFOPLIST_FILE = HackeoUrbano/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.krieger.HackeoUrbano;
@@ -790,6 +824,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HackeoUrbano",
+				);
 				INFOPLIST_FILE = HackeoUrbano/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.krieger.HackeoUrbano;
