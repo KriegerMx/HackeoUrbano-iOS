@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SWFrontViewController.h"
 #import "HUColor.h"
+#import "Masonry.h"
 
 @interface AboutViewController : SWFrontViewController
 

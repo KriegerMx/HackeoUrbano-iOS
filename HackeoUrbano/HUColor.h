@@ -16,6 +16,7 @@
 + (UIColor *)accentColor;
 + (UIColor *)backgroundColor;
 + (UIColor *)textColor;
++ (UIColor *)titleColor;
 
 //menu
 + (UIColor *)menuColor;

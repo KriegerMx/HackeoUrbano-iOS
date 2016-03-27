@@ -39,6 +39,10 @@
     return [self UIColorFromRGB:0x8E8E8E];
 }
 
++ (UIColor *)titleColor {
+    return [self UIColorFromRGB:0x4A4A4A];
+}
+
 #pragma mark - menu
 + (UIColor *)menuColor {
     return [self whiteColor];
