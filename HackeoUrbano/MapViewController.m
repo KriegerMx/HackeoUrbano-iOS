@@ -20,6 +20,7 @@
     UIView *bottomView;
     UIImageView *accessoryImageView;
     BOOL showTableView;
+    BOOL askedForLocation;
     
     NSMutableArray *trails;
     CLLocation *previousCenterLocation;
@@ -49,6 +50,7 @@
 
 #pragma mark - location
 - (void)askForLocationPermission {
+    askedForLocation = YES;
     locationManager = [CLLocationManager new];
     locationManager.delegate = self;
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
@@ -76,6 +78,14 @@
         }
     } else {
         return NO;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse && askedForLocation) {
+        askedForLocation = NO;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [locationManager startUpdatingLocation];
     }
 }
 
