@@ -14,6 +14,8 @@
     UIButton *acceptButton;
     HCSStarRatingView *starRatingView;
     NSDate *selectedDate;
+    UIScrollView *scrollView;
+    UITextView *textView;
 }
 
 @end
@@ -26,6 +28,12 @@
     self.view.backgroundColor = [HUColor backgroundColor];
     [self addNavigationItems];
     [self addViews];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tapRecognizer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +52,7 @@
     
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 20, 0, 20);
     
-    UIScrollView *scrollView = [UIScrollView new];
+    scrollView = [UIScrollView new];
     [self.view addSubview:scrollView];
     
     UIStackView *stackView = [[UIStackView alloc]initWithArrangedSubviews:arrangedSubviews];
@@ -66,6 +74,13 @@
 }
 
 - (void)addQuestions {
+    UIView *view = [UIView new];
+    [arrangedSubviews addObject:view];
+    
+    [view mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@10);
+    }];
+    
     [self questionWithTitle:@"Tipo de transporte" options:@[@"Microbús",@"Vagoneta", @"Autobús"] multipleChoice:NO tag:10];
     [self addScheduleQuestion];
     [self questionWithTitle:@"Aglomeración" options:@[@"Había espacio para sentarse", @"Habia espacio de pie", @"Estaba lleno", @"Estaba saturado"] multipleChoice:NO tag:20];
@@ -193,7 +208,7 @@
 - (void)addRatingQuestion {
     UILabel *questionLabel = [UILabel new];
     questionLabel.textColor = [HUColor textColor];
-    questionLabel.text = @"Comentarios sobre el recorrido";
+    questionLabel.text = @"Calificación del recorrido";
     questionLabel.numberOfLines = 0;
     [arrangedSubviews addObject:questionLabel];
     
@@ -213,12 +228,21 @@
     questionLabel.numberOfLines = 0;
     [arrangedSubviews addObject:questionLabel];
     
-    UITextView *textView = [UITextView new];
-    [textView setBackgroundColor:[HUColor primaryColor]];
+    textView = [UITextView new];
+    textView.layer.borderWidth = 0.5;
+    textView.layer.cornerRadius = 5.0;
+    textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [arrangedSubviews addObject:textView];
+    
+    UIView *view = [UIView new];
+    [arrangedSubviews addObject:view];
     
     [textView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@150);
+    }];
+    
+    [view mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@10);
     }];
 }
 
@@ -329,8 +353,32 @@
     }];
 }
 
-#pragma mark - alerts
+#pragma mark - keyboard
+- (void)dismissKeyboard {
+    if ([textView isFirstResponder]) {
+        [textView resignFirstResponder];
+    }
+}
 
+-(void)keyboardWillShow:(NSNotification*)notification{
+    CGFloat height = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    [scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom).offset(-height);
+    }];
+    [self performSelector:@selector(scroll) withObject:nil afterDelay:0.01];
+}
+
+- (void)keyboardWillHide: (NSNotification *) notification{
+    [scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
+}
+
+- (void)scroll {
+    [scrollView scrollRectToVisible:textView.frame animated:YES];
+}
+
+#pragma mark - alerts
 - (void)showAlertWithTitle:(NSString*)title message:(NSString*)message {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
