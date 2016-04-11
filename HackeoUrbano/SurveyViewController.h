@@ -11,11 +11,8 @@
 #import "HUColor.h"
 #import "Masonry.h"
 #import "HCSStarRatingView.h"
-#import "GTLDashboardAPIQuestionnaireWrapper.h"
-#import "GTLDateTime.h"
-#import "GTLQueryDashboardAPI.h"
-#import "GTLServiceDashboardAPI.h"
 #import "ProgressHUD.h"
+#import "GTLHackeoUrbanoAPI.h"
 
 @interface SurveyViewController : UIViewController <UITextFieldDelegate>
 

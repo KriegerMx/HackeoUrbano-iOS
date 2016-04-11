@@ -206,31 +206,31 @@
 }
 
 - (void)getPointsForCursor:(NSString*)cursor {
-    static GTLServiceDashboardAPI *service = nil;
+    static GTLServiceMapatonPublicAPI *service = nil;
     if (!service) {
-        service = [GTLServiceDashboardAPI new];
+        service = [GTLServiceMapatonPublicAPI new];
         service.retryEnabled = YES;
     }
     
-    GTLDashboardAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLDashboardAPITrailPointsRequestParameter new];
+    GTLMapatonPublicAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLMapatonPublicAPITrailPointsRequestParameter new];
     trailPointsRequestParameter.trailId = trailId;
     trailPointsRequestParameter.numberOfElements = [NSNumber numberWithInt:100];
     if (cursor) {
         trailPointsRequestParameter.cursor = cursor;
     }
     
-    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
+    GTLQueryMapatonPublicAPI *query = [GTLQueryMapatonPublicAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             NSLog(@"error: %@", error);
         } else {
-            GTLDashboardAPITrailPointsResult *result = (GTLDashboardAPITrailPointsResult*)object;
+            GTLMapatonPublicAPITrailPointsResult *result = (GTLMapatonPublicAPITrailPointsResult*)object;
             NSUInteger pointsCount = result.points.count;
             Trail *trail = [Trail objectForPrimaryKey:@(trailId.longLongValue)];
             NSMutableArray *points = [NSMutableArray new];
             [points addObjectsFromArray:[NSKeyedUnarchiver unarchiveObjectWithData:trail.points]];
             if (pointsCount > 0) {
-                for (GTLDashboardAPITrailPointWrapper *wrapper in result.points) {
+                for (GTLMapatonPublicAPITrailPointWrapper *wrapper in result.points) {
                     NSDictionary *dic = @{@"latitude":wrapper.location.latitude, @"longitude":wrapper.location.longitude};
                     [points addObject:dic];
                 }
@@ -252,18 +252,18 @@
 }
 
 - (void)getTrailDetails {
-    static GTLServiceDashboardAPI *service = nil;
+    static GTLServiceMapatonPublicAPI *service = nil;
     if (!service) {
-        service = [GTLServiceDashboardAPI new];
+        service = [GTLServiceMapatonPublicAPI new];
         service.retryEnabled = YES;
     }
     
-    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailDetailsWithTrailId:[trailId longLongValue]];
+    GTLQueryMapatonPublicAPI *query = [GTLQueryMapatonPublicAPI queryForGetTrailDetailsWithTrailId:[trailId longLongValue]];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             NSLog(@"error: %@", error);
         } else {
-            trailDetails = (GTLDashboardAPITrailDetails*)object;
+            trailDetails = (GTLMapatonPublicAPITrailDetails*)object;
             [self addViews];
             [self getPoints];
         }
@@ -271,18 +271,18 @@
 }
 
 - (void)getRating {
-    static GTLServiceDashboardAPI *service = nil;
+    static GTLServiceHackeoUrbanoAPI *service = nil;
     if (!service) {
-        service = [GTLServiceDashboardAPI new];
+        service = [GTLServiceHackeoUrbanoAPI new];
         service.retryEnabled = YES;
     }
     
-    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetStatsWithTrailId:[trailId longLongValue]];
+    GTLQueryHackeoUrbanoAPI *query = [GTLQueryHackeoUrbanoAPI queryForGetStatsWithTrailId:[trailId longLongValue]];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             NSLog(@"error: %@", error);
         } else {
-            GTLDashboardAPIRouteStatsWrapper *wrapper = (GTLDashboardAPIRouteStatsWrapper*)object;
+            GTLHackeoUrbanoAPIRouteStatsWrapper *wrapper = (GTLHackeoUrbanoAPIRouteStatsWrapper*)object;
             rating = wrapper.rating;
             ratingView.value = [rating floatValue];
         }

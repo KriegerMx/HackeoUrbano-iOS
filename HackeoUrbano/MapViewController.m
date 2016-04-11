@@ -24,7 +24,7 @@
     
     NSMutableArray *trails;
     CLLocation *previousCenterLocation;
-    GTLDashboardAPITrailDetailsCollection *trailDetailsCollection;
+    GTLMapatonPublicAPITrailDetailsCollection *trailDetailsCollection;
     
     UIView *loaderView;
 }
@@ -240,9 +240,9 @@
         [self addLoader];
     }
     
-    static GTLServiceDashboardAPI *service = nil;
+    static GTLServiceMapatonPublicAPI *service = nil;
     if (!service) {
-        service = [GTLServiceDashboardAPI new];
+        service = [GTLServiceMapatonPublicAPI new];
         service.retryEnabled = YES;
     }
     
@@ -253,36 +253,36 @@
     CLLocationCoordinate2D eastCoordinate = MKCoordinateForMapPoint(eastMapPoint);
     CLLocationCoordinate2D westCoordinate = MKCoordinateForMapPoint(westMapPoint);
     
-    GTLDashboardAPIGPSLocation *northEastCorner = [GTLDashboardAPIGPSLocation new];
+    GTLMapatonPublicAPIGPSLocation *northEastCorner = [GTLMapatonPublicAPIGPSLocation new];
     northEastCorner.latitude = [NSNumber numberWithFloat:eastCoordinate.latitude];
     northEastCorner.longitude = [NSNumber numberWithFloat:eastCoordinate.longitude];
     
     NSLog(@"%f, %f", eastCoordinate.latitude, eastCoordinate.longitude);
     NSLog(@"%f, %f", westCoordinate.latitude, westCoordinate.longitude);
     
-    GTLDashboardAPIGPSLocation *southWestCorner = [GTLDashboardAPIGPSLocation new];
+    GTLMapatonPublicAPIGPSLocation *southWestCorner = [GTLMapatonPublicAPIGPSLocation new];
     southWestCorner.latitude = [NSNumber numberWithFloat:westCoordinate.latitude];
     southWestCorner.longitude = [NSNumber numberWithFloat:westCoordinate.longitude];
     
-    GTLDashboardAPIAreaWrapper *areaWrapper = [GTLDashboardAPIAreaWrapper new];
+    GTLMapatonPublicAPIAreaWrapper *areaWrapper = [GTLMapatonPublicAPIAreaWrapper new];
     areaWrapper.northEastCorner = northEastCorner;
     areaWrapper.southWestCorner = southWestCorner;
     
-    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForTrailsNearPointWithObject:areaWrapper];
+    GTLQueryMapatonPublicAPI *query = [GTLQueryMapatonPublicAPI queryForTrailsNearPointWithObject:areaWrapper];
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             [self removeLoader];
             NSLog(@"error: %@", error);
         } else {
-            trailDetailsCollection = (GTLDashboardAPITrailDetailsCollection*)object;
+            trailDetailsCollection = (GTLMapatonPublicAPITrailDetailsCollection*)object;
             if (trailDetailsCollection.items.count == 0) {
                 [self removeLoader];
                 NSLog(@"0 recorridos");
             }
-            for (GTLDashboardAPITrailDetails *trailDetails in trailDetailsCollection.items) {
-                Trail *trail = [Trail objectForPrimaryKey:@(trailDetails.trailId.longLongValue)];
-                NSString *trailName = [NSString stringWithFormat:@"%@ - %@", trailDetails.originStationName, trailDetails.destinationStationName];
+            for (GTLMapatonPublicAPINearTrails *nearTrails in trailDetailsCollection.items) {
+                Trail *trail = [Trail objectForPrimaryKey:@(nearTrails.trailId.longLongValue)];
+                NSString *trailName = [NSString stringWithFormat:@"%@ - %@", nearTrails.originName, nearTrails.destinationName];
                 [trails addObject:trailName];
                 if (trail) {
                     NSArray *points = [NSKeyedUnarchiver unarchiveObjectWithData:trail.points];
@@ -290,12 +290,12 @@
                 } else {
                     RLMRealm *realm = [RLMRealm defaultRealm];
                     trail = [Trail new];
-                    trail.identifier = trailDetails.trailId.longLongValue;
+                    trail.identifier = nearTrails.trailId.longLongValue;
                     trail.name = trailName;
                     [realm beginWriteTransaction];
                     [realm addOrUpdateObject:trail];
                     [realm commitWriteTransaction];
-                    [self getPointsForTrail:trailDetails.trailId cursor:nil];
+                    [self getPointsForTrail:nearTrails.trailId cursor:nil];
                 }
             }
             [trailsTableView reloadData];
@@ -304,31 +304,31 @@
 }
 
 - (void)getPointsForTrail:(NSNumber*)trailId cursor:(NSString*)cursor {
-    static GTLServiceDashboardAPI *service = nil;
+    static GTLServiceMapatonPublicAPI *service = nil;
     if (!service) {
-        service = [GTLServiceDashboardAPI new];
+        service = [GTLServiceMapatonPublicAPI new];
         service.retryEnabled = YES;
     }
     
-    GTLDashboardAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLDashboardAPITrailPointsRequestParameter new];
+    GTLMapatonPublicAPITrailPointsRequestParameter *trailPointsRequestParameter = [GTLMapatonPublicAPITrailPointsRequestParameter new];
     trailPointsRequestParameter.trailId = trailId;
     trailPointsRequestParameter.numberOfElements = [NSNumber numberWithInt:100];
     if (cursor) {
         trailPointsRequestParameter.cursor = cursor;
     }
     
-    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
+    GTLQueryMapatonPublicAPI *query = [GTLQueryMapatonPublicAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             NSLog(@"error: %@", error);
         } else {
-            GTLDashboardAPITrailPointsResult *result = (GTLDashboardAPITrailPointsResult*)object;
+            GTLMapatonPublicAPITrailPointsResult *result = (GTLMapatonPublicAPITrailPointsResult*)object;
             NSUInteger pointsCount = result.points.count;
             Trail *trail = [Trail objectForPrimaryKey:@(trailId.longLongValue)];
             NSMutableArray *points = [NSMutableArray new];
             [points addObjectsFromArray:[NSKeyedUnarchiver unarchiveObjectWithData:trail.points]];
             if (pointsCount > 0) {
-                for (GTLDashboardAPITrailPointWrapper *wrapper in result.points) {
+                for (GTLMapatonPublicAPITrailPointWrapper *wrapper in result.points) {
                     NSDictionary *dic = @{@"latitude":wrapper.location.latitude, @"longitude":wrapper.location.longitude};
                     [points addObject:dic];
                 }

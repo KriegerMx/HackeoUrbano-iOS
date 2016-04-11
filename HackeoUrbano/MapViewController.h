@@ -12,12 +12,7 @@
 #import "HUColor.h"
 #import "SWFrontViewController.h"
 #import "TrailViewController.h"
-#import "GTLServiceDashboardAPI.h"
-#import "GTLDashboardAPIAreaWrapper.h"
-#import "GTLDashboardAPIGPSLocation.h"
-#import "GTLQueryDashboardAPI.h"
-#import "GTLDashboardAPITrailDetailsCollection.h"
-#import "GTLDashboardAPITrailDetails.h"
+#import "GTLMapatonPublicAPI.h"
 #import "Trail.h"
 
 @interface MapViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>

@@ -321,15 +321,14 @@
         [transitArray addObject:transit];
     }
     
-    static GTLServiceDashboardAPI *service = nil;
+    static GTLServiceHackeoUrbanoAPI *service = nil;
     if (!service) {
-        service = [GTLServiceDashboardAPI new];
+        service = [GTLServiceHackeoUrbanoAPI new];
         service.retryEnabled = YES;
     }
     
-    
     GTLDateTime *dateTime = [GTLDateTime dateTimeWithDate:selectedDate timeZone:[NSTimeZone timeZoneWithName:@"America/Mexico_City"]];
-    GTLDashboardAPIQuestionnaireWrapper *wrapper = [GTLDashboardAPIQuestionnaireWrapper new];
+    GTLHackeoUrbanoAPIQuestionnaireWrapper *wrapper = [GTLHackeoUrbanoAPIQuestionnaireWrapper new];
     wrapper.timeTaken = dateTime;
     wrapper.rating = [NSNumber numberWithFloat:starRatingView.value];
     wrapper.transportType = transportType;
@@ -341,7 +340,7 @@
     wrapper.notes = @"";
     
     [ProgressHUD show:@"Enviando encuesta"];
-    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForRegisterQuestionnaireWithObject:wrapper];
+    GTLQueryHackeoUrbanoAPI *query = [GTLQueryHackeoUrbanoAPI queryForRegisterQuestionnaireWithObject:wrapper];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             [ProgressHUD showError:@"No se pudo enviar"];

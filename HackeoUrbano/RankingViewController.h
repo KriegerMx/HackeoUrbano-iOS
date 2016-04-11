@@ -11,9 +11,7 @@
 #import "Masonry.h"
 #import "HUColor.h"
 #import "TrailViewController.h"
-#import "GTLDashboardAPIRouteStatsParameter.h"
-#import "GTLDashboardAPIRouteStatsResponse.h"
-#import "GTLDashboardAPIRouteStatsWrapper.h"
+#import "GTLHackeoUrbanoAPI.h"
 #import "RankingTrailCell.h"
 
 @interface RankingViewController : SWFrontViewController <UITableViewDataSource, UITableViewDelegate>

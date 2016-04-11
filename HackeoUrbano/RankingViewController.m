@@ -39,31 +39,31 @@
 
 #pragma mark - get trails by ranking
 - (void)getStats {
-    static GTLServiceDashboardAPI *service = nil;
+    static GTLServiceHackeoUrbanoAPI *service = nil;
     if (!service) {
-        service = [GTLServiceDashboardAPI new];
+        service = [GTLServiceHackeoUrbanoAPI new];
         service.retryEnabled = YES;
     }
     
-    GTLDashboardAPIRouteStatsParameter *statsParameter = [GTLDashboardAPIRouteStatsParameter new];
+    GTLHackeoUrbanoAPIRouteStatsParameter *statsParameter = [GTLHackeoUrbanoAPIRouteStatsParameter new];
     statsParameter.descending = [NSNumber numberWithBool:YES];
     statsParameter.numberOfElements = [NSNumber numberWithInt:elements];
     if (cursor) {
         statsParameter.cursor = cursor;
     }
     
-    GTLQueryDashboardAPI *query = [GTLQueryDashboardAPI queryForGetAllStatsWithObject:statsParameter];
+    GTLQueryHackeoUrbanoAPI *query = [GTLQueryHackeoUrbanoAPI queryForGetAllStatsWithObject:statsParameter];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             NSLog(@"error: %@", error);
         } else {
-            GTLDashboardAPIRouteStatsResponse *response = (GTLDashboardAPIRouteStatsResponse*)object;
+            GTLHackeoUrbanoAPIRouteStatsResponse *response = (GTLHackeoUrbanoAPIRouteStatsResponse*)object;
             cursor = response.cursor;
             if (response.items.count == 0) {
                 NSLog(@"0 recorridos");
                 hasNextPage = NO;
             }
-            for (GTLDashboardAPIRouteStatsWrapper *wrapper in response.items) {
+            for (GTLHackeoUrbanoAPIRouteStatsWrapper *wrapper in response.items) {
                 NSString *trailName = [NSString stringWithFormat:@"%@ - %@", wrapper.originStation, wrapper.destinyStation];
                 NSString *trailId = [wrapper.JSON objectForKey:@"id"];
                 NSNumber *rating = wrapper.rating;

@@ -10,23 +10,15 @@
 #import <MapKit/MapKit.h>
 #import "Masonry.h"
 #import "SurveyViewController.h"
-#import "GTLServiceDashboardAPI.h"
-#import "GTLDashboardAPIAreaWrapper.h"
-#import "GTLDashboardAPIGPSLocation.h"
-#import "GTLQueryDashboardAPI.h"
-#import "GTLDashboardAPITrailDetailsCollection.h"
-#import "GTLDashboardAPITrailDetails.h"
-#import "GTLDashboardAPITrailPointsRequestParameter.h"
-#import "GTLDashboardAPITrailPointsResult.h"
-#import "GTLDashboardAPITrailPointWrapper.h"
-#import "GTLDashboardAPIRouteStatsWrapper.h"
+#import "GTLMapatonPublicAPI.h"
+#import "GTLHackeoUrbanoAPI.h"
 #import "HUColor.h"
 #import "HCSStarRatingView.h"
 #import "Trail.h"
 
 @interface TrailViewController : UIViewController <MKMapViewDelegate>
 
-@property (copy) GTLDashboardAPITrailDetails *trailDetails;
+@property (copy) GTLMapatonPublicAPITrailDetails *trailDetails;
 @property (copy) NSNumber *trailId;
 @property (copy) NSNumber *rating;
 
