@@ -87,12 +87,20 @@
     maxTariffLabel.numberOfLines = 0;
     [maxTariffView addSubview:maxTariffLabel];
     
+    UIView *ratingBackground = [UIView new];
+    [arrangedSubviews addObject:ratingBackground];
+    
+    UILabel *ratingLabel = [UILabel new];
+    ratingLabel.text = @"Calificación:";
+    ratingLabel.textColor = [HUColor textColor];
+    [ratingBackground addSubview:ratingLabel];
+    
     ratingView = [HCSStarRatingView new];
     ratingView.maximumValue = 5;
     ratingView.minimumValue = 0;
     ratingView.tintColor = [HUColor secondaryColor];
     ratingView.userInteractionEnabled = NO;
-    [arrangedSubviews addObject:ratingView];
+    [ratingBackground addSubview:ratingView];
     
     if (rating) {
         ratingView.value = [rating floatValue];
@@ -136,7 +144,22 @@
         make.edges.equalTo(maxTariffView).insets(insets);
     }];
     
+    [ratingBackground mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@80);
+    }];
+    
+    [ratingLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(ratingBackground.mas_top);
+        make.left.equalTo(ratingBackground.mas_left).offset(20);
+        make.right.equalTo(ratingBackground.mas_right).offset(-20);
+        make.bottom.equalTo(ratingView.mas_top).offset(-10);
+    }];
+    
     [ratingView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(ratingLabel.mas_bottom).offset(10);
+        make.left.equalTo(ratingBackground.mas_left).offset(20);
+        make.right.equalTo(ratingBackground.mas_right).offset(-20);
+        make.bottom.equalTo(ratingBackground.mas_bottom);
         make.height.equalTo(@30);
     }];
     

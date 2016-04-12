@@ -24,7 +24,7 @@
     
     NSMutableArray *trails;
     CLLocation *previousCenterLocation;
-    GTLMapatonPublicAPITrailDetailsCollection *trailDetailsCollection;
+    GTLMapatonPublicAPINearTrailsCollection *nearTrailsCollection;
     
     UIView *loaderView;
     UIView *placeholderView;
@@ -232,7 +232,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TrailViewController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"trailVC"];
-    tvc.trailDetails = trailDetailsCollection[indexPath.row];
+    GTLMapatonPublicAPINearTrails *nearTrails = nearTrailsCollection[indexPath.row];
+    tvc.trailId = nearTrails.trailId;
     [self.navigationController pushViewController:tvc animated:YES];
 }
 
@@ -277,12 +278,12 @@
             [self removeLoader];
             NSLog(@"error: %@", error);
         } else {
-            trailDetailsCollection = (GTLMapatonPublicAPITrailDetailsCollection*)object;
-            if (trailDetailsCollection.items.count == 0) {
+            nearTrailsCollection = (GTLMapatonPublicAPINearTrailsCollection*)object;
+            if (nearTrailsCollection.items.count == 0) {
                 [self removeLoader];
                 NSLog(@"0 recorridos");
             }
-            for (GTLMapatonPublicAPINearTrails *nearTrails in trailDetailsCollection.items) {
+            for (GTLMapatonPublicAPINearTrails *nearTrails in nearTrailsCollection.items) {
                 Trail *trail = [Trail objectForPrimaryKey:@(nearTrails.trailId.longLongValue)];
                 NSString *trailName = [NSString stringWithFormat:@"%@ - %@", nearTrails.originName, nearTrails.destinationName];
                 [trails addObject:trailName];
