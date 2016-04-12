@@ -27,6 +27,7 @@
     GTLMapatonPublicAPITrailDetailsCollection *trailDetailsCollection;
     
     UIView *loaderView;
+    UIView *placeholderView;
 }
 
 @end
@@ -35,10 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setLocationManager];
-    [self addViews];
-    [self setTableView];
-    [self addLoader];
+    [self checkLocation];
 
     trails = [NSMutableArray new];
     [self.navigationController.navigationBar setTintColor:[HUColor navBarTintColor]];
@@ -49,6 +47,20 @@
 }
 
 #pragma mark - location
+- (void)checkLocation {
+    if ([CLLocationManager locationServicesEnabled]){
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            [self setLocationManager];
+        } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+            [self askForLocationPermission];
+        } else {
+            [self showLocationPlaceholder];
+        }
+    } else {
+        [self showLocationPlaceholder];
+    }
+}
+
 - (void)askForLocationPermission {
     askedForLocation = YES;
     locationManager = [CLLocationManager new];
@@ -59,26 +71,13 @@
 }
 
 - (void)setLocationManager {
-    if ([self isUserLocationAvailable]) {
-        locationManager = [CLLocationManager new];
-        locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [locationManager startUpdatingLocation];
-    } else {
-        [self askForLocationPermission];
-    }
-}
-
-- (BOOL)isUserLocationAvailable {
-    if ([CLLocationManager locationServicesEnabled]){
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-            return YES;
-        } else {
-            return NO;
-        }
-    } else {
-        return NO;
-    }
+    locationManager = [CLLocationManager new];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    [self addViews];
+    [self setTableView];
+    [self addLoader];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -86,6 +85,9 @@
         askedForLocation = NO;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         [locationManager startUpdatingLocation];
+        [self addViews];
+        [self setTableView];
+        [self addLoader];
     }
 }
 
@@ -419,6 +421,68 @@
     if (loaderView) {
         [loaderView removeFromSuperview];
         loaderView = nil;
+    }
+}
+
+#pragma mark - placeholder
+- (void)showLocationPlaceholder {
+    placeholderView = [UIView new];
+    placeholderView.backgroundColor = [HUColor backgroundColor];
+    [self.view addSubview:placeholderView];
+    
+    UIImage *placeholderImage = [UIImage imageNamed:@"img_pin"];
+    UIImageView *placeholderImageView = [[UIImageView alloc] initWithImage:placeholderImage];
+    [placeholderView addSubview:placeholderImageView];
+    
+    UILabel *placeholderLabel = [UILabel new];
+    placeholderLabel.text = @"Debes dar acceso a tu ubicación para conocer las rutas cercanas";
+    placeholderLabel.textColor = [HUColor textColor];
+    placeholderLabel.textAlignment = NSTextAlignmentCenter;
+    placeholderLabel.numberOfLines = 0;
+    [placeholderView addSubview:placeholderLabel];
+    
+    UIButton *placeholderButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [placeholderButton setTitle:@"Intenta de nuevo" forState:UIControlStateNormal];
+    [placeholderButton setTitleColor:[HUColor accentColor] forState:UIControlStateNormal];
+    [placeholderButton addTarget:self action:@selector(tryAgain) forControlEvents:UIControlEventTouchUpInside];
+    [placeholderView addSubview:placeholderButton];
+    
+    [placeholderView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [placeholderImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(placeholderView.mas_centerX);
+        make.centerY.equalTo(placeholderView.mas_centerY).offset(-40);
+        make.width.equalTo(@160);
+        make.height.equalTo(@160);
+    }];
+    
+    [placeholderLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(placeholderImageView.mas_bottom).offset(10);
+        make.centerX.equalTo(placeholderView.mas_centerX);
+        make.width.equalTo(@260);
+        make.height.equalTo(@50);
+    }];
+    
+    [placeholderButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(placeholderLabel.mas_bottom);
+        make.centerX.equalTo(placeholderView.mas_centerX);
+        make.width.equalTo(@150);
+        make.height.equalTo(@30);
+    }];
+    
+}
+
+- (void)tryAgain {
+    [self removePlaceholder];
+    [self checkLocation];
+}
+
+- (void)removePlaceholder {
+    if (placeholderView) {
+        [placeholderView removeFromSuperview];
+        placeholderView = nil;
     }
 }
 
