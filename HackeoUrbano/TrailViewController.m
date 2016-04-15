@@ -10,6 +10,7 @@
 
 #define padding 20.0
 #define screenWidth  [[UIScreen mainScreen] bounds].size.width
+#define labelHeightOffset 20.0
 
 @interface TrailViewController () {
     MKMapView *map;
@@ -20,6 +21,7 @@
     UIImageView *photoImageView;
     UIButton *surveyButton;
     HCSStarRatingView *ratingView;
+    UIView *ratingBackground;
     MKPolyline *polyline;
 }
 
@@ -30,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     if (trailDetails) {
         trailId = trailDetails.trailId;
         [self addViews];
@@ -55,8 +58,7 @@
     [arrangedSubviews addObject:originView];
     
     originLabel = [UILabel new];
-    originLabel.text = [NSString stringWithFormat:@"Origen: %@", trailDetails.originStationName];
-    originLabel.textColor = [HUColor textColor];
+    originLabel.attributedText = [self attributedStringWithTitle:@"Origen: " description:trailDetails.originStationName];
     originLabel.numberOfLines = 0;
     [originView addSubview:originLabel];
     
@@ -64,8 +66,7 @@
     [arrangedSubviews addObject:destinationView];
     
     destinationLabel = [UILabel new];
-    destinationLabel.text = [NSString stringWithFormat:@"Destino: %@", trailDetails.destinationStationName];
-    destinationLabel.textColor = [HUColor textColor];
+    destinationLabel.attributedText = [self attributedStringWithTitle:@"Destino: " description:trailDetails.destinationStationName];
     destinationLabel.numberOfLines = 0;
     [destinationView addSubview:destinationLabel];
     
@@ -73,8 +74,7 @@
     [arrangedSubviews addObject:transportTypeView];
     
     transportTypeLabel = [UILabel new];
-    transportTypeLabel.text = [NSString stringWithFormat:@"Tipo: %@", trailDetails.transportType];
-    transportTypeLabel.textColor = [HUColor textColor];
+    transportTypeLabel.attributedText = [self attributedStringWithTitle:@"Tipo: " description:trailDetails.transportType];
     transportTypeLabel.numberOfLines = 0;
     [transportTypeView addSubview:transportTypeLabel];
     
@@ -82,38 +82,21 @@
     [arrangedSubviews addObject:maxTariffView];
     
     maxTariffLabel = [UILabel new];
-    maxTariffLabel.text = [NSString stringWithFormat:@"Tarifa máxima: $%f", [trailDetails.maxTariff floatValue]];
-    maxTariffLabel.textColor = [HUColor textColor];
+    maxTariffLabel.attributedText = [self attributedStringWithTitle:@"Tarifa máxima: " description:[NSString stringWithFormat:@"$%f", [trailDetails.maxTariff floatValue]]];
     maxTariffLabel.numberOfLines = 0;
     [maxTariffView addSubview:maxTariffLabel];
     
-    UIView *ratingBackground = [UIView new];
+    ratingBackground = [UIView new];
     [arrangedSubviews addObject:ratingBackground];
     
-    UILabel *ratingLabel = [UILabel new];
-    ratingLabel.text = @"Calificación:";
-    ratingLabel.textColor = [HUColor textColor];
-    [ratingBackground addSubview:ratingLabel];
-    
-    ratingView = [HCSStarRatingView new];
-    ratingView.maximumValue = 5;
-    ratingView.minimumValue = 0;
-    ratingView.tintColor = [HUColor secondaryColor];
-    ratingView.userInteractionEnabled = NO;
-    [ratingBackground addSubview:ratingView];
-    
-    if (rating) {
-        ratingView.value = [rating floatValue];
-    } else {
-        [self getRating];
-    }
-    
     [map mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@150);
+        make.height.equalTo(@(self.view.frame.size.height*0.3));
     }];
     
+    NSLog(@"%f", [self estimateHeightForLabel:originLabel]);
+    
     [originView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@([self estimateHeightForLabel:originLabel]+20));
+        make.height.equalTo(@([self estimateHeightForLabel:originLabel]+labelHeightOffset));
     }];
     
     [originLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +104,7 @@
     }];
     
     [destinationView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@([self estimateHeightForLabel:destinationLabel]+20));
+        make.height.equalTo(@([self estimateHeightForLabel:destinationLabel]+labelHeightOffset));
     }];
     
     [destinationLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -129,7 +112,7 @@
     }];
     
     [transportTypeView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@([self estimateHeightForLabel:transportTypeLabel]+20));
+        make.height.equalTo(@([self estimateHeightForLabel:transportTypeLabel]+labelHeightOffset));
     }];
     
     [transportTypeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -137,7 +120,7 @@
     }];
     
     [maxTariffView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@([self estimateHeightForLabel:maxTariffLabel]+20));
+        make.height.equalTo(@([self estimateHeightForLabel:maxTariffLabel]+labelHeightOffset));
     }];
     
     [maxTariffLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -145,22 +128,7 @@
     }];
     
     [ratingBackground mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@80);
-    }];
-    
-    [ratingLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ratingBackground.mas_top);
-        make.left.equalTo(ratingBackground.mas_left).offset(20);
-        make.right.equalTo(ratingBackground.mas_right).offset(-20);
-        make.bottom.equalTo(ratingView.mas_top).offset(-10);
-    }];
-    
-    [ratingView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ratingLabel.mas_bottom).offset(10);
-        make.left.equalTo(ratingBackground.mas_left).offset(20);
-        make.right.equalTo(ratingBackground.mas_right).offset(-20);
-        make.bottom.equalTo(ratingBackground.mas_bottom);
-        make.height.equalTo(@30);
+        make.height.equalTo(@90);
     }];
     
     UIScrollView *scrollView = [UIScrollView new];
@@ -175,7 +143,7 @@
     [scrollView addSubview:stackView];
     
     [scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
-        UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 50, 0);
+        UIEdgeInsets insets = UIEdgeInsetsMake(64, 0, 50, 0);
         make.edges.equalTo(self.view).insets(insets);
     }];
     
@@ -197,6 +165,55 @@
         make.height.equalTo(@50);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
+    
+    if (rating) {
+        [self addRatingView];
+    } else {
+        [self getRating];
+    }
+}
+
+- (void)addRatingView {
+    UILabel *ratingTitleLabel = [UILabel new];
+    ratingTitleLabel.attributedText = [self attributedStringWithTitle:@"Calificación:" description:@""];
+    [ratingBackground addSubview:ratingTitleLabel];
+    
+    [ratingTitleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(ratingBackground.mas_top).offset(10);
+        make.left.equalTo(ratingBackground.mas_left).offset(20);
+        make.right.equalTo(ratingBackground.mas_right).offset(-20);
+        make.height.equalTo(@([self estimateHeightForLabel:ratingTitleLabel]));
+    }];
+    
+    if (rating.intValue != 0) {
+        ratingView = [HCSStarRatingView new];
+        ratingView.maximumValue = 5;
+        ratingView.minimumValue = 0;
+        ratingView.tintColor = [HUColor secondaryColor];
+        ratingView.userInteractionEnabled = NO;
+        ratingView.value = [rating floatValue];
+        [ratingBackground addSubview:ratingView];
+        
+        [ratingView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(ratingTitleLabel.mas_bottom).offset(10);
+            make.left.equalTo(ratingBackground.mas_left).offset(20);
+            make.right.equalTo(ratingBackground.mas_right).offset(-20);
+            make.height.equalTo(@30);
+        }];
+        
+    } else {
+        UILabel *ratingLabel = [UILabel new];
+        ratingLabel.text = @"Todavía no hay calificaciones";
+        ratingLabel.textColor = [HUColor textColor];
+        [ratingBackground addSubview:ratingLabel];
+        
+        [ratingLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(ratingTitleLabel.mas_bottom).offset(10);
+            make.left.equalTo(ratingBackground.mas_left).offset(20);
+            make.right.equalTo(ratingBackground.mas_right).offset(-20);
+            make.height.equalTo(@([self estimateHeightForLabel:ratingLabel]));
+        }];
+    }
 }
 
 - (float)estimateHeightForLabel:(UILabel *)label {
@@ -308,6 +325,7 @@
             GTLHackeoUrbanoAPIRouteStatsWrapper *wrapper = (GTLHackeoUrbanoAPIRouteStatsWrapper*)object;
             rating = wrapper.rating;
             ratingView.value = [rating floatValue];
+            [self addRatingView];
         }
     }];
 }
@@ -338,6 +356,23 @@
     lineView.strokeColor = [HUColor polylineColor];
     lineView.lineWidth = 4;
     return lineView;
+}
+
+#pragma mark - attributed text
+- (NSMutableAttributedString *)attributedStringWithTitle:(NSString*)title description:(NSString*)description {
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:[self titleWithText:title]];
+    [attributedText appendAttributedString:[self descriptionWithText:description]];
+    return attributedText;
+}
+
+- (NSAttributedString*)titleWithText:(NSString*)text {
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:text attributes:@{NSForegroundColorAttributeName:[HUColor titleColor]}];
+    return title;
+}
+
+- (NSAttributedString*)descriptionWithText:(NSString*)text {
+    NSAttributedString *description = [[NSAttributedString alloc] initWithString:text attributes:@{NSForegroundColorAttributeName:[HUColor textColor]}];
+    return description;
 }
 
 @end
