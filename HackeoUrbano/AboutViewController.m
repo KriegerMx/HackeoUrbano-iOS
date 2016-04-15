@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setTintColor:[HUColor navBarTintColor]];
     self.view.backgroundColor = [HUColor backgroundColor];
     [self loadViews];
     [self setText];

@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTableView];
+    [self.navigationController.navigationBar setTintColor:[HUColor navBarTintColor]];
     trails = [NSMutableArray new];
     trailIds = [NSMutableArray new];
     ratings = [NSMutableArray new];
