@@ -109,6 +109,28 @@
                         <view key="tableHeaderView" contentMode="scaleToFill" id="pFu-Rn-6Vz">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner" translatesAutoresizingMaskIntoConstraints="NO" id="Y1a-0w-gXx">
+                                    <rect key="frame" x="20" y="40" width="102" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="NM7-wl-aB7"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102" id="ZCb-P1-5MK"/>
+                                        <constraint firstAttribute="width" constant="102" id="k3m-gt-nfJ"/>
+                                        <constraint firstAttribute="height" constant="40" id="xfg-rg-AzF"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="NM7-wl-aB7"/>
+                                            <exclude reference="ZCb-P1-5MK"/>
+                                        </mask>
+                                    </variation>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="Y1a-0w-gXx" firstAttribute="leading" secondItem="pFu-Rn-6Vz" secondAttribute="leading" constant="20" id="22Y-vQ-Sbb"/>
+                                <constraint firstItem="Y1a-0w-gXx" firstAttribute="centerY" secondItem="pFu-Rn-6Vz" secondAttribute="centerY" constant="10" id="ir7-M3-taW"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="1Un-Ir-EcT">
@@ -190,4 +212,7 @@
             <point key="canvasLocation" x="3184" y="-367"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="banner" width="128" height="50"/>
+    </resources>
 </document>

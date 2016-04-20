@@ -40,7 +40,7 @@
 }
 
 - (void)setText {
-    NSString *appName = @"Hackeo Urbano";
+    NSString *appName = @"Ruta de 10";
     NSString *version = [NSString stringWithFormat:@"Versión %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
     NSString *description = @" obtiene las rutas de transporte concesionado más cercanas a la ubicación del usuario y permite ver información detallada sobre ellas, así como calificarlas y proporcionar retroalimentación. Esta aplicación fue creada dentro de #HackeoUrbano y es alimentada mediante la API de la base de datos del transporte público concesionado de la Ciudad de México generada en Mapatón CDMX.";
     

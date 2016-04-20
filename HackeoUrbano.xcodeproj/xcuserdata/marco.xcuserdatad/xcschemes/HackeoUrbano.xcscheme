@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A9E188921C8B9D39000D9668"
-               BuildableName = "HackeoUrbano.app"
+               BuildableName = "Ruta de 10.app"
                BlueprintName = "HackeoUrbano"
                ReferencedContainer = "container:HackeoUrbano.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A9E188921C8B9D39000D9668"
-            BuildableName = "HackeoUrbano.app"
+            BuildableName = "Ruta de 10.app"
             BlueprintName = "HackeoUrbano"
             ReferencedContainer = "container:HackeoUrbano.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A9E188921C8B9D39000D9668"
-            BuildableName = "HackeoUrbano.app"
+            BuildableName = "Ruta de 10.app"
             BlueprintName = "HackeoUrbano"
             ReferencedContainer = "container:HackeoUrbano.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A9E188921C8B9D39000D9668"
-            BuildableName = "HackeoUrbano.app"
+            BuildableName = "Ruta de 10.app"
             BlueprintName = "HackeoUrbano"
             ReferencedContainer = "container:HackeoUrbano.xcodeproj">
          </BuildableReference>

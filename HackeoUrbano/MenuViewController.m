@@ -41,7 +41,7 @@
 }
 
 - (void)setImages {
-    [self setSelectedImages:@[@"menu_1_selected",@"menu_2_selected",@"menu_3_selected"]];
+    [self setSelectedImages:@[@"menu_1_unselected",@"menu_2_unselected",@"menu_3_unselected"]];
     [self setUnselectedImages:@[@"menu_1_unselected",@"menu_2_unselected",@"menu_3_unselected"]];
 }
 
