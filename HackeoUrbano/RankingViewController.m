@@ -56,7 +56,7 @@
     GTLQueryHackeoUrbanoAPI *query = [GTLQueryHackeoUrbanoAPI queryForGetAllStatsWithObject:statsParameter];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
-            NSLog(@"error: %@", error);
+            [self showAlertWithTitle:@"Atención" message:error.localizedDescription];
         } else {
             GTLHackeoUrbanoAPIRouteStatsResponse *response = (GTLHackeoUrbanoAPIRouteStatsResponse*)object;
             cursor = response.cursor;
@@ -154,6 +154,13 @@
     tvc.trailId = trailIds[indexPath.row];
     tvc.rating = ratings[indexPath.row];
     [self.navigationController pushViewController:tvc animated:YES];
+}
+
+#pragma mark - alerts
+- (void)showAlertWithTitle:(NSString*)title message:(NSString*)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

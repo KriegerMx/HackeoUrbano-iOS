@@ -14,6 +14,7 @@
 
 @interface MapViewController () {
     MKMapView *map;
+    UIButton *fetcherButton;
     
     CLLocationManager *locationManager;
     UITableView *trailsTableView;
@@ -124,11 +125,28 @@
     map.delegate = self;
     [self.view addSubview:map];
     
+    fetcherButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    fetcherButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    fetcherButton.alpha = 0.8;
+    [fetcherButton setTitle:@"Buscar en esta zona" forState:UIControlStateNormal];
+    [fetcherButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [fetcherButton setBackgroundColor:[HUColor secondaryColor]];
+    [fetcherButton addTarget:self action:@selector(prepareFetch) forControlEvents:UIControlEventTouchUpInside];
+    [fetcherButton setHidden:YES];
+    [self.view addSubview:fetcherButton];
+    
     [map mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).offset(64);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.bottom.equalTo(self.view.mas_bottom);
+    }];
+    
+    [fetcherButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(map.mas_top).offset(20);
+        make.left.equalTo(map.mas_left).offset(20);
+        make.right.equalTo(map.mas_right).offset(-20);
+        make.height.equalTo(@50);
     }];
 }
 
@@ -260,9 +278,6 @@
     northEastCorner.latitude = [NSNumber numberWithFloat:eastCoordinate.latitude];
     northEastCorner.longitude = [NSNumber numberWithFloat:eastCoordinate.longitude];
     
-    NSLog(@"%f, %f", eastCoordinate.latitude, eastCoordinate.longitude);
-    NSLog(@"%f, %f", westCoordinate.latitude, westCoordinate.longitude);
-    
     GTLMapatonPublicAPIGPSLocation *southWestCorner = [GTLMapatonPublicAPIGPSLocation new];
     southWestCorner.latitude = [NSNumber numberWithFloat:westCoordinate.latitude];
     southWestCorner.longitude = [NSNumber numberWithFloat:westCoordinate.longitude];
@@ -276,7 +291,7 @@
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             [self removeLoader];
-            NSLog(@"error: %@", error);
+            [self showAlertWithTitle:@"Atención" message:error.localizedDescription];
         } else {
             nearTrailsCollection = (GTLMapatonPublicAPINearTrailsCollection*)object;
             if (nearTrailsCollection.items.count == 0) {
@@ -323,7 +338,7 @@
     GTLQueryMapatonPublicAPI *query = [GTLQueryMapatonPublicAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
-            NSLog(@"error: %@", error);
+            [self showAlertWithTitle:@"Atención" message:error.localizedDescription];
         } else {
             GTLMapatonPublicAPITrailPointsResult *result = (GTLMapatonPublicAPITrailPointsResult*)object;
             NSUInteger pointsCount = result.points.count;
@@ -366,14 +381,33 @@
 
 #pragma mark - map
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-    CLLocationCoordinate2D center = mapView.centerCoordinate;
-    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+    if(!fetcherButton.hidden){
+        return;
+    }
+    CLLocation *centerLocation = [self getCenterLocation];
     float distanceChange = [centerLocation distanceFromLocation:previousCenterLocation]/1000;
     if (distanceChange > 2.5) {
+        [fetcherButton setHidden:NO];
+    }
+}
+
+- (void)prepareFetch {
+    float latitudeDelta = map.region.span.latitudeDelta;
+    if (latitudeDelta <= 0.0125) {
+        [fetcherButton setHidden:YES];
+        CLLocation *centerLocation = [self getCenterLocation];
         previousCenterLocation = centerLocation;
         [self clearMapAndTableView];
         [self getTrailsForLocation:centerLocation];
+    } else {
+        [self showAlertWithTitle:@"" message:@"El área de búsqueda es demasiado amplia, haz zoom para cargar los recorridos de una zona."];
     }
+}
+
+- (CLLocation *)getCenterLocation {
+    CLLocationCoordinate2D center = map.centerCoordinate;
+    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+    return centerLocation;
 }
 
 -(MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay{
@@ -485,6 +519,13 @@
         [placeholderView removeFromSuperview];
         placeholderView = nil;
     }
+}
+
+#pragma mark - alerts
+- (void)showAlertWithTitle:(NSString*)title message:(NSString*)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

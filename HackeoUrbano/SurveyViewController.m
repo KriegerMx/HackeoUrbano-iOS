@@ -344,7 +344,6 @@
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
             [ProgressHUD showError:@"No se pudo enviar"];
-            NSLog(@"error: %@", error);
         } else {
             [ProgressHUD showSuccess:@"Encuesta enviada"];
             [self.navigationController popViewControllerAnimated:YES];

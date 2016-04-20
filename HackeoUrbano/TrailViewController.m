@@ -23,6 +23,7 @@
     HCSStarRatingView *ratingView;
     UIView *ratingBackground;
     MKPolyline *polyline;
+    UIView *loaderView;
 }
 
 @end
@@ -92,8 +93,6 @@
     [map mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(self.view.frame.size.height*0.3));
     }];
-    
-    NSLog(@"%f", [self estimateHeightForLabel:originLabel]);
     
     [originView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@([self estimateHeightForLabel:originLabel]+labelHeightOffset));
@@ -262,7 +261,7 @@
     GTLQueryMapatonPublicAPI *query = [GTLQueryMapatonPublicAPI queryForGetTrailSnappedPointsWithObject:trailPointsRequestParameter];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
-            NSLog(@"error: %@", error);
+            [self showAlertWithTitle:@"Atención" message:error.localizedDescription];
         } else {
             GTLMapatonPublicAPITrailPointsResult *result = (GTLMapatonPublicAPITrailPointsResult*)object;
             NSUInteger pointsCount = result.points.count;
@@ -292,6 +291,7 @@
 }
 
 - (void)getTrailDetails {
+    [self addLoader];
     static GTLServiceMapatonPublicAPI *service = nil;
     if (!service) {
         service = [GTLServiceMapatonPublicAPI new];
@@ -300,8 +300,9 @@
     
     GTLQueryMapatonPublicAPI *query = [GTLQueryMapatonPublicAPI queryForGetTrailDetailsWithTrailId:[trailId longLongValue]];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        [self removeLoader];
         if (error) {
-            NSLog(@"error: %@", error);
+            [self showAlertWithTitle:@"Atención" message:error.localizedDescription];
         } else {
             trailDetails = (GTLMapatonPublicAPITrailDetails*)object;
             [self addViews];
@@ -320,7 +321,7 @@
     GTLQueryHackeoUrbanoAPI *query = [GTLQueryHackeoUrbanoAPI queryForGetStatsWithTrailId:[trailId longLongValue]];
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
         if (error) {
-            NSLog(@"error: %@", error);
+            [self showAlertWithTitle:@"Atención" message:error.localizedDescription];
         } else {
             GTLHackeoUrbanoAPIRouteStatsWrapper *wrapper = (GTLHackeoUrbanoAPIRouteStatsWrapper*)object;
             rating = wrapper.rating;
@@ -358,6 +359,35 @@
     return lineView;
 }
 
+#pragma mark - loader
+- (void)addLoader {
+    loaderView = [UIView new];
+    loaderView.backgroundColor = [HUColor backgroundColor];
+    [self.view addSubview:loaderView];
+    
+    UIActivityIndicatorView *loader = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [loader startAnimating];
+    [loaderView addSubview:loader];
+    
+    [loaderView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [loader mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(loaderView.mas_centerX);
+        make.centerY.equalTo(loaderView.mas_centerY);
+        make.height.equalTo(@44);
+        make.width.equalTo(@44);
+    }];
+}
+
+- (void)removeLoader {
+    if (loaderView) {
+        [loaderView removeFromSuperview];
+        loaderView = nil;
+    }
+}
+
 #pragma mark - attributed text
 - (NSMutableAttributedString *)attributedStringWithTitle:(NSString*)title description:(NSString*)description {
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:[self titleWithText:title]];
@@ -373,6 +403,13 @@
 - (NSAttributedString*)descriptionWithText:(NSString*)text {
     NSAttributedString *description = [[NSAttributedString alloc] initWithString:text attributes:@{NSForegroundColorAttributeName:[HUColor textColor]}];
     return description;
+}
+
+#pragma mark - alerts
+- (void)showAlertWithTitle:(NSString*)title message:(NSString*)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
