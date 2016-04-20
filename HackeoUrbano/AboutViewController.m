@@ -20,6 +20,10 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setTintColor:[HUColor navBarTintColor]];
     self.view.backgroundColor = [HUColor backgroundColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self loadViews];
     [self setText];
 }
@@ -32,10 +36,11 @@
     textView = [UITextView new];
     textView.editable = NO;
     [self.view addSubview:textView];
-
     
+    UIEdgeInsets insets = UIEdgeInsetsMake(64, 0, 0, 0);
+
     [textView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.edges.equalTo(self.view).insets(insets);
     }];
 }
 

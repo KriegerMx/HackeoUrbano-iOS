@@ -8,7 +8,10 @@
 
 #import "SWMenuViewController.h"
 #import "HUColor.h"
+#import "Masonry.h"
 
 @interface MenuViewController : SWMenuViewController
+
+@property (weak, nonatomic) IBOutlet UIView *bannerBackground;
 
 @end

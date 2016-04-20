@@ -49,11 +49,11 @@
 }
 
 + (UIColor *)selectedSectionColor {
-    return [self primaryColor];
+    return [self clearColor];
 }
 
 + (UIColor *)selectedSectionTextColor {
-    return [self whiteColor];
+    return [self accentColor];
 }
 
 + (UIColor *)unselectedSectionColor {
@@ -61,7 +61,7 @@
 }
 
 + (UIColor *)unselectedSectionTextColor {
-    return [self UIColorFromRGB:0x2f3133];
+    return [self UIColorFromRGB:0x727272];
 }
 
 + (UIColor *)navBarTintColor {

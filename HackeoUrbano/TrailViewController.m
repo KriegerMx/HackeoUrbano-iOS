@@ -83,7 +83,7 @@
     [arrangedSubviews addObject:maxTariffView];
     
     maxTariffLabel = [UILabel new];
-    maxTariffLabel.attributedText = [self attributedStringWithTitle:@"Tarifa máxima: " description:[NSString stringWithFormat:@"$%f", [trailDetails.maxTariff floatValue]]];
+    maxTariffLabel.attributedText = [self attributedStringWithTitle:@"Tarifa máxima: " description:[NSString stringWithFormat:@"$%.02f", [trailDetails.maxTariff floatValue]]];
     maxTariffLabel.numberOfLines = 0;
     [maxTariffView addSubview:maxTariffLabel];
     

@@ -13,6 +13,7 @@
 @end
 
 @implementation MenuViewController
+@synthesize bannerBackground;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,10 +39,11 @@
     [self setSectionIds:@[@"NavigationControllerRoutes", @"NavigationControllerRank", @"NavigationControllerAbout"]];
     [self setImages];
     [self setColors];
+    [self setBanner];
 }
 
 - (void)setImages {
-    [self setSelectedImages:@[@"menu_1_unselected",@"menu_2_unselected",@"menu_3_unselected"]];
+    [self setSelectedImages:@[@"menu_1_selected",@"menu_2_selected",@"menu_3_selected"]];
     [self setUnselectedImages:@[@"menu_1_unselected",@"menu_2_unselected",@"menu_3_unselected"]];
 }
 
@@ -50,6 +52,20 @@
     [self setUnselectedSectionColor:[HUColor unselectedSectionColor]];
     [self setSelectedSectionTextColor:[HUColor selectedSectionTextColor]];
     [self setUnselectedSectionTextColor:[HUColor unselectedSectionTextColor]];
+}
+
+- (void)setBanner {
+    float revealWidth = self.revealViewController.rearViewRevealWidth;
+    float width = self.view.frame.size.width;
+    float offset = (width - revealWidth)/2;
+    UIImageView *banner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"banner"]];
+    [bannerBackground addSubview:banner];
+    [banner mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX).offset(-offset);
+        make.centerY.equalTo(bannerBackground.mas_centerY).offset(10);
+        make.width.equalTo(@240);
+        make.height.equalTo(@91);
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
